@@ -39,9 +39,9 @@ public class LoginSl extends HttpServlet {
             sesion.setAttribute("rol", us.getRol());
             sesion.setAttribute("Usuario", us);
             json = gson.toJson(usu);
-        } catch (SQLException | ClassNotFoundException ex) {     
-            respuesta.put("Error", "Usuario o contraseña incorrectas");
-            
+        } catch (SQLException | ClassNotFoundException ex) {
+            ConexionBD.destroy();
+            respuesta.put("Error", "Usuario o contraseña incorrectas"+ex);
             json = gson.toJson(respuesta);
             ConexionBD.destroy();
             
