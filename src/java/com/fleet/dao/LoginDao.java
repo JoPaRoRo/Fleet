@@ -38,7 +38,7 @@ public class LoginDao {
     }
 
     public Usuario buscaUsuario(String user) throws SQLException {
-        String query = "EXECUTE BUSCA_USUARIO @XID_USUARIO=?, ";
+        String query = "EXECUTE BUSCA_USUARIO @XID_USUARIO=?";
         CallableStatement cs = conexion.prepareCall(query);
         cs.setString(1, user);
         ResultSet rs = cs.executeQuery();
