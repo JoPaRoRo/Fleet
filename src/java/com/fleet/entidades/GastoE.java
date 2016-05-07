@@ -51,6 +51,5 @@ public class GastoE {
     private ArrayList<Montacargas> equipos;
     private TipoInsumo tipo;
     private Float costo;
-    private int github;
     
 }
