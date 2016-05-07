@@ -265,12 +265,12 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             }]
                     }
                 })
-                .state('main.mantenimientos', {
-                    url: "/mantenimientos",
-                    templateUrl: "views/mantenimientos.html",
+                .state('main.realizar', {
+                    url: "/realizar",
+                    templateUrl: "views/mantenimientos/realizar.html",
                     data: {pageTitle: 'Mantenimientos',
                         roles: ['ADMIN', 'MANAGER']},
-                    controller: "MantenimientosCtrl",
+                    controller: "RealizarCtrl",
                     resolve: {
                         deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                                 return $ocLazyLoad.load({
@@ -282,7 +282,30 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                                         'assets/global/plugins/morris/raphael-min.js',
                                         'assets/global/plugins/jquery.sparkline.min.js',
                                         'assets/pages/scripts/dashboard.min.js',
-                                        'js/controllers/mantenimientos.js'
+                                        'js/controllers/mantenimientos/realizar.js'
+                                    ]
+                                });
+                            }]
+                    }
+                })
+                .state('main.aprobar', {
+                    url: "/aprobar",
+                    templateUrl: "views/mantenimientos/aprobar.html",
+                    data: {pageTitle: 'Mantenimientos',
+                        roles: ['ADMIN', 'MANAGER']},
+                    controller: "AprobarCtrl",
+                    resolve: {
+                        deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                                return $ocLazyLoad.load({
+                                    name: 'MetronicApp',
+                                    insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
+                                    files: [
+                                        'assets/global/plugins/morris/morris.css',
+                                        'assets/global/plugins/morris/morris.min.js',
+                                        'assets/global/plugins/morris/raphael-min.js',
+                                        'assets/global/plugins/jquery.sparkline.min.js',
+                                        'assets/pages/scripts/dashboard.min.js',
+                                        'js/controllers/mantenimientos/aprobar.js'
                                     ]
                                 });
                             }]

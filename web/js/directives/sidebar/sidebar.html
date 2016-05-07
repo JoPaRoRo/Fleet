@@ -17,12 +17,28 @@
                 <span class="title">Registro de Gastos</span>
             </a>
         </li>
-        <li class="start" ng-if="user.rol === 'ADMIN' || user.rol === 'MANAGER'">
-            <a href="#/dash/mantenimientos">
+        <li ng-if="user.rol === 'ADMIN' || user.rol === 'MANAGER'" >
+            <a href="javascript:;" >
                 <i class="fa fa-cogs"></i>
                 <span class="title">Mantenimientos</span>
+                <span class="arrow"></span>
             </a>
+            <ul class="sub-menu" >
+                <li>
+                    <a  href="#/dash/realizar">
+                        <i class="fa fa-wrench"></i> 
+                        <span class="title">Realizar</span>
+                    </a>
+                </li>
+                <li>
+                    <a  href="#/dash/aprobar">
+                        <i class="fa fa-check"></i> 
+                        <span class="title">Aprobar</span>
+                    </a>
+                </li>
+            </ul>
         </li>
+
         <li class="start" >
             <a  href="#/dash/horimetro">
                 <i class="fa fa-tachometer"></i>
