@@ -1,0 +1,140 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-settings font-green"></i>
+                    <span class="caption-subject font-green bold uppercase">Configuración</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-toolbar" ng-show="!add">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="btn-group">
+                                <button class="btn green" ng-click="openAdd()" > Agregar
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="add" class="ng-hide">
+                    <div class="portlet light portlet-fit bordered">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="icon-settings font-green"></i>
+                                <span class="caption-subject font-green bold uppercase">Agregar Nuevo</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <br/>
+                            <form class="form-inline" role="form" name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+                                <div class="form-group" ng-class="{ 'has-error' : userForm.id_usuario.$invalid && !userForm.id_usuario.$pristine }">
+                                    <label class="sr-only" for="user">Usuario</label>
+                                    <div class="input-icon">
+                                        <i class="fa fa-envelope"></i>
+                                        <input type="email" name="id_usuario" class="form-control" id="user" placeholder="Ingrese el usuario" ng-model='usuario.id_usuario' required>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-class="{ 'has-error' : userForm.nombre.$invalid && !userForm.nombre.$pristine }">
+                                    <label class="sr-only" for="name">Nombre</label>
+                                    <div class="input-icon">
+                                        <i class="fa fa-user"></i>
+                                        <input type="text" name="nombre" class="form-control" id="name" placeholder="Ingrese el nombre" ng-model='usuario.nombre' required> </div>
+                                </div>
+
+                                <select class="form-control input-medium" ng-model="usuario.rol" required>
+                                    <option value="">Seleccione un Rol</option>
+                                    <option ng-repeat="rol in roles">{{rol}}</option>
+                                </select>
+
+
+
+
+                                <button class="btn green" ng-click="sendUser('createUser', usuario)"> Agregar <i class="fa fa-plus"></i>
+                                </button>
+                                <button type="reset" class="btn btn-default" ng-click="closeAdd()">Cancelar</button>
+                            </form>
+                            <br/>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="edit" class="ng-hide">
+                    <div class="portlet light portlet-fit bordered">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="icon-settings font-green"></i>
+                                <span class="caption-subject font-green bold uppercase">Editar</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <form class="form-inline" role="form">
+                                <div class="form-group">
+                                    <label class="sr-only" for="user">Usuario</label>
+                                    <div class="input-icon">
+                                        <i class="fa fa-envelope"></i>
+                                        <input type="email" class="form-control" id="user" placeholder="Ingrese el usuario" ng-model='a_editar.id_usuario' ng-readonly="true" required> </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="name">Nombre</label>
+                                    <div class="input-icon">
+                                        <i class="fa fa-user"></i>
+                                        <input type="text" class="form-control" id="name" placeholder="Ingrese el nombre" ng-model='a_editar.nombre' required> </div>
+                                </div>
+
+                                <select class="form-control input-medium" ng-model="a_editar.rol">
+                                    <option ng-repeat="rol in roles">{{rol}}</option>
+                                </select>
+
+
+                                <button class="btn green" ng-click="sendUser('upUser', a_editar)"> Actualizar <i class="fa fa-edit"></i>
+                                </button>
+                                <button type="button" class="btn btn-default" ng-click="closeEdit()">Cancelar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="!error">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Buscar..." ng-model="listSearch">
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span> 
+                    </div>
+                    <br/>
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="tabla">
+                            <thead>
+                                <tr>
+                                    <th> Usuario </th>
+                                    <th> Nombre </th>
+                                    <th> Tipo </th>
+                                    <th> Editar </th>
+                                    <th> Eliminar </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="usuario in usuarios| filter: listSearch">
+                                    <td> {{usuario.id_usuario}} </td>
+                                    <td> {{usuario.nombre}}</td>
+                                    <td class="center"> {{usuario.rol}} </td>
+                                    <td><a class="edit" ng-click="openEdit(usuario)"> <i class="fa fa-edit"></i> </a></td>
+                                    <td><a class="delete text-center" ng-click=""> <i class="fa fa-trash text-danger "></i></a></td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+
+                <div ng-if="error">
+                    <h1>No se pueden mostrar los usuarios en este momento</h1>
+                </div>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+
+<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="5000" close="closeAlert($index)">{{alert.msg}}</uib-alert>

@@ -1,0 +1,77 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading">Proyecto </div>
+    <div class="panel-body">
+
+
+
+        <div class="portlet-body form">
+            <!-- BEGIN FORM-->
+            <form class="form-horizontal" name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+                <div class="form-body">
+                    <div class="form-group" ng-class="{ 'has-error' : userForm.codigo.$invalid && !userForm.codigo.$pristine }">
+                        <label class="col-md-4 control-label">Codigo:  
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-4">
+                            <input type="text" name="codigo" class="form-control" placeholder="Digite un codigo para el proyecto" ng-model="proyecto.codigo" required>
+                            <p ng-show="userForm.codigo.$invalid && !userForm.codigo.$pristine" class="help-block"> Campo Requerido.</p>
+                        </div>                    
+                    </div>
+
+                    <div class="form-group"  ng-class="{ 'has-error' : userForm.nombre.$invalid && !userForm.nombre.$pristine }">
+                        <label class="col-md-4 control-label">Nombre:
+                            <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-4">
+                            <input type="text" name="nombre" class="form-control" placeholder="Digite un nombre para el proyecto" ng-model="proyecto.nombre" required>
+                            <p ng-show="userForm.nombre.$invalid && !userForm.nombre.$pristine" class="help-block"> Campo Requerido.</p>
+                        </div>                    
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Contrato: 
+                             <span class="required"> * </span>
+                        </label>
+                        <div class="col-md-4">
+                            <ui-select ng-model="proyecto.contrato" theme="bootstrap">
+                                <ui-select-match placeholder="Seleccione el contrato">{{$select.selected.nombre}}</ui-select-match>
+                                <ui-select-choices repeat="contrato in listaContratos | filter:$select.search">
+                                    {{contrato.nombre}}
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-offset-5 col-md-9">
+                            <button
+                                class="btn green"
+                                mwl-confirm
+                                title="{{confirmationSettings.title}}"
+                                message="{{ confirmationSettings.message}}"
+                                confirm-text="{{ confirmationSettings.confirmText}}"
+                                cancel-text="{{ confirmationSettings.cancelText}}"
+                                placement="{{ confirmationSettings.placement}}"
+                                on-confirm="ingresaProyecto(proyecto)"
+                                on-cancel="cancelClicked = true"
+                                confirm-button-type="success"
+                                cancel-button-type="default">
+                                Enviar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!-- END FORM-->
+        </div>
+
+
+    </div>
+</div>
+
+<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="5000" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+
+

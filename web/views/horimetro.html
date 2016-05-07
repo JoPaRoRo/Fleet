@@ -1,0 +1,98 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading">Horimetro </div>
+    <div class="panel-body">
+
+       <div class="portlet-body form">
+            <!-- BEGIN FORM-->
+            <form class="form-horizontal">
+                <div class="form-body">
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Contrato: </label>
+                        <div class="col-md-4">
+                            <ui-select ng-model="horimetro.contrato" theme="bootstrap">
+                                <ui-select-match placeholder="Seleccione el contrato">{{$select.selected.nombre}}</ui-select-match>
+                                <ui-select-choices repeat="contrato in listaContratos | filter:$select.search" ng-click="filtraProyectos(horimetro.contrato)">
+                                    {{contrato.nombre}}
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Proyecto: </label>
+                        <div class="col-md-4">
+                            <ui-select ng-model="horimetro.proyecto" theme="bootstrap">
+                                <ui-select-match placeholder="Seleccione el proyecto">{{$select.selected.nombre}}</ui-select-match>
+                                <ui-select-choices repeat="proyecto in listaProyectos | filter:$select.search" ng-click="filtraEquipos(horimetro.proyecto)">
+                                    {{proyecto.nombre}}
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Montacargas: </label>
+                        <div class="col-md-4">
+                            <ui-select ng-model="horimetro.montacargas" theme="bootstrap" name="montacargas">
+                                <ui-select-match placeholder="Seleccione el equipo">{{$select.selected.numero_serie}}</ui-select-match>
+                                <ui-select-choices group-by="'marca'" repeat="montacargas in listaMontacargas | filter: {'numero_serie':$select.search}">
+                                    <div ng-bind-html="montacargas.numero_serie | highlight: $select.search"></div>
+                                    <small>
+                                        Modelo: <span>{{montacargas.modelo}}</span>
+                                    </small>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>                       
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Horas: </label>
+                        <div class="col-md-4">
+                            <input class="bs-select form-control" type="number" name="quantity" min="{{montacargas.horimetroActual}}" max="{{montacargas.horimertroActual + 499}}" ng-model="horimetro.horas">
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Fecha:</label>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="horimetro.fechaIni" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-offset-7 col-md-9">
+                            <button
+                                class="btn green"
+                                mwl-confirm
+                                title="{{confirmationSettings.title}}"
+                                message="{{ confirmationSettings.message}}"
+                                confirm-text="{{ confirmationSettings.confirmText}}"
+                                cancel-text="{{ confirmationSettings.cancelText}}"
+                                placement="{{ confirmationSettings.placement}}"
+                                on-confirm="ingresaHorimetro(horimetro)"
+                                on-cancel="cancelClicked = true"
+                                confirm-button-type="success"
+                                cancel-button-type="default">
+                                Enviar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!-- END FORM-->
+        </div>
+
+
+    </div>
+</div>
+
+<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="5000" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+

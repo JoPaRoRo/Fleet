@@ -1,0 +1,66 @@
+/* here you can put your own css to customize and override the theme */
+.clearfix {
+  overflow: auto;
+  zoom: 1; }
+
+.truck1 {
+  position: relative; }
+
+.truck1:before {
+  content: "\f0d1";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  font-size: 18px; }
+
+.alertaR {
+  position: relative; }
+
+.alertaR:before {
+  content: "\f071";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  font-size: 18px;
+  color: #E91313; }
+
+.alertaY {
+  position: relative; }
+
+.alertaY:before {
+  content: "\f071";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  font-size: 18px;
+  color: yellow; }
+
+.alertaG {
+  position: relative; }
+
+.alertaG:before {
+  content: "\f071";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  font-size: 18px;
+  color: lawngreen; }
+
+a {
+  text-decoration: none !important; }
+
+#drop {
+  border: 2px dashed #bbb;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 25px;
+  text-align: center;
+  font: 20pt bold,"Vollkorn";
+  color: #bbb; }
+
+/*# sourceMappingURL=custom.css.map */

@@ -1,0 +1,120 @@
+
+<div class="row" >
+    <div class="col-md-2">
+        <div class="portlet box">
+
+            <div class="list-group">
+                <a  ng-repeat="equipo in listaEquipos" class="list-group-item" ng-click="buscaEquipo(equipo.numero_serie)"><span class="text-center">{{equipo.numero_serie}}</span></a>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-10" ng-if="equipo">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="portlet light">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <i class="icon-speech"></i>
+                                            <span class="caption-subject bold uppercase"> Basica</span>
+                                            <span class="caption-helper"></span>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div class="row">
+                                            <div class="col-md-4"> <h4>Numero de serie:  <input class="bs-select form-control" type="text" ng-model="equipo.numero_serie" ng-disabled="true"/></h4></div>
+                                            <div class="col-md-4"> <h4>Marca:   <input class="bs-select form-control" type="text" ng-model="equipo.marca" ng-disabled="true"/></h4></div>
+                                            <div class="col-md-4"> <h4>Modelo:   <input class="bs-select form-control" type="text" ng-model="equipo.modelo" ng-disabled="true"/></h4></div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4"> <h4>Tonelaje:   <input class="bs-select form-control" type="text" ng-model="equipo.tonelaje" ng-disabled="true"/></h4></div>
+                                            <div class="col-md-4"> <h4>Traccion:   <input class="bs-select form-control" type="text" ng-model="equipo.traccion" ng-disabled="true"/></h4></div>
+                                            <div class="col-md-4"> <h4>Transmision:   <input class="bs-select form-control" type="text" ng-model="equipo.transmision" ng-disabled="true"/></h4></div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4"> <h4>Numero de motor:   <input class="bs-select form-control" type="text" ng-model="equipo.numero_motor"/></h4></div>
+                                            <div class="col-md-4"> <h4>Numero de poliza:   <input class="bs-select form-control" type="text" ng-model="equipo.num_poliza"/></h4></div>                                          
+                                            <div class="col-md-4"> <h4>Año:  <input class="bs-select form-control" type="text" ng-model="equipo.anno" ng-disabled="true"/></h4></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4"> <h4>VIN:   <input class="bs-select form-control" type="text" ng-model="equipo.vin" ng-disabled="true"/></h4></div>
+                                            <div class="col-md-4"> <h4>Serie:   <input class="bs-select form-control" type="text" ng-model="equipo.serie"/></h4></div>
+                                            <div class="col-md-4"> <h4>Ubicacion:  <input class="bs-select form-control" type="text" ng-model="equipo.ubicacion"/> </h4></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4"> <h4>Clase:   <input class="bs-select form-control" type="text" ng-model="equipo.clase"/></h4></div>
+                                            <div class="col-md-4"> <h4>Placa:   <input class="bs-select form-control" type="text" ng-model="equipo.placa"/></h4></div>
+                                            <div class="col-md-4"> <h4>Estilo:   <input class="bs-select form-control" type="text" ng-model="equipo.estilo" ng-disabled="true"/></h4></div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12"> <h4>Observacion:  </h4> <textarea class="form-control" rows="3" ng-model="equipo.observacion">{{equipo.observacion}}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4"> <h4>Combustible:   <input class="bs-select form-control" type="text" ng-model="equipo.combustible" /></h4></div>
+                                            <div class="col-md-4"> <h4>Depreciación:   <input class="bs-select form-control" type="text" ng-model="equipo.depresiacion"/></h4></div>
+                                            <div class="col-md-4"> <h4>Seguro:   <input class="bs-select form-control" type="text" ng-model="equipo.seguro"/></h4></div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4"> <h4>Alquiler:   <input class="bs-select form-control" type="text" ng-model="equipo.alquiler"/></h4></div>
+                                            <div class="col-md-4"> <h4>Horimetro:   <input class="bs-select form-control" type="text" ng-model="equipo.horimetro"  ng-disabled="true"/></h4></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-9 col-md-9">
+                                    <button
+                                        class="btn green"
+                                        mwl-confirm
+                                        title="{{confirmationSettings.title}}"
+                                        message="{{ confirmationSettings.message}}"
+                                        confirm-text="{{ confirmationSettings.confirmText}}"
+                                        cancel-text="{{ confirmationSettings.cancelText}}"
+                                        placement="{{ confirmationSettings.placement}}"
+                                        on-confirm="actualizaEquipo(equipo)"
+                                        on-cancel="cancelClicked = true"
+                                        confirm-button-type="success"
+                                        cancel-button-type="default">
+                                        Enviar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-10" ng-if="!equipo">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="portlet light">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-speech"></i>
+                            <span class="caption-subject bold uppercase"> Seleccione un equipo</span>
+                            <span class="caption-helper">por su numero de serie</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="5000" close="closeAlert($index)">{{alert.msg}}</uib-alert>

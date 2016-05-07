@@ -1,0 +1,156 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading">Cargar OT</div>  
+    <div class="panel-body">  
+        
+        <form class="form-horizontal form-bordered">
+            <div class="form-body">
+                <div class="form-group">
+                    <label class="control-label col-md-4">Archivo Excel</label>
+                    <div class="col-md-4">
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <div class="input-group input-large">
+                                <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                    <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                    <span class="fileinput-filename"> </span>
+                                </div>
+                                <span class="input-group-addon btn default btn-file">
+                                    <span class="fileinput-new"> Seleccione la OT </span>
+                                    <span class="fileinput-exists"> Cambiar </span>
+                                    <input type="file" name="excel_file" accept=".xlsx" onchange="angular.element(this).scope().fileChanged(this.files);" required="true">
+                                </span>
+                                <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Quitar </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div ng-show="mostrarTabla">
+            <div class="table-responsive table-scrollable">
+                <table class="table table-hover" id="tabla">
+                    <thead>
+                        <tr>
+                            <th> Num </th>
+                            <th> ID interno de documento  </th>
+                            <th> Fecha de contabilizaci&oacute;n </th>
+                            <th> Numero orden de trabajo </th>
+                            <th> Nombre proyecto </th>
+                            <th> Nombre de articulo </th>
+                            <th> Descripcion de articulo</th>
+                            <th> Cantidad </th>
+                            <th> Precio </th>
+                            <th> Total de lineas </th>
+                            <th> Numero de serie </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="insumo in listaCorrectivos| filter: listSearch">
+                            <td> {{insumo.num}} </td>
+                            <td> {{insumo.ID_interno_de_documento}}</td>
+                            <td> {{insumo.Fecha_de_contabilizacion}} </td>
+                            <td> {{insumo.Numero_Orden_Trabajo}} </td>
+                            <td> {{insumo.Nombre_de_Proyecto}} </td>
+                            <td> {{insumo.Numero_de_articulo}} </td>
+                            <td> {{insumo.Descripcion_articulo}} </td>
+                            <td> {{insumo.Cantidad}} </td>
+                            <td> {{insumo.Precio}} </td>
+                            <td> {{insumo.Total_lineas}} </td>
+                            <td> {{insumo.Numero_de_serie}} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
+<div class="panel panel-default form">
+    <div class="panel-heading"> Gastos Externos</div>
+    <div class="panel-body">
+
+        <form class="form-horizontal">
+            <div class="form-body">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Contrato: </label>
+                    <div class="col-md-4">
+                        <ui-select ng-model="aux.contrato" theme="bootstrap">
+                            <ui-select-match placeholder="Seleccione el contrato">{{$select.selected.nombre}}</ui-select-match>
+                            <ui-select-choices repeat="contrato in listaContratos | filter:$select.search" ng-click="filtraProyectos(aux.contrato)">
+                                {{contrato.nombre}}
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Proyecto: </label>
+                    <div class="col-md-4">
+                        <ui-select ng-model="aux.proyecto" theme="bootstrap">
+                            <ui-select-match placeholder="Seleccione el proyecto">{{$select.selected.nombre}}</ui-select-match>
+                            <ui-select-choices repeat="proyecto in listaProyectos | filter:$select.search" ng-click="filtraEquipos(aux.proyecto)">
+                                {{proyecto.nombre}}
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Montacargas: </label>
+                    <div class="col-md-4">
+                        <ui-select multiple ng-model="gastoE.equipos" theme="bootstrap" name="montacargas">
+                            <ui-select-match placeholder="Seleccione el equipo">{{$item.numero_serie}}</ui-select-match>
+                            <ui-select-choices group-by="'marca'" repeat="montacargas in listaMontacargas | filter: {'numero_serie':$select.search}">
+                                <div ng-bind-html="montacargas.numero_serie | highlight: $select.search"></div>
+                                <small>
+                                    Modelo: <span>{{montacargas.modelo}}</span>
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>                       
+                </div>
+                <div class="form-group">
+                    <div class="center">
+                        <label class="col-md-4 control-label">Monto: </label>
+                        <div class="col-md-4">
+                            <input class="bs-select form-control" type="number" name="quantity" min="0" ng-model="gastoE.costo">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Tipo: </label>
+                    <div class="col-md-4">
+                        <ui-select ng-model="gastoE.tipo" theme="bootstrap">
+                            <ui-select-match placeholder="Seleccione el tipo de gasto">{{$select.selected.nombre}}</ui-select-match>
+                            <ui-select-choices repeat="tipo in listaTipos | filter:$select.search">
+                                {{tipo.nombre}}
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-offset-8 col-md-9">
+                        <button
+                            class="btn green"
+                            mwl-confirm
+                            title="{{confirmationSettings.title}}"
+                            message="{{ confirmationSettings.message}}"
+                            confirm-text="{{ confirmationSettings.confirmText}}"
+                            cancel-text="{{ confirmationSettings.cancelText}}"
+                            placement="{{ confirmationSettings.placement}}"
+                            on-confirm="registrarGastoE(gastoE)"
+                            on-cancel="cancelClicked = true"
+                            confirm-button-type="success"
+                            cancel-button-type="default">
+                            Enviar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="5000" close="closeAlert($index)">{{alert.msg}}</uib-alert>

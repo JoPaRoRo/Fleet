@@ -1,0 +1,264 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Agregar Montacargas</div>
+    <div class="panel-body">
+        <div class="portlet-body form">
+            <form class="form-horizontal" name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+                <div class="form-body">
+                    <div class="row">
+                        
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.numero_serie.$invalid && !userForm.numero_serie.$pristine }">
+                                <label class="control-label col-md-3">Número de Serie
+                                    <span class="required"> * </span></label>
+                                <div class="col-md-9">
+                                    <input type="text" name="numero_serie" class="form-control"  ng-model="montacargas.numero_serie" required> 
+                                     <p ng-show="userForm.numero_serie.$invalid && !userForm.numero_serie.$pristine" class="help-block"> Campo Requerido.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.marca.$invalid && !userForm.marca.$pristine }">
+                                <label class="control-label col-md-3">Marca
+                                    <span class="required"> * </span></label>
+                                <div class="col-md-9">
+                                    <input type="text" name="marca" class="form-control" ng-model="montacargas.marca" required> 
+                                    <p ng-show="userForm.marca.$invalid && !userForm.marca.$pristine" class="help-block"> Campo Requerido.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.modelo.$invalid && !userForm.modelo.$pristine }">
+                                <label class="control-label col-md-3">Modelo
+                                    <span class="required"> * </span></label>
+                                <div class="col-md-9">
+                                    <input type="text" name="modelo" class="form-control" ng-model="montacargas.modelo" required> 
+                                    <p ng-show="userForm.modelo.$invalid && !userForm.modelo.$pristine" class="help-block"> Campo Requerido.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.tonelaje.$invalid && !userForm.tonelaje.$pristine }">
+                                <label class="control-label col-md-3">Tonelaje
+                                    <span class="required"> * </span></label>
+                                <div class="col-md-9">
+                                    <input type="number" name="tonelaje" class="form-control" ng-model="montacargas.tonelaje" required> 
+                                    <p ng-show="userForm.tonelaje.$invalid && !userForm.tonelaje.$pristine" class="help-block"> Campo Requerido.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.traccion.$invalid && !userForm.traccion.$pristine }">
+                                <label class="control-label col-md-3">Tracción
+                                    <span class="required"> * </span></label>
+                                <div class="col-md-9">
+                                    <input type="text" name="traccion" class="form-control" ng-model="montacargas.traccion" required> 
+                                    <p ng-show="userForm.traccion.$invalid && !userForm.traccion.$pristine" class="help-block"> Campo Requerido.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.transmision.$invalid && !userForm.transmision.$pristine }">
+                                <label class="control-label col-md-3">Trasmisión
+                                    <span class="required"> * </span></label>
+                                <div class="col-md-9">
+                                    <input type="text" name="transmision" class="form-control" ng-model="montacargas.transmision" required> 
+                                     <p ng-show="userForm.transmision.$invalid && !userForm.transmision.$pristine" class="help-block"> Campo Requerido.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.numero_motor.$invalid && !userForm.numero_motor.$pristine }">
+                                <label class="control-label col-md-3">Número de Motor
+                                    <span class="required"> * </span></label>
+                                <div class="col-md-9">
+                                    <input type="text" name="numero_motor" class="form-control" ng-model="montacargas.numero_motor" required>
+                                    <p ng-show="userForm.numero_motor.$invalid && !userForm.numero_motor.$pristine" class="help-block"> Campo Requerido.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.num_poliza.$invalid && !userForm.num_poliza.$pristine }">
+                                <label class="control-label col-md-3">Número de Poliza
+                                    <span class="required"> * </span></label>
+                                <div class="col-md-9">
+                                    <input type="text" name="num_poliza" class="form-control" ng-model="montacargas.num_poliza" required>
+                                    <p ng-show="userForm.num_poliza.$invalid && !userForm.num_poliza.$pristine" class="help-block"> Campo Requerido.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.anno.$invalid && !userForm.anno.$pristine }">
+                                <label class="control-label col-md-3">Año
+                                    <span class="required"> * </span></label>
+                                <div class="col-md-9">
+                                    <input id="mask_number" name="anno" type="text" class="form-control" ng-model="montacargas.anno" required>
+                                    <p ng-show="userForm.anno.$invalid && !userForm.anno.$pristine" class="help-block"> Campo Requerido.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.vin.$invalid && !userForm.vin.$pristine }">
+                                <label class="control-label col-md-3">VIN
+                                    <span class="required"> * </span></label>
+                                <div class="col-md-9">
+                                    <input type="text" name="vin" class="form-control" ng-model="montacargas.vin" required> 
+                                     <p ng-show="userForm.vin.$invalid && !userForm.vin.$pristine" class="help-block"> Campo Requerido.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.serie.$invalid && !userForm.serie.$pristine }">
+                                <label class="control-label col-md-3">Serie
+                                    <span class="required"> * </span></label>
+                                <div class="col-md-9">
+                                    <input type="text" name="serie" class="form-control" ng-model="montacargas.serie" required>
+                                    <p ng-show="userForm.serie.$invalid && !userForm.serie.$pristine" class="help-block"> Campo Requerido.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.ubicacion.$invalid && !userForm.ubicacion.$pristine }">
+                                <label class="control-label col-md-3">Ubicación
+                                    <span class="required"> * </span></label>
+                                <div class="col-md-9">
+                                    <input type="text" name="ubicacion" class="form-control" ng-model="montacargas.ubicacion" required> 
+                                    <p ng-show="userForm.ubicacion.$invalid && !userForm.ubicacion.$pristine" class="help-block"> Campo Requerido.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.clase.$invalid && !userForm.clase.$pristine }">
+                                <label class="control-label col-md-3">Clase
+                                    <span class="required"> * </span></label>
+                                <div class="col-md-9">
+                                    <input type="text" name="clase" class="form-control" ng-model="montacargas.clase" required> 
+                                    <p ng-show="userForm.clase.$invalid && !userForm.clase.$pristine" class="help-block"> Campo Requerido.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.placa.$invalid && !userForm.placa.$pristine }">
+                                <label class="control-label col-md-3">Placa
+                                    <span class="required"> * </span></label>
+                                <div class="col-md-9">
+                                    <input type="text" name="placa" class="form-control" ng-model="montacargas.placa" required> 
+                                    <p ng-show="userForm.placa.$invalid && !userForm.placa.$pristine" class="help-block"> Campo Requerido.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.estilo.$invalid && !userForm.estilo.$pristine }">
+                                <label class="control-label col-md-3">Estilo
+                                    <span class="required"> * </span></label>
+                                <div class="col-md-9">
+                                    <input type="text" name="estilo" class="form-control" ng-model="montacargas.estilo" required> 
+                                    <p ng-show="userForm.estilo.$invalid && !userForm.estilo.$pristine" class="help-block"> Campo Requerido.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Observación</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" ng-model="montacargas.observacion"> </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.combustible.$invalid && !userForm.combustible.$pristine }">
+                                <label class="control-label col-md-3">Combustible
+                                    <span class="required"> * </span></label>
+                                <div class="col-md-9">
+                                    <input type="text" name="combustible" class="form-control" ng-model="montacargas.combustible" required> 
+                                    <p ng-show="userForm.combustible.$invalid && !userForm.combustible.$pristine" class="help-block"> Campo Requerido.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.depresiacion.$invalid && !userForm.depresiacion.$pristine }">
+                                <label class="control-label col-md-3">Depreciación
+                                    <span class="required"> * </span></label>
+                                <div class="col-md-9">
+                                    <input type="number" name="depresiacion" class="form-control" ng-model="montacargas.depresiacion" required>
+                                    <p ng-show="userForm.depresiacion.$invalid && !userForm.depresiacion.$pristine" class="help-block"> Campo Requerido.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.seguro.$invalid && !userForm.seguro.$pristine }">
+                                <label class="control-label col-md-3">Seguro
+                                    <span class="required"> * </span></label>
+                                <div class="col-md-9">
+                                    <input type="number" name="seguro" class="form-control" ng-model="montacargas.seguro" required>
+                                    <p ng-show="userForm.seguro.$invalid && !userForm.seguro.$pristine" class="help-block"> Campo Requerido.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.alquiler.$invalid && !userForm.alquiler.$pristine }">
+                                <label class="control-label col-md-3">Alquiler
+                                    <span class="required"> * </span></label>
+                                <div class="col-md-9">
+                                    <input type="number" name="alquiler" class="form-control" ng-model="montacargas.alquiler" required> 
+                                    <p ng-show="userForm.alquiler.$invalid && !userForm.alquiler.$pristine" class="help-block"> Campo Requerido.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error' : userForm.horimetro.$invalid && !userForm.horimetro.$pristine }">
+                                <label class="control-label col-md-3">Horimetro
+                                    <span class="required"> * </span></label>
+                                <div class="col-md-9">
+                                    <input type="number" name="horimetro" class="form-control" ng-model="montacargas.horimetro" required> 
+                                     <p ng-show="userForm.horimetro.$invalid && !userForm.horimetro.$pristine" class="help-block"> Campo Requerido.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-offset-5 col-md-9">
+                            <button type="submit"  class="btn green" ng-click="agregar(montacargas)">Enviar</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="5000" close="closeAlert($index)">{{alert.msg}}</uib-alert>

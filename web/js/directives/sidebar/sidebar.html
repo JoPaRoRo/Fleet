@@ -1,0 +1,102 @@
+<div  class="page-sidebar navbar-collapse collapse">
+    <!-- END SIDEBAR MENU -->
+
+    <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}" >
+        <li class="heading">
+            <h3>GENERAL</h3>
+        </li>
+        <li class="start" ng-if="user.rol === 'ADMIN' || user.rol === 'MANAGER'">
+            <a  href="#/dash/home">
+                <i class="icon-home"></i>
+                <span class="title">Inicio</span>
+            </a>
+        </li>
+        <li class="start" ng-if="user.rol === 'ADMIN' || user.rol === 'MANAGER'" >
+            <a  href="#/dash/insumos">
+                <i class="fa fa-chain"></i>
+                <span class="title">Registro de Gastos</span>
+            </a>
+        </li>
+        <li class="start" ng-if="user.rol === 'ADMIN' || user.rol === 'MANAGER'">
+            <a href="#/dash/mantenimientos">
+                <i class="fa fa-cogs"></i>
+                <span class="title">Mantenimientos</span>
+            </a>
+        </li>
+        <li class="start" >
+            <a  href="#/dash/horimetro">
+                <i class="fa fa-tachometer"></i>
+                <span class="title">Horimetro</span>
+            </a>
+        </li>
+        <li ng-if="user.rol === 'ADMIN' || user.rol === 'MANAGER'" >
+            <a href="javascript:;" >
+                <i class="fa fa-truck"></i>
+                <span class="title">Montacargas</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu" >
+                <li>
+                    <a  href="#/dash/agregar">
+                        <i class="fa fa-plus"></i> 
+                        <span class="title">Agregar</span>
+                    </a>
+                </li>
+                <li>
+                    <a  href="#/dash/actualizar">
+                        <i class="fa fa-edit"></i> 
+                        <span class="title">Modificar</span>
+                    </a>
+                </li>
+                <li>
+                    <a  href="#/dash/consultar">
+                        <i class="fa fa-eye"></i>
+                        <span class="title">Consultar</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="start" ng-if="user.rol === 'ADMIN' || user.rol === 'MANAGER'">
+            <a  href="#/dash/reportes">
+                <i class="fa fa-line-chart"></i>
+                <span class="title">Reportes</span>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" ng-if="user.rol === 'ADMIN' || user.rol === 'MANAGER'">
+                <i class="fa fa-key"></i>
+                <span class="title">Administraci&oacute;n</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu" >
+                <li>
+                    <a  href="#/dash/administracion">
+                        <i class="fa fa-edit"></i> 
+                        <span class="title">Trasladar Montacargas</span>
+                    </a>
+                </li>
+                <li>
+                    <a  href="#/dash/contrato">
+                        <i class="fa fa-plus-square"></i>
+                        <span class="title">Agregar Contrato</span>
+                    </a>
+                </li>
+                <li>
+                    <a  href="#/dash/proyecto">
+                        <i class="fa fa-plus"></i>
+                        <span class="title">Agregar Proyecto</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a  href="#/dash/usuarios" ng-if="user.rol === 'ADMIN'">
+                <i class="fa fa-user"></i>
+                <span class="title">Usuarios</span>
+            </a>
+        </li>
+
+    </ul>
+
+
+</div>

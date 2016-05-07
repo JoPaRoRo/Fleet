@@ -1,0 +1,154 @@
+<div class="row" >
+       <div class="col-md-2">
+        <div class="portlet box">
+
+            <div class="list-group">
+                <a  ng-repeat="equipo in listaEquipos" class="list-group-item" ng-click="buscaEquipo(equipo.numero_serie)"><span class="text-center">{{equipo.numero_serie}}</span></a>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-9" ng-if="equipo">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="portlet light">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <i class="icon-speech"></i>
+                                            <span class="caption-subject bold uppercase"> Basica</span>
+                                            <span class="caption-helper"></span>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div class="row">
+                                            <div class="col-md-4"> <h4>Numero de serie:   {{equipo.numero_serie}}</h4></div>
+                                            <div class="col-md-4"> <h4>Marca:   {{equipo.marca}}</h4></div>
+                                            <div class="col-md-4"> <h4>Modelo:   {{equipo.modelo}}</h4></div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4"> <h4>Tonelaje:   {{equipo.tonelaje}}</h4></div>
+                                            <div class="col-md-4"> <h4>Traccion:   {{equipo.traccion}}</h4></div>
+                                            <div class="col-md-4"> <h4>Transmision:   {{equipo.transmision}}</h4></div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4"> <h4>Numero de motor:   {{equipo.numero_motor}}</h4></div>
+                                            <div class="col-md-4"> <h4>Numero de poliza:   {{equipo.num_poliza}}</h4></div>                                          
+                                            <div class="col-md-4"> <h4>Año:  {{equipo.anno}}</h4></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4"> <h4>VIN:   {{equipo.vin}}</h4></div>
+                                            <div class="col-md-4"> <h4>Serie:   {{equipo.serie}}</h4></div>
+                                            <div class="col-md-4"> <h4>Ubicacion:   {{equipo.ubicacion}}</h4></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4"> <h4>Clase:   {{equipo.clase}}</h4></div>
+                                            <div class="col-md-4"> <h4>Placa:   {{equipo.placa}}</h4></div>
+                                            <div class="col-md-4"> <h4>Estilo:   {{equipo.estilo}}</h4></div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12"> <h4>Observacion:   {{equipo.observacion}}</h4></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="portlet light">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <i class="icon-speech"></i>
+                                            <span class="caption-subject bold uppercase"> Ubicaciones</span>
+                                            <span class="caption-helper"></span>
+                                        </div>
+                                        <div class="inputs">
+                                            <div class="portlet-input input-inline input-small">
+                                                <div class="input-icon right">
+                                                    <i class="icon-magnifier"></i>
+                                                    <input type="text" class="form-control input-circle" placeholder="search..." ng-model="ubicaciones.search"> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <!--                                        <div class="scroller" style="height:200px" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#a1b2bd">
+                                                                                    <table class="table table-hover table-striped">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th>Nombre</th>
+                                                                                                <th>Desde</th>
+                                                                                                <th>Hasta</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                            <tr ng-repeat="ubicacion in equipo.ubicaciones|filter:ubicaciones.search">
+                                                                                                <td>{{ubicacion.nombre}}</td>
+                                                                                                <td>{{ubicacion.desde}}</td>
+                                                                                                <td>{{ubicacion.hasta}}</td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>-->
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="portlet light">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="icon-speech"></i>
+                                    <span class="caption-subject bold uppercase"> Mantenimientos</span>
+                                    <span class="caption-helper"></span>
+                                </div>
+
+                            </div>
+                            <div class="portlet-body">
+                                <div class="scroller" style="height:200px" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#a1b2bd">
+                                    <uib-accordion class="accordion">
+                                        <uib-accordion-group ng-repeat="mantenimiento in equipo.mantenimientos" >
+                                            <uib-accordion-heading>
+                                                {{mantenimiento.tipo}}
+                                            </uib-accordion-heading>
+                                            {{mantenimiento.fecha}}
+                                        </uib-accordion-group>
+                                    </uib-accordion>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-9" ng-if="!equipo">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="portlet light">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-speech"></i>
+                            <span class="caption-subject bold uppercase"> Seleccione un equipo</span>
+                            <span class="caption-helper">por su numero de serie</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="5000" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+

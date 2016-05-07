@@ -1,0 +1,119 @@
+<div class="row">
+
+    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat2 bordered">
+            <div class="display">
+                <div class="number">
+                    <h3 class="font-red-haze">
+                        <span data-counter="counterup" data-value="{{datos.total_montacargas}}">{{datos.total_montacargas}}</span>
+                    </h3>
+                    <small>Montacargas</small>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-truck"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat2 bordered">
+            <div class="display">
+                <div class="number">
+                    <h3 class="font-purple-soft">
+                        <span data-counter="counterup" data-value="{{datos.total_contratos}}">{{datos.total_contratos}}</span>
+                    </h3>
+                    <small>Contratos</small>
+                </div>
+                <div class="icon">
+                    <i class="icon-info"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat2 bordered">
+            <div class="display">
+                <div class="number">
+                    <h3 class="font-red-haze">
+                        <span data-counter="counterup" data-value="{{datos.total_proyectos}}">{{datos.total_proyectos}}</span>
+                    </h3>
+                    <small>Proyectos</small>
+                </div>
+                <div class="icon">
+                    <i class="icon-info"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+
+    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat2 bordered">
+            <div class="display">
+                <div class="number">
+                    <h3 class="font-green-sharp">
+                        <span data-counter="counterup" data-value="{{datos.total_montacargas_mantenimiento}}">{{datos.total_montacargas_mantenimiento}}</span>
+                    </h3>
+                    <small>Montacargas en mantenimiento</small>
+                </div>
+                <div class="icon">
+                    <i class="icon-pie-chart"></i>
+                </div>
+            </div>
+            <div class="progress-info">
+                <div class="progress">
+                    <span style="width: {{promedioMontacargas()}}%;" class="progress-bar progress-bar-success green-sharp">
+                        <span class="sr-only">{{promedioMontacargas()}}% del total</span>
+                    </span>
+                </div>
+                <div class="status">
+                    <div class="status-title"> del total </div>
+                    <div class="status-number"> {{promedioMontacargas()}}% </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat2 bordered">
+            <div class="display">
+                <div class="number">
+                    <h3 class="font-red-haze">
+                        <span data-counter="counterup" data-value="{{datos.promedio_horas_totales}}">{{datos.promedio_horas_totales}}</span>
+                    </h3>
+                    <small>Promedio horas totales</small>
+                </div>
+                <div class="icon">
+                    <i class="icon-info"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat2 bordered">
+            <div class="display">
+                <div class="number">
+                    <h3 class="font-red-haze">
+                        <span data-counter="counterup" data-value="{{datos.promedio_horas_laboradas_por_semana}}">{{datos.promedio_horas_laboradas_por_semana}}</span>
+                    </h3>
+                    <small>Promedio horas laboradas por semana</small>
+                </div>
+                <div class="icon">
+                    <i class="icon-info"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="center">
+        <img src="img/mtimg.png" alt="" class="img-responsive">
+    </div>
+</div>
+
+<script src="assets/global/plugins/counterup/jquery.waypoints.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/counterup/jquery.counterup.min.js" type="text/javascript"></script>
