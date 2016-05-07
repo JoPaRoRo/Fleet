@@ -10,17 +10,19 @@
             <div class="panel-body" ng-if="mantenimientos">
 
                 <div class="center" >
-                    <table class="table table-hover" ng-model="rolAd.tabla">
-                        <thead>
-                            <tr><th>Mantenimiento</th><th>Realizado</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="mantenimiento in mantenimientos">
-                                <td>{{mantenimiento.n_serie}} </td>
-                                <td><input type="checkbox" class="icheck" data-checkbox="icheckbox_minimal-grey"></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <ul ng-model="alertList">
+                        <li ng-repeat="alert in alerts">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    {{alert.montacargas}}
+                                </div>
+                                <div class="panel-body">
+                                    
+                                </div>
+                                
+                            </div>                            
+                        </li>
+                    </ul>
                 </div>
 
                 <div class="form-actions">
