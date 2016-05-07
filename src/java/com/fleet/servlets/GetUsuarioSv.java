@@ -34,14 +34,12 @@ public class GetUsuarioSv extends HttpServlet {
         try {
             LoginDao lgdao = new LoginDao();
             json = gson.toJson(lgdao.buscaUsuario(usuario));
-
         } catch (SQLException | ClassNotFoundException ex) {
             respuesta.put("Error", "Error desconocido, intentelo nuevamente: " + ex.getMessage());
             json = gson.toJson(respuesta);
 
         } finally {
             response.getWriter().write(json);
-
         }
     }
 

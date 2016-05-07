@@ -20,6 +20,7 @@ public class LoginDao {
     private Connection conexion;
 
     public LoginDao() throws SQLException, ClassNotFoundException {
+        this.conexion = ConexionBD.getConnectionFleet();
     }
     
     public void login(String user,String pass) throws SQLException,ClassNotFoundException{
