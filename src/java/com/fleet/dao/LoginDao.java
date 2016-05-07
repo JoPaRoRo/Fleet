@@ -17,10 +17,13 @@ import java.sql.SQLException;
  */
 public class LoginDao {
 
-    private final Connection conexion;
+    private Connection conexion;
 
     public LoginDao() throws SQLException, ClassNotFoundException {
-        this.conexion = ConexionBD.getConnectionFleet();
+    }
+    
+    public void login(String user,String pass) throws SQLException,ClassNotFoundException{
+         this.conexion = ConexionBD.getConnectionFleet(user,pass); 
     }
 
     public Byte existeUsuario(String usuario, String pass) throws SQLException {
@@ -35,7 +38,7 @@ public class LoginDao {
     }
 
     public Usuario buscaUsuario(String user) throws SQLException {
-        String query = "EXECUTE BUSCA_USUARIO @XID_USUARIO=?";
+        String query = "EXECUTE BUSCA_USUARIO @XID_USUARIO=?, ";
         CallableStatement cs = conexion.prepareCall(query);
         cs.setString(1, user);
         ResultSet rs = cs.executeQuery();

@@ -12,7 +12,6 @@ angular.module('MetronicApp').controller('HomeCtrl',function ($scope, GetSv) {
 
         $scope.getDatos = function () {
             GetSv.getData("HomeSv").then(function (data) {
-                console.log(data);
                 if (data.Error) {
                     $scope.alerts.push({type: "danger", msg: data.Error});
                 } else {
