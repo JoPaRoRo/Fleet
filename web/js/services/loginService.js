@@ -7,6 +7,7 @@ angular.module('MetronicApp').factory('loginService', function ($http, $state, s
                     .then(function (data) {
                         if (data.Error) {
                             scope.msgtxt = data.Error;
+                            console.log("asdasd " + data.Error);
                         } else {
                             sessionService.set('uid', data.id_usuario);
                             if (data.rol === 'MECANICO') {
@@ -16,7 +17,7 @@ angular.module('MetronicApp').factory('loginService', function ($http, $state, s
                             }
                             $rootScope.user = data;
                         }
-                    },function(e){
+                    }, function (e) {
                         console.log(e);
                     });
 
@@ -34,17 +35,17 @@ angular.module('MetronicApp').factory('loginService', function ($http, $state, s
         },
         islogged: function () {
             var b = false;
-            if(sessionService.get('uid'))
+            if (sessionService.get('uid'))
                 b = true;
 //            PostSv.postData('check').then(function (data) {
 //                b = data.Estado;
 //            });
             return b;
         },
-        verifySession: function(){
-            if(isLogged()){
+        verifySession: function () {
+            if (isLogged()) {
                 $state.go('main.home');
-            }else{
+            } else {
                 $state.go('login');
             }
         }
