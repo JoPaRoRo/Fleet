@@ -33,7 +33,6 @@ public class LoginDao {
         cs.setString(2, pass);
         cs.registerOutParameter(3, java.sql.Types.BIT);
         cs.execute();
-
         return cs.getByte("Result");
     }
 
