@@ -5,6 +5,7 @@
  */
 package com.fleet.servlets;
 
+import com.fleet.dao.AlertasDao;
 import com.fleet.dao.MontacargasDao;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -27,14 +28,15 @@ public class DeleteAlertSv extends HttpServlet {
       protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String montacargas = request.getParameter("montacargas");
-        int estado = 1;
+        String consecutivo = request.getParameter("consecutivo");
+
         Map<String, String> respuesta = new LinkedHashMap<>();
         Gson gson = new Gson();
         String json = null;
         try {
-            MontacargasDao mdao = new MontacargasDao();
-            mdao.actualizaEstado(montacargas, estado);
+            AlertasDao adao = new AlertasDao();
+            Integer con = Integer.parseInt(consecutivo);
+            adao.deleteAlet(con);
             respuesta.put("Exito", "Montacargas enviado a mantenimiento");
             json = gson.toJson(respuesta);
         } catch (SQLException | ClassNotFoundException ex) {

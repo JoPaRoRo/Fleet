@@ -180,13 +180,6 @@ public class MontacargasDao {
         cs.execute();
     }
     
-     public void deleteAlet(int c) throws SQLException {
-        String query = "EXEC DEL_ALERT @ALERTA=?";
-        CallableStatement cs = conexion.prepareCall(query);
-        cs.setInt(1, c);
-        cs.execute();
-    }
-    
     public List<Montacargas> getMantenimiento() throws SQLException {
         String query = "MONTACARGAS_MANTENIMIENTO";
         CallableStatement cs = conexion.prepareCall(query);

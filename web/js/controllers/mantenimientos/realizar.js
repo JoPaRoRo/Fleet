@@ -33,6 +33,19 @@ angular.module('MetronicApp').controller('RealizarCtrl', function ($scope, GetSv
         }
         );
     };
+    $scope.deleteAlert = function (alertM) {
+        PostSv.postData("DeleteAlertSv", {consecutivo: alertM.consecutivo}).then(function (data) {
+            if (data.Error) {
+                $scope.aler.push({type: "danger", msg: data.Error});
+                console.log(data.Error);
+            } else {
+                $scope.aler.push({type: "success", msg: data.Exito});
+            }
+        }, function (e) {
+            $scope.aler.push({type: "danger", msg: "Error interno"});
+        }
+        );
+    };
 });
 
 

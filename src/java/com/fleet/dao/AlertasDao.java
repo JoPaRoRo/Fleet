@@ -63,6 +63,13 @@ public class AlertasDao {
         return alertas;
     }
     
+     public void deleteAlet(int c) throws SQLException {
+        String query = "EXEC DEL_ALERT @ALERTA=?";
+        CallableStatement cs = conexion.prepareCall(query);
+        cs.setInt(1, c);
+        cs.execute();
+    }
+    
     
 
 }
