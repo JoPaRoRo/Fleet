@@ -22,12 +22,10 @@
                             <tr ng-repeat="alert in alerts">
                                 <td>{{alert.montacargas}} </td>
                                 <td>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">HTML Text</label>
-                                        <div class="col-md-9">
-                                            <input type="checkbox" class="make-switch" checked data-on-text="<i class='fa fa-check'></i>" data-off-text="<i class='fa fa-times'></i>">
-                                            <input type="checkbox" class="make-switch" checked data-on-text="<i class='fa fa-user'></i>" data-off-text="<i class='fa fa-trash-o'></i>"> </div>
-                                    </div>
+                                    <input type="checkbox" class="make-switch" checked data-on-text="<i class='fa fa-check'></i>" data-off-text="<i class='fa fa-times'></i>">
+                                    <input type="checkbox" class="make-switch" checked data-on-text="<i class='fa fa-user'></i>" data-off-text="<i class='fa fa-trash-o'></i>">
+                                    <input type="checkbox" name="my-checkbox" checked>
+                                    <input id="switch-state" type="checkbox" checked>
                                 </td>
                             </tr>
                         </tbody>
