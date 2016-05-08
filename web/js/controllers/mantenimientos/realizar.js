@@ -46,6 +46,19 @@ angular.module('MetronicApp').controller('RealizarCtrl', function ($scope, GetSv
         }
         );
     };
+     $scope.addMan = function (mantenimiento) {
+        PostSv.postData('InsManSv', {mantenimiento: JSON.stringify(mantenimiento)}).then(function (data) {
+            if (data.Error) {
+                $scope.aler.push({type: "danger", msg: data.Error});
+                console.log(data.Error);
+            } else {
+                $scope.aler.push({type: "success", msg: data.Exito});
+            }
+        }, function (e) {
+            $scope.aler.push({type: "danger", msg: "Error desconocido"});
+        }
+        );
+    };
 });
 
 

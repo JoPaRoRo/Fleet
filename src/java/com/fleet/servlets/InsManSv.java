@@ -5,11 +5,14 @@
  */
 package com.fleet.servlets;
 
-import com.fleet.dao.AlertasDao;
-import com.fleet.dao.MontacargasDao;
+import com.fleet.dao.MantenimientoDao;
+import com.fleet.entidades.Mantenimiento;
+import com.fleet.entidades.Montacargas;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Type;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -23,27 +26,33 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Estefania
  */
-@WebServlet("/DeleteAlertSv")
-public class DeleteAlertSv extends HttpServlet {
-      protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+@WebServlet("InsManSv")
+public class InsManSv extends HttpServlet {
+
+     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String consecutivo = request.getParameter("consecutivo");
+        String mant = request.getParameter("mantenimiento");
+        
+        Type listType = new TypeToken<Mantenimiento>() {
+        }.getType();
+         Mantenimiento m = new Gson().fromJson(mant, listType);
 
         Map<String, String> respuesta = new LinkedHashMap<>();
         Gson gson = new Gson();
         String json = null;
+
         try {
-            AlertasDao adao = new AlertasDao();
-            Integer con = Integer.parseInt(consecutivo);
-            adao.deleteAlet(con);
-            respuesta.put("Exito", "Alerta eliminada");
+            MantenimientoDao cd = new MantenimientoDao();
+            cd.insMan(m);          
+            respuesta.put("Exito", "Mantenimiento registrado correctamente");
             json = gson.toJson(respuesta);
         } catch (SQLException | ClassNotFoundException ex) {
-            respuesta.put("Error", "Error desconocido: "+ex.getMessage());
+            respuesta.put("Error", "Error desconocido " + ex.getMessage());
             json = gson.toJson(respuesta);
+
         } finally {
-             response.getWriter().write(json);
+            response.getWriter().write(json);
         }
     }
 

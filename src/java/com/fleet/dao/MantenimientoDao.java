@@ -53,7 +53,7 @@ public class MantenimientoDao {
         ResultSet rs = cs.executeQuery();
         List<Insumo> insumos = new ArrayList<>();
         while (rs.next()) {
-            String id =rs.getString("ID");
+            String id = rs.getString("ID");
             String descripcion = rs.getString("NOMBRE");
             float cantidad = rs.getFloat("CANTIDAD");
             float precio = rs.getFloat("PRECIO");
@@ -63,27 +63,26 @@ public class MantenimientoDao {
         return insumos;
     }
 
-    public void updateCheck(int mantenimiento,String numeroParte,float cantidad) throws SQLException{
+    public void updateCheck(int mantenimiento, String numeroParte, float cantidad) throws SQLException {
         String query = "EXEC UPDCHECK @XMANTENIMIENTO=?, @XNUMEROPARTE = ?,@XCANTIDAD=?";
         CallableStatement cs = conexion.prepareCall(query);
         cs.setInt(1, mantenimiento);
         cs.setString(1, numeroParte);
         cs.setFloat(1, cantidad);
         cs.execute();
-    
+
     }
-    
-    
-    public int getLastMant() throws SQLException{
-     String query = "EXEC ULTIMO_MANTENIMIENTO";
-     CallableStatement cs = conexion.prepareCall(query);
-     ResultSet rs = cs.executeQuery();
-     rs.next();
-     return  rs.getInt(1);
-           
+
+    public int getLastMant() throws SQLException {
+        String query = "EXEC ULTIMO_MANTENIMIENTO";
+        CallableStatement cs = conexion.prepareCall(query);
+        ResultSet rs = cs.executeQuery();
+        rs.next();
+        return rs.getInt(1);
+
     }
-    
-    public void insertCorrectivo(Mantenimiento mantenimiento) throws SQLException{
+
+    public void insertCorrectivo(Mantenimiento mantenimiento) throws SQLException {
         DateFormat dt = new DateFormat();
         String query = "EXEC INSMAN @FECHA=?, @TIPO = ?,@ESTADO=?, @MONTACARGAS";
         CallableStatement cs = conexion.prepareCall(query);
@@ -92,19 +91,31 @@ public class MantenimientoDao {
         cs.setInt(3, mantenimiento.getEstado());
         cs.setString(4, mantenimiento.getMontacargas());
         cs.execute();
-        
+
         int id = getLastMant();
-        
-        for(Insumo ins:mantenimiento.getInsumos()){
+
+        for (Insumo ins : mantenimiento.getInsumos()) {
             query = "EXEC ASIGN_INSUMOS_STE_COR @XID =?, @XNOMBRE =?, @XPRECIO =?,@XCANTIDAD=?,@XTIPO=?,@XESTADO =?,@XMANTENIMIENTO =?)";
-             cs = conexion.prepareCall(query);
-             cs.setString(1,ins.getNum());
-             cs.setString(2,ins.getDescripcion_articulo());
-             cs.setFloat(3,ins.getPrecio());
-             cs.setFloat(4,ins.getCantidad());
-             cs.setString(5,ins.getTipo());
-             cs.setString(6,ins.getEstado());
-             cs.setInt(7,id);
+            cs = conexion.prepareCall(query);
+            cs.setString(1, ins.getNum());
+            cs.setString(2, ins.getDescripcion_articulo());
+            cs.setFloat(3, ins.getPrecio());
+            cs.setFloat(4, ins.getCantidad());
+            cs.setString(5, ins.getTipo());
+            cs.setString(6, ins.getEstado());
+            cs.setInt(7, id);
         }
     }
+    
+    public void insMan(Mantenimiento mantenimiento) throws SQLException {
+        String query = "EXEC DBO.INSMAN @FECHA=?,@TIPO=?,@ESTADO=?,@MONTACARGAS=?";
+        CallableStatement cs = conexion.prepareCall(query);
+        cs.setString(1, mantenimiento.getFecha_mantenimiento());
+        cs.setString(2, mantenimiento.getTipo());
+        cs.setInt(3, mantenimiento.getEstado());
+        cs.setString(4, mantenimiento.getMontacargas());
+        cs.execute();
+
+    }
+
 }
