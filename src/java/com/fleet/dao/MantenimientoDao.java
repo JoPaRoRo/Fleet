@@ -135,11 +135,11 @@ public class MantenimientoDao {
 
     public void insertPreventivo(Mantenimiento mantenimiento) throws SQLException {
         DateFormat dt = new DateFormat();
-        String query = "EXEC INSMANPREV  @TIPO = ?,@ESTADO=?, @MONTACARGAS";
+        String query = "EXEC INSMANPREV  @TIPO = ?,@ESTADO=?, @MONTACARGAS = ?";
         CallableStatement cs = conexion.prepareCall(query);
-        cs.setString(2, mantenimiento.getTipo());
-        cs.setInt(3, mantenimiento.getEstado());
-        cs.setString(4, mantenimiento.getMontacargas());
+        cs.setString(1, mantenimiento.getTipo());
+        cs.setInt(2, mantenimiento.getEstado());
+        cs.setString(3, mantenimiento.getMontacargas());
         cs.execute();
 
         int id = getLastMant();
