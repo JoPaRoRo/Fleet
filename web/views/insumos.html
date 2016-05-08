@@ -2,7 +2,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">Cargar OT</div>  
     <div class="panel-body">  
-        
+
         <form class="form-horizontal form-bordered">
             <div class="form-body">
                 <div class="form-group">
@@ -39,7 +39,7 @@
                     <tbody>
                         <tr ng-repeat="insumo in jsonModelos| filter: listSearch">                        
                             <td> {{insumo}} </td>
-                            <td> <button class="btn green">Generar</button> </td>
+                            <td> <button class="btn green" ng-click="open(insumo)">Generar</button> </td>
                         </tr>
                     </tbody>
                 </table>
@@ -134,5 +134,35 @@
             </div>
         </form>
     </div>
+    <script type="text/ng-template" id="modal.html">
+    <div class="modal-header">
+    <h3 class="modal-title">Asignar insumos a mantenimiento correctivo</h3>
+</div>
+<div class="modal-body">
+    <table class="table table-bordered table-hover" ng-model="tablaInsumoBySerie">
+        <thead>
+            <tr>
+                <th>Numero parte</th>
+                <th>Descripcion</th>
+                <th>Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat='insumo in insumosBySerie'>
+                <td>{{insumo.Numero_de_Ariticulo}}</td>
+                <td>{{insumo.Descripcion_articulo}}</td>
+                <td>{{insumo.Cantidad}}</td>
+                <td><input type="checkbox" name="" id="" ng-onCheck ="insertarInsumo(insumo)"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>
+    </script>
 </div>
 <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="5000" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+
+

@@ -1,7 +1,8 @@
 /**
  * Created by Jos�Pablo on 10/28/2015.
  */
-angular.module('MetronicApp').controller('InsumosCtrl', function ($scope, $http, GetSv, PostSv, XLSXReaderService) {
+var app = angular.module('MetronicApp');
+app.controller('InsumosCtrl', function ($scope, $http, $uibModal,GetSv, PostSv, XLSXReaderService) {
 
     $scope.alerts = [];
     $scope.closeAlert = function (index) {
@@ -9,12 +10,31 @@ angular.module('MetronicApp').controller('InsumosCtrl', function ($scope, $http,
         $scope.alerts.splice(index, 1);
     };
     
+    $scope.insumosBySerie = [];
+
+    $scope.open = function (equipo) {
+        
+        $scope.insumosBySerie = $scope.listaCorrectivos.filter(function(x){
+            console.log(x);
+            return x.Numero_de_serie === equipo;
+        });
+        
+        var modalInstance = $uibModal.open({
+            templateUrl: 'views/modal.html',
+            controller: 'ModalController',
+            size: 'lg',
+            resolve: {
+                InsumosBySerie: function () {
+                    return $scope.insumosBySerie;
+                }
+            }
+        });
+
+   };
+
+
     $scope.mostrarTabla = false;
-    $scope.insumos = [{nombre: "Aceite", cantidad: 5, costo: "170,000"}, {nombre: "LLantas", cantidad: 4, costo: "140,000"}, {nombre: "Cabezote", cantidad: 3, costo: "70,000"}
-        , {nombre: "Carburador", cantidad: 1, costo: "570,000"}, {nombre: "Uña", cantidad: 1, costo: "800,000"}];
     $scope.contrato = {};
-
-
     $scope.gastoE = {};
     GetSv.getData("data/tipoGastos.json")
             .then(function (data) {
@@ -87,7 +107,7 @@ angular.module('MetronicApp').controller('InsumosCtrl', function ($scope, $http,
         $scope.excelFile = files[0];
         XLSXReaderService.readFile($scope.excelFile, $scope.showPreview).then(function (xlsxData) {
             if (xlsxData.sheets.Consulta) {
-                 $scope.enviarObjeto(xlsxData.sheets.Consulta);
+                $scope.enviarObjeto(xlsxData.sheets.Consulta);
             }
         });
     };
@@ -104,22 +124,40 @@ angular.module('MetronicApp').controller('InsumosCtrl', function ($scope, $http,
     $scope.enviarObjeto = function (data) {
         PostSv.postData("svOt", {insumos: JSON.stringify(data)})
                 .then(function (data) {
-                     console.log(data);
+                    console.log(data);
                     if (data.Error) {
                         $scope.alerts.push({type: "danger", msg: data.Error});
-                    } else {                       
+                    } else {
                         $scope.listaCorrectivos = data;
-                         crearJsonAuxiliares(data);
-                         $scope.mostrarTabla = true;
+                        crearJsonAuxiliares(data);
+                        $scope.mostrarTabla = true;
                     }
                 });
     };
 
-     var crearJsonAuxiliares = function(data){
-         $scope.jsonModelos = data.reduce(function(z, s){
-             if(!z.includes(s.Numero_de_serie)){            
-                 z= z.concat(s.Numero_de_serie);}
-             return z;
-         },[]);
-     }
+    var crearJsonAuxiliares = function (data) {
+        $scope.jsonModelos = data.reduce(function (z, s) {
+            if (!z.includes(s.Numero_de_serie)) {
+                z = z.concat(s.Numero_de_serie);
+            }
+            return z;
+        }, []);
+    };
+
+
+})
+app.controller('ModalController', function ($scope, $uibModalInstance, InsumosBySerie) {
+    $scope.insumosBySerie = InsumosBySerie;
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+    $scope.ok = function (param)
+    {
+        console.log(param);
+    };
+
+
+
 });
