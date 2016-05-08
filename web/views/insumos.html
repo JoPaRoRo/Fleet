@@ -32,32 +32,14 @@
                 <table class="table table-hover" id="tabla">
                     <thead>
                         <tr>
-                            <th> Num </th>
-                            <th> ID interno de documento  </th>
-                            <th> Fecha de contabilizaci&oacute;n </th>
-                            <th> Numero orden de trabajo </th>
-                            <th> Nombre proyecto </th>
-                            <th> Nombre de articulo </th>
-                            <th> Descripcion de articulo</th>
-                            <th> Cantidad </th>
-                            <th> Precio </th>
-                            <th> Total de lineas </th>
-                            <th> Numero de serie </th>
+                            <th> Numero de serie  </th>
+                            <th> Generar Correctivo </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="insumo in listaCorrectivos| filter: listSearch">
-                            <td> {{insumo.num}} </td>
-                            <td> {{insumo.ID_interno_de_documento}}</td>
-                            <td> {{insumo.Fecha_de_contabilizacion}} </td>
-                            <td> {{insumo.Numero_Orden_Trabajo}} </td>
-                            <td> {{insumo.Nombre_de_Proyecto}} </td>
-                            <td> {{insumo.Numero_de_articulo}} </td>
-                            <td> {{insumo.Descripcion_articulo}} </td>
-                            <td> {{insumo.Cantidad}} </td>
-                            <td> {{insumo.Precio}} </td>
-                            <td> {{insumo.Total_lineas}} </td>
-                            <td> {{insumo.Numero_de_serie}} </td>
+                        <tr ng-repeat="insumo in jsonModelos| filter: listSearch">                        
+                            <td> {{insumo}} </td>
+                            <td> <button class="btn green">Generar</button> </td>
                         </tr>
                     </tbody>
                 </table>
