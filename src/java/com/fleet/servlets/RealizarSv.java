@@ -40,8 +40,8 @@ public class RealizarSv extends HttpServlet {
         Type listType = new TypeToken<Alerta>() {
         }.getType();
         Alerta a = new Gson().fromJson(alert, listType);
-        Date fecha = (Date) GregorianCalendar.getInstance().getTime();
-        Mantenimiento m = new Mantenimiento(fecha.toString(), a.getTipo(), 1, a.getMontacargas());
+       
+        Mantenimiento m = new Mantenimiento(a.getTipo(), 1, a.getMontacargas());
         Map<String, String> respuesta = new LinkedHashMap<>();
         Gson gson = new Gson();
         String json = null;
