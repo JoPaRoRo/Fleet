@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Estefania
  */
-@WebServlet("InsManSv")
+@WebServlet("/InsManSv")
 public class InsManSv extends HttpServlet {
 
      protected void processRequest(HttpServletRequest request, HttpServletResponse response)
