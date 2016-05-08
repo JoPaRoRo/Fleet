@@ -16,6 +16,12 @@ public class Mantenimiento {
         this.Montacargas = Montacargas;
     }
     
+    public Mantenimiento(String tipo, int estado, String Montacargas) {
+        this.tipo = tipo;
+        this.estado = estado;
+        this.Montacargas = Montacargas;
+    }
+    
     public Mantenimiento(int id, String fecha_mantenimiento, String tipo, int estado,String Montacargas) {
         this.id = id;
         this.fecha_mantenimiento = fecha_mantenimiento;

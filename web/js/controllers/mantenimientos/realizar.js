@@ -7,30 +7,34 @@ angular.module('MetronicApp').controller('RealizarCtrl', function ($scope, GetSv
         $scope.aler.splice(index, 1);
     };
     $scope.alertMant = [];
-    GetSv.getData("AlertasManSv").then(function (data) {
-        if (data.Error) {
-            $scope.aler.push({type: "danger", msg: data.Error});
-            console.log(data.Error);
-        } else {
-            if (Array.isArray(data)) {
-                $scope.alertMant = data;
-                console.log(data);
+    $scope.getMontMan = function () {
+        GetSv.getData("AlertasManSv").then(function (data) {
+            if (data.Error) {
+                $scope.aler.push({type: "danger", msg: data.Error});
+                console.log(data.Error);
+            } else {
+                if (Array.isArray(data)) {
+                    $scope.alertMant = data;
+                    console.log(data);
+                }
             }
-        }
-    }, function (e) {
-        $scope.aler.push({type: "danger", msg: "Error desconocido"});
-        console.log(e);
-    });
+        }, function (e) {
+            $scope.aler.push({type: "danger", msg: "Error desconocido"});
+            console.log(e);
+        });
+    };
+    $scope.getMontMan();
     $scope.realizar = function (alertM) {
-        PostSv.postData("realizar", {alerta: JSON.stringify(alertaM)}).then(function (data) {
+        PostSv.postData("realizar", {alerta: JSON.stringify(alertM)}).then(function (data) {
             if (data.Error) {
                 $scope.aler.push({type: "danger", msg: data.Error});
                 console.log(data.Error);
             } else {
                 $scope.aler.push({type: "success", msg: data.Exito});
+                $scope.getMontMan();
             }
         }, function (e) {
-            $scope.aler.push({type: "danger", msg: "Error interno"});
+            $scope.aler.push({type: "danger", msg: "Error interno" + e});
         }
         );
     };
