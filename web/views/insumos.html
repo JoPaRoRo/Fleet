@@ -38,7 +38,7 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="insumo in jsonModelos| filter: listSearch">                        
-                            <td> {{insumo}} </td>
+                            <td> {{insumo.Numero_de_serie}} </td>
                             <td> <button class="btn green" ng-click="open(insumo)">Generar</button> </td>
                         </tr>
                     </tbody>

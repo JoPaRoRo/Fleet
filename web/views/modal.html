@@ -15,7 +15,7 @@
                     <td>{{insumo.Numero_de_articulo}}</td>
                     <td>{{insumo.Descripcion_articulo}}</td>
                     <td>{{insumo.Cantidad}}</td>
-                    <td><input type="checkbox" name="" id="" ng-onCheck ="insertarInsumo(insumo)"></td>
+                    <td><input type="checkbox" name="" id="" ng-change="toggleInsumo(insumo)"></td>
                 </tr>
             </tbody>
         </table>

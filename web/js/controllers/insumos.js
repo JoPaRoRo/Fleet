@@ -16,7 +16,7 @@ app.controller('InsumosCtrl', function ($scope, $http, $uibModal,GetSv, PostSv, 
         
         $scope.insumosBySerie = $scope.listaCorrectivos.filter(function(x){
             console.log(x);
-            return x.Numero_de_serie === equipo;
+            return x.Numero_de_serie === equipo.Numero_de_serie;
         });
         
         var modalInstance = $uibModal.open({
@@ -26,6 +26,10 @@ app.controller('InsumosCtrl', function ($scope, $http, $uibModal,GetSv, PostSv, 
             resolve: {
                 InsumosBySerie: function () {
                     return $scope.insumosBySerie;
+                },
+                
+                Equipo:function(){
+                    return equipo;
                 }
             }
         });
@@ -136,26 +140,55 @@ app.controller('InsumosCtrl', function ($scope, $http, $uibModal,GetSv, PostSv, 
     };
 
     var crearJsonAuxiliares = function (data) {
-        $scope.jsonModelos = data.reduce(function (z, s) {
-            if (!z.includes(s.Numero_de_serie)) {
-                z = z.concat(s.Numero_de_serie);
+        $scope.jsonModelos = data.reduce(function (z, s,i) {
+            if (incluyeObj(z,s)) {
+                console.log("entro");
+                z = z.concat({Numero_de_serie:s.Numero_de_serie,index:i});
             }
             return z;
         }, []);
     };
+    
+    var incluyeObj = function(array,obj){
+      return  array.reduce(function(z,x){
+          if(x.Numero_de_serie === obj.Numero_de_serie)
+             z = z.concat(x);
+         return z;
+      },[]).length === 0; 
+    };
+    
 
 
-})
-app.controller('ModalController', function ($scope, $uibModalInstance, InsumosBySerie) {
+
+});
+app.controller('ModalController', function ($scope, $uibModalInstance, InsumosBySerie,PostSv,GetSv,Equipo) {
+    
+    $scope.mantenimiento = {tipo:"Correctivo",estado:0,listaInsumos:[]};
     $scope.insumosBySerie = InsumosBySerie;
+    $scope.equipo = Equipo;
+
+    $scope.toggleInsumo = function(insumo){
+      if(!$scope.mantenimiento.includes(insumo)){
+          $scope.mantenimiento.listaInsumos.push(insumo);
+      }else{
+         $scope.mantenimiento.listaInsumos.splice($scope.equipo.index,1); 
+      }
+    };
 
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
     };
 
-    $scope.ok = function (param)
-    {
-        console.log(param);
+    $scope.ok = function (scope){
+        
+        PostSv.postData('SvIngsCorrectivos',{"mantenimiento":JSON.stringify($scope.mantenimiento)}).then(function(data){
+            if(data.Error){
+                scope.alerts.push({type: "danger", msg: data.Error});
+            }else{
+                scope.alerts.push({type: "success", msg: data.Exito});
+            }
+        });
+        $uibModalInstance.dismiss('ok');
     };
 
 
