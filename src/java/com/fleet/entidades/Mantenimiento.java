@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Mantenimiento {
 
-    public Mantenimiento(int id, Date fecha_mantenimiento, String tipo, int estado, String Montacargas) {
+    public Mantenimiento(int id, String fecha_mantenimiento, String tipo, int estado, String Montacargas) {
         this.id = id;
         this.fecha_mantenimiento = fecha_mantenimiento;
         this.tipo = tipo;
@@ -17,7 +17,7 @@ public class Mantenimiento {
         this.Montacargas = Montacargas;
     }
     
-        public Mantenimiento(int id, Date fecha_mantenimiento, String tipo, String Montacargas) {
+        public Mantenimiento(int id, String fecha_mantenimiento, String tipo, String Montacargas) {
         this.id = id;
         this.fecha_mantenimiento = fecha_mantenimiento;
         this.tipo = tipo;
@@ -32,11 +32,11 @@ public class Mantenimiento {
         this.id = id;
     }
 
-    public Date getFecha_mantenimiento() {
+    public String getFecha_mantenimiento() {
         return fecha_mantenimiento;
     }
 
-    public void setFecha_mantenimiento(Date fecha_mantenimiento) {
+    public void setFecha_mantenimiento(String fecha_mantenimiento) {
         this.fecha_mantenimiento = fecha_mantenimiento;
     }
 
@@ -74,7 +74,7 @@ public class Mantenimiento {
 
     
     int id;
-    Date fecha_mantenimiento;
+    String fecha_mantenimiento;
     String tipo;
     int estado;
     String Montacargas; 

@@ -10,7 +10,7 @@ package com.fleet.entidades;
  * @author Alvaro Lopez
  */
 public class Insumo {
- 
+
     String num;
     String ID_interno_de_documento;
     String Fecha_de_contabilizacion;
@@ -22,8 +22,10 @@ public class Insumo {
     float Precio;
     float Total_lineas;
     String Numero_de_serie;
+    String tipo;
+    String estado;
 
-    public Insumo(String num, String ID_interno_de_documento, String Fecha_de_contabilizacion, String Numero_Orden_Trabajo, String Nombre_de_Proyecto, String Numero_de_articulo, String Descripcion_articulo, String Cantidad, String Precio, String Total_lineas, String Numero_de_serie) {
+    public Insumo(String num, String ID_interno_de_documento, String Fecha_de_contabilizacion, String Numero_Orden_Trabajo, String Nombre_de_Proyecto, String Numero_de_articulo, String Descripcion_articulo, String Cantidad, String Precio, String Total_lineas, String Numero_de_serie,String tipo, String estado ) {
         this.num = num;
         this.ID_interno_de_documento = ID_interno_de_documento;
         this.Fecha_de_contabilizacion = Fecha_de_contabilizacion;
@@ -35,6 +37,8 @@ public class Insumo {
         this.Precio = Float.valueOf(Precio.trim()).floatValue();
         this.Total_lineas = Float.valueOf(Total_lineas.trim()).floatValue();
         this.Numero_de_serie = Numero_de_serie;
+        this.tipo = tipo;
+        this.estado = estado;
     }
 
     public Insumo(String num, String Descripcion_articulo, float Cantidad, float Precio, String Numero_de_serie) {
@@ -44,8 +48,8 @@ public class Insumo {
         this.Precio = Precio;
         this.Numero_de_serie = Numero_de_serie;
     }
-    
-    
+
+
 
     public String getNum() {
         return num;
@@ -135,6 +139,19 @@ public class Insumo {
         this.Numero_de_serie = Numero_de_serie;
     }
 
-   
-}
+    public String getTipo() {
+        return tipo;
+    }
 
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+}
