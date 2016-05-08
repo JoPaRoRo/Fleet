@@ -109,9 +109,17 @@ angular.module('MetronicApp').controller('InsumosCtrl', function ($scope, $http,
                         $scope.alerts.push({type: "danger", msg: data.Error});
                     } else {                       
                         $scope.listaCorrectivos = data;
+                         crearJsonAuxiliares(data);
                          $scope.mostrarTabla = true;
                     }
                 });
     };
 
+     var crearJsonAuxiliares = function(data){
+         $scope.jsonModelos = data.reduce(function(z, s){
+             if(!z.includes(s.Numero_de_serie)){            
+                 z= z.concat(s.Numero_de_serie);}
+             return z;
+         },[]);
+     }
 });
