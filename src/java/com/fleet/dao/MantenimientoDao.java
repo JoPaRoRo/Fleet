@@ -10,7 +10,6 @@ import com.fleet.entidades.Insumo;
 import com.fleet.entidades.Mantenimiento;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -67,10 +66,36 @@ public class MantenimientoDao {
         String query = "EXEC UPDCHECK @XMANTENIMIENTO=?, @XNUMEROPARTE = ?,@XCANTIDAD=?";
         CallableStatement cs = conexion.prepareCall(query);
         cs.setInt(1, mantenimiento);
-        cs.setString(1, numeroParte);
-        cs.setFloat(1, cantidad);
+        cs.setString(2, numeroParte);
+        cs.setFloat(3, cantidad);
         cs.execute();
 
+    }
+
+    public ArrayList<Insumo> getInsumosSinRevisar(int mantenimiento) throws SQLException {
+        ArrayList<Insumo> insumos = new ArrayList<>();
+        String query = "EXEC INSUMOSNR_MANTENIMIENTO @MANTENIMIENTO=?";
+        CallableStatement cs = conexion.prepareCall(query);
+        cs.setInt(1, mantenimiento);
+        ResultSet rs = cs.executeQuery();
+
+        while (rs.next()) {
+            String id = rs.getString("ID");
+            String nombre= rs.getString("NOMBRE");
+            int cantidad= rs.getInt("CANTIDAD");
+            String montacargas= rs.getString("MONTACARGAS");
+            insumos.add(new Insumo(id, nombre, cantidad, montacargas));
+
+        }
+
+        return insumos;
+    }
+
+    public void close(int mantenimiento) throws SQLException {
+        String query = "EXEC CERRAR_MANTENIMIENTO @MANTENIMIENTO=?";
+        CallableStatement cs = conexion.prepareCall(query);
+        cs.setInt(1, mantenimiento);
+        cs.execute();
     }
 
     public int getLastMant() throws SQLException {
@@ -83,8 +108,9 @@ public class MantenimientoDao {
     }
 
     public void insertCorrectivo(Mantenimiento mantenimiento) throws SQLException {
+
         DateFormat dt = new DateFormat();
-        String query = "EXEC INSMAN @FECHA=?, @TIPO = ?,@ESTADO=?, @MONTACARGAS";
+        String query = "EXEC INSMAN @FECHA=?, @TIPO = ?,@ESTADO=?, @MONTACARGAS=?";
         CallableStatement cs = conexion.prepareCall(query);
         cs.setString(1, dt.format(mantenimiento.getFecha_mantenimiento()));
         cs.setString(2, mantenimiento.getTipo());
@@ -106,16 +132,33 @@ public class MantenimientoDao {
             cs.setInt(7, id);
         }
     }
-    
-    public void insMan(Mantenimiento mantenimiento) throws SQLException {
-        String query = "EXEC DBO.INSMAN @FECHA=?,@TIPO=?,@ESTADO=?,@MONTACARGAS=?";
+
+    public void insertPreventivo(Mantenimiento mantenimiento) throws SQLException {
+        DateFormat dt = new DateFormat();
+        String query = "EXEC INSMAN @FECHA=?, @TIPO = ?,@ESTADO=?, @MONTACARGAS";
         CallableStatement cs = conexion.prepareCall(query);
-        cs.setString(1, mantenimiento.getFecha_mantenimiento());
+        cs.setString(1, dt.format(mantenimiento.getFecha_mantenimiento()));
         cs.setString(2, mantenimiento.getTipo());
         cs.setInt(3, mantenimiento.getEstado());
         cs.setString(4, mantenimiento.getMontacargas());
         cs.execute();
 
-    }
+        int id = getLastMant();
 
+        query = "EXEC OBTENER_MODELO @XMONTACARGAS=?";
+        cs = conexion.prepareCall(query);
+        cs.setString(1, mantenimiento.getMontacargas());
+        ResultSet rs = cs.executeQuery();
+        rs.next();
+        String modelo = rs.getString(1);
+
+        query = "EXEC ASIGN_INSUMOS_STE @ID_MANT=?, @MODELO=?, @HORAS=?";
+        cs = conexion.prepareCall(query);
+        cs.setInt(1, id);
+        cs.setString(2, modelo);
+        cs.setInt(3, Integer.parseInt(mantenimiento.getTipo()));
+        cs.setString(4, mantenimiento.getMontacargas());
+        cs.execute();
+
+    }
 }

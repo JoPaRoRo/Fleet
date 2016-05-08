@@ -6,11 +6,17 @@
 package com.fleet.servlets;
 
 import com.fleet.dao.AlertasDao;
+import com.fleet.dao.MantenimientoDao;
 import com.fleet.dao.MontacargasDao;
+import com.fleet.entidades.Alerta;
+import com.fleet.entidades.Mantenimiento;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.lang.reflect.Type;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -23,27 +29,38 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Estefania
  */
-@WebServlet("/DeleteAlertSv")
-public class DeleteAlertSv extends HttpServlet {
-      protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+@WebServlet("/realizar")
+public class RealizarSv extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String consecutivo = request.getParameter("consecutivo");
+        String alert = request.getParameter("alerta");
 
+        Type listType = new TypeToken<Alerta>() {
+        }.getType();
+        Alerta a = new Gson().fromJson(alert, listType);
+        Date fecha = (Date) GregorianCalendar.getInstance().getTime();
+        Mantenimiento m = new Mantenimiento(fecha.toString(), a.getTipo(), 1, a.getMontacargas());
         Map<String, String> respuesta = new LinkedHashMap<>();
         Gson gson = new Gson();
         String json = null;
+
         try {
+            MantenimientoDao cd = new MantenimientoDao();
+            cd.insertPreventivo(m);
+            MontacargasDao mdao = new MontacargasDao();
+            mdao.actualizaEstado(a.getMontacargas(), 1);
             AlertasDao adao = new AlertasDao();
-            Integer con = Integer.parseInt(consecutivo);
-            adao.deleteAlet(con);
-            respuesta.put("Exito", "Alerta eliminada");
+            adao.deleteAlet(a.getCodigo());
+            respuesta.put("Exito", "Montacargas enviado a mantenimiento correctamente");
             json = gson.toJson(respuesta);
         } catch (SQLException | ClassNotFoundException ex) {
-            respuesta.put("Error", "Error desconocido: "+ex.getMessage());
+            respuesta.put("Error", "Error desconocido " + ex.getMessage());
             json = gson.toJson(respuesta);
+
         } finally {
-             response.getWriter().write(json);
+            response.getWriter().write(json);
         }
     }
 
@@ -56,6 +73,5 @@ public class DeleteAlertSv extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest(req, resp);
     }
-
 
 }

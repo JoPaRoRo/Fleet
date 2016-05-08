@@ -45,7 +45,7 @@ public class AlertasDao {
 
         return alertas;
     }
-    
+
     public List<Alerta> getMan() throws SQLException {
 
         String query = "EXEC ALERTS_MAN";
@@ -56,20 +56,29 @@ public class AlertasDao {
             Integer consecutivo = Integer.parseInt(rs.getString("CONSECUTIVO"));
             String montacargas = rs.getString("MONTACARGAS");
             Integer horas = Integer.parseInt(rs.getString("HORAS"));
-            Alerta m = new Alerta(consecutivo,montacargas,horas);
+            Alerta m = new Alerta(consecutivo, montacargas, horas);
             alertas.add(m);
         }
 
         return alertas;
     }
-    
-     public void deleteAlet(int c) throws SQLException {
+
+    public void deleteAlet(int c) throws SQLException {
         String query = "EXEC DEL_ALERT @ALERTA=?";
         CallableStatement cs = conexion.prepareCall(query);
         cs.setInt(1, c);
         cs.execute();
     }
-    
-    
+
+    public void insert(String tipo, String descripcion, int horas, String montacargas) throws SQLException {
+        String query = "EXEC INSALERTAS @TIPO=?,@DESCRIPCION=?,@HORAS =?,@MONTACARGAS=?";
+        CallableStatement cs = conexion.prepareCall(query);
+        cs.setString(1, tipo);
+        cs.setString((2), descripcion);
+        cs.setInt(3, horas);
+        cs.setString(4, montacargas);
+        cs.execute();
+
+    }
 
 }

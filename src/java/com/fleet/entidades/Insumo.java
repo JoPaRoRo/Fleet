@@ -9,8 +9,8 @@ package com.fleet.entidades;
  *
  * @author Alvaro Lopez
  */
-public class Insumo {
 
+public class Insumo {
     String num;
     String ID_interno_de_documento;
     String Fecha_de_contabilizacion;
@@ -49,8 +49,15 @@ public class Insumo {
         this.Numero_de_serie = Numero_de_serie;
     }
 
-
-
+    public Insumo(String num, String Descripcion_articulo, float Cantidad, String Numero_de_serie) {
+        this.num = num;
+        this.Descripcion_articulo = Descripcion_articulo;
+        this.Cantidad = Cantidad;
+        this.Numero_de_serie = Numero_de_serie;
+    }
+    
+    
+    
     public String getNum() {
         return num;
     }

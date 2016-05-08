@@ -9,20 +9,28 @@ import java.util.List;
  */
 public class Mantenimiento {
 
-    public Mantenimiento(int id, String fecha_mantenimiento, String tipo, int estado, String Montacargas) {
-        this.id = id;
+    public Mantenimiento(String fecha_mantenimiento, String tipo, int estado, String Montacargas) {
         this.fecha_mantenimiento = fecha_mantenimiento;
         this.tipo = tipo;
         this.estado = estado;
         this.Montacargas = Montacargas;
     }
     
-        public Mantenimiento(int id, String fecha_mantenimiento, String tipo, String Montacargas) {
+    public Mantenimiento(int id, String fecha_mantenimiento, String tipo, int estado,String Montacargas) {
+        this.id = id;
+        this.fecha_mantenimiento = fecha_mantenimiento;
+        this.tipo = tipo;
+        this.estado = estado;
+        this.Montacargas = Montacargas;
+    }
+        
+    public Mantenimiento(int id, String fecha_mantenimiento, String tipo,String Montacargas) {
         this.id = id;
         this.fecha_mantenimiento = fecha_mantenimiento;
         this.tipo = tipo;
         this.Montacargas = Montacargas;
     }
+    
     
     public int getId() {
         return id;

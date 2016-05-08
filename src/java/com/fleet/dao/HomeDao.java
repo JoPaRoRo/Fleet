@@ -48,12 +48,11 @@ public class HomeDao {
         float total_contratos = rs.getInt(1);
         respuesta.put("total_contratos", total_contratos);
         
-        //query = "EXEC CANTMONTACARGAS_TOTAL";
-        //cs = conexion.prepareCall(query);
-        //rs = cs.executeQuery();
-        //rs.next();
-        //float total_montacargas_mantenimiento = rs.getInt(1);
-        float total_montacargas_mantenimiento = 0;
+        query = "EXEC CANTMONTACARGAS_TOTAL";
+        cs = conexion.prepareCall(query);
+        rs = cs.executeQuery();
+        rs.next();
+        float total_montacargas_mantenimiento = rs.getInt(1);
         respuesta.put("total_montacargas_mantenimiento", total_montacargas_mantenimiento);
         
         query = "EXEC PROMEDIOHORAS_TOTALES";
@@ -63,12 +62,11 @@ public class HomeDao {
         float promedio_horas_totales = rs.getInt(1);
         respuesta.put("promedio_horas_totales", promedio_horas_totales);
         
-//        query = "EXEC CANTMONTACARGAS_TOTAL";
-//        cs = conexion.prepareCall(query);
-//        rs = cs.executeQuery();
-//        rs.next();
-//        float promedio_horas_laboradas_por_semana = rs.getInt(1);
-        float promedio_horas_laboradas_por_semana = 0;
+        query = "EXEC CANTMONTACARGAS_TOTAL";
+        cs = conexion.prepareCall(query);
+        rs = cs.executeQuery();
+        rs.next();
+        float promedio_horas_laboradas_por_semana = rs.getInt(1);
         respuesta.put("promedio_horas_laboradas_por_semana", promedio_horas_laboradas_por_semana);
         
         return gson.toJson(respuesta);

@@ -5,7 +5,10 @@
  */
 package com.fleet.servlets;
 
+import com.fleet.dao.MantenimientoDao;
 import com.fleet.dao.MontacargasDao;
+import com.fleet.entidades.Alerta;
+import com.fleet.entidades.Mantenimiento;
 import com.fleet.entidades.Montacargas;
 
 import com.google.gson.Gson;
@@ -25,25 +28,24 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Alvaro Lopez
  */
-
 @WebServlet("/SvInsCorrectivo")
 public class SvInsCorrectivo extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String mont = request.getParameter("mantenimiento");
-        Type listType = new TypeToken<Montacargas>() {
-        }.getType();
-        Montacargas montacargas = new Gson().fromJson(mont, listType);
+        String mantenimiento = request.getParameter("mantenimiento");
 
         Map<String, String> respuesta = new LinkedHashMap<>();
         Gson gson = new Gson();
         String json = null;
 
         try {
-            MontacargasDao cd = new MontacargasDao();
-            cd.insert(montacargas);          
+            Type listType = new TypeToken<Mantenimiento>() {
+            }.getType();
+            Mantenimiento m = new Gson().fromJson(mantenimiento, listType);
+            MantenimientoDao md = new MantenimientoDao();
+            md.insertCorrectivo(m);
             respuesta.put("Exito", "Montacargas registrado correctamente");
             json = gson.toJson(respuesta);
         } catch (SQLException | ClassNotFoundException ex) {

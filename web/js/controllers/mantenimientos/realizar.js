@@ -6,6 +6,7 @@ angular.module('MetronicApp').controller('RealizarCtrl', function ($scope, GetSv
     $scope.closeAlert = function (index) {
         $scope.aler.splice(index, 1);
     };
+    $scope.alertMant = [];
     GetSv.getData("AlertasManSv").then(function (data) {
         if (data.Error) {
             $scope.aler.push({type: "danger", msg: data.Error});
@@ -20,8 +21,8 @@ angular.module('MetronicApp').controller('RealizarCtrl', function ($scope, GetSv
         $scope.aler.push({type: "danger", msg: "Error desconocido"});
         console.log(e);
     });
-    $scope.actEstado1 = function (alertM) {
-        PostSv.postData("ActualizaSv", {montacargas: alertM.montacargas}).then(function (data) {
+    $scope.realizar = function (alertM) {
+        PostSv.postData("realizar", {alerta: JSON.stringify(alertaM)}).then(function (data) {
             if (data.Error) {
                 $scope.aler.push({type: "danger", msg: data.Error});
                 console.log(data.Error);
@@ -33,31 +34,9 @@ angular.module('MetronicApp').controller('RealizarCtrl', function ($scope, GetSv
         }
         );
     };
-    $scope.deleteAlert = function (alertM) {
-        PostSv.postData("DeleteAlertSv", {consecutivo: alertM.consecutivo}).then(function (data) {
-            if (data.Error) {
-                $scope.aler.push({type: "danger", msg: data.Error});
-                console.log(data.Error);
-            } else {
-                $scope.aler.push({type: "success", msg: data.Exito});
-            }
-        }, function (e) {
-            $scope.aler.push({type: "danger", msg: "Error interno"});
-        }
-        );
-    };
-     $scope.addMan = function (mantenimiento) {
-        PostSv.postData('InsManSv', {mantenimiento: JSON.stringify(mantenimiento)}).then(function (data) {
-            if (data.Error) {
-                $scope.aler.push({type: "danger", msg: data.Error});
-                console.log(data.Error);
-            } else {
-                $scope.aler.push({type: "success", msg: data.Exito});
-            }
-        }, function (e) {
-            $scope.aler.push({type: "danger", msg: "Error desconocido"});
-        }
-        );
+
+    $scope.ban = function () {
+        return $scope.alertMant.length > 0;
     };
 });
 

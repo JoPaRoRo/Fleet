@@ -66,8 +66,11 @@ public class OtDao {
             }
             if (!procesada) {
 
-                //CARGAMOS LOS MANTENIMIENTOS ABIERTOS
+                //CREAMOS LOS DAO NECESARIOS
                 MantenimientoDao md = new MantenimientoDao();
+                AlertasDao ad = new AlertasDao();
+                
+                //CARGAMOS LOS MANTENIMIENTOS ABIERTOS
                 List<Mantenimiento> MantenimientosAbiertos = md.getOpen();
 
                 //CARGARMOS LOS INSUMOS A LOS MANTENIMIENTOS
@@ -87,18 +90,36 @@ public class OtDao {
                                 ots.push(ins.getNumero_Orden_Trabajo());
                             }
                             if (ins.getNumero_de_articulo().equals(isumoMant.getNum())
-                                    && ins.getCantidad() == isumoMant.getCantidad()) {
-                          //      md.updateCheck(mt.getId(), isumoMant.num, isumoMant.Cantidad);
+                                    && ins.getCantidad() == isumoMant.getCantidad() 
+                                    && ins.getDescripcion_articulo().equals(isumoMant.getDescripcion_articulo())) {
+                                md.updateCheck(mt.getId(), isumoMant.getNum(), isumoMant.getCantidad());
                                 insumosOt.remove(i);
                             }
                         }
-                    }
+                    } 
+                    md.close(mt.getId());
                 }
                 //INSERTAMOS LAS OT PROCESADAS EN LA BD
                 
                 while(!ots.isEmpty()){
                 insert((String) ots.pop());
                 }
+                
+                //REVISAMOS SI QUEDO ALGUN MANTENIMIENTO CON INSUMOS SIN REVISAR 
+                for (Mantenimiento mt : MantenimientosAbiertos) {
+                        ArrayList<Insumo> insumos = md.getInsumosSinRevisar(mt.getId());
+                        if(!insumos.isEmpty()){
+                          for(Insumo i: insumos){
+                            String msj = "No se encontro el insumo "+i.getDescripcion_articulo()+
+                                    " para el mantenimiento "+mt.getId()+" de "
+                                    +mt.getTipo()+" horas para el montacargas"+mt.getMontacargas();            
+                            ad.insert("alertaI",msj, Integer.parseInt(mt.getTipo()),mt.getMontacargas());
+                          }
+                        }
+                        
+                }
+                
+                
 
                 json = gson.toJson(insumosOt);
             } else {
@@ -107,7 +128,7 @@ public class OtDao {
             }
 
         } catch (SQLException e) {
-            respuesta.put("Error", "Error desconocido ");
+            respuesta.put("Error", "Error desconocido "+e);
             json = gson.toJson(respuesta);
         } finally {
             return json;
