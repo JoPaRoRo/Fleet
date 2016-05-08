@@ -45,5 +45,24 @@ public class AlertasDao {
 
         return alertas;
     }
+    
+    public List<Alerta> getMan() throws SQLException {
+
+        String query = "EXEC ALERTS_MAN";
+        CallableStatement cs = conexion.prepareCall(query);
+        ResultSet rs = cs.executeQuery();
+        List<Alerta> alertas = new ArrayList<>();
+        while (rs.next()) {
+            Integer consecutivo = Integer.parseInt(rs.getString("CONSECUTIVO"));
+            String montacargas = rs.getString("MONTACARGAS");
+            Integer horas = Integer.parseInt(rs.getString("HORAS"));
+            Alerta m = new Alerta(consecutivo,montacargas,horas);
+            alertas.add(m);
+        }
+
+        return alertas;
+    }
+    
+    
 
 }

@@ -172,4 +172,37 @@ public class MontacargasDao {
 
     }
 
+    public void actualizaEstado(String m, int p) throws SQLException {
+        String query = "EXEC UPDATE_ESTADO_MON @MONTACARGAS=?,@ESTADO=?";
+        CallableStatement cs = conexion.prepareCall(query);
+        cs.setString(1, m);
+        cs.setInt(2, p);
+        cs.execute();
+    }
+    
+     public void deleteAlet(int c) throws SQLException {
+        String query = "EXEC DEL_ALERT @ALERTA=?";
+        CallableStatement cs = conexion.prepareCall(query);
+        cs.setInt(1, c);
+        cs.execute();
+    }
+    
+    public List<Montacargas> getMantenimiento() throws SQLException {
+        String query = "MONTACARGAS_MANTENIMIENTO";
+        CallableStatement cs = conexion.prepareCall(query);
+        ResultSet rs = cs.executeQuery();
+        List<Montacargas> listM = new ArrayList<>();
+        while (rs.next()) {
+            String numero_serie = rs.getString("NUMERO_SERIE");
+            String marca = rs.getString("MARCA");
+            String modelo = rs.getString("MODELO");
+            int horimetro = rs.getInt("HORIMETRO");
+            int man_Actual = rs.getInt("MAN_ACTUAL");
+            listM.add(new Montacargas(numero_serie, marca, modelo,horimetro,man_Actual));
+        }
+        return listM;
+    }
+    
+    
+
 }

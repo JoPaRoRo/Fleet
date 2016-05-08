@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class Montacargas {
 
-    public Montacargas(String numero_serie, String marca, String modelo, String serie, String estilo, String anno, String placa, String clase, String vin, String numero_motor, String ubicacion, String observacion, String num_poliza, Float tonelaje, Double horimetroActual, String transmision, String traccion, String combustible, ArrayList<Mantenimiento> mantenimientos, ArrayList<Proyecto> proyectos,int horimetro) {
+    public Montacargas(String numero_serie, String marca, String modelo, String serie, String estilo, String anno, String placa, String clase, String vin, String numero_motor, String ubicacion, String observacion, String num_poliza, Float tonelaje, Double horimetroActual, String transmision, String traccion, String combustible, ArrayList<Mantenimiento> mantenimientos, ArrayList<Proyecto> proyectos, int horimetro) {
         this.numero_serie = numero_serie;
         this.marca = marca;
         this.modelo = modelo;
@@ -54,8 +54,6 @@ public class Montacargas {
         this.horimetro = horimetro;
     }
 
-    
-    
     public Montacargas(String numero_serie, String marca, String modelo) {
         this.numero_serie = numero_serie;
         this.marca = marca;
@@ -68,10 +66,17 @@ public class Montacargas {
         this.modelo = modelo;
         this.horimetro = horimetro;
     }
-    
-    
 
-    public Montacargas() {}
+    public Montacargas(String numero_serie, String marca, String modelo, int horimetro, int man_Actual) {
+        this.numero_serie = numero_serie;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.horimetro = horimetro;
+        this.man_Actual = man_Actual;
+    }
+
+    public Montacargas() {
+    }
 
     public String getNumero_serie() {
         return numero_serie;
@@ -280,5 +285,5 @@ public class Montacargas {
     int horimetro;
     ArrayList<Mantenimiento> mantenimientos;
     ArrayList<Proyecto> proyectos;
-
+    int man_Actual;
 }

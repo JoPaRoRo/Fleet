@@ -12,7 +12,7 @@ package com.fleet.entidades;
 public class Alerta {
 
     public Alerta(Integer codigo, String tipo, String descripcion, String fecha, String montacargas) {
-        this.codigo = codigo;
+        this.cosecutivo = codigo;
         this.tipo = tipo;
         this.descripcion = descripcion;
         this.fecha = fecha;
@@ -22,8 +22,22 @@ public class Alerta {
     public Alerta() {
     }
 
+    public Alerta(Integer codigo, String montacargas, Integer horas) {
+        this.cosecutivo = codigo;
+        this.montacargas = montacargas;
+        this.horas = horas;
+    }
+
+    public Integer getHoras() {
+        return horas;
+    }
+
+    public void setHoras(Integer horas) {
+        this.horas = horas;
+    }
+    
     public Integer getCodigo() {
-        return codigo;
+        return cosecutivo;
     }
 
     public String getTipo() {
@@ -43,11 +57,12 @@ public class Alerta {
     }
     
     
-    private Integer codigo;
+    private Integer cosecutivo;
     private String tipo;
     private String descripcion;
     private String fecha;
     private String montacargas;
+    private Integer horas;
     
 }
 
