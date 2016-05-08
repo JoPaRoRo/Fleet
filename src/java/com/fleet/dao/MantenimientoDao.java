@@ -155,7 +155,7 @@ public class MantenimientoDao {
         cs = conexion.prepareCall(query);
         cs.setInt(1, id);
         cs.setString(2, modelo);
-        cs.setInt(3, Integer.parseInt(mantenimiento.getTipo()));
+        cs.setString(3,mantenimiento.getTipo());
         cs.execute();
 
     }

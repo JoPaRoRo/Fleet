@@ -35,18 +35,18 @@ public class RealizarSv extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String alert = request.getParameter("alerta");
-
-        Type listType = new TypeToken<Alerta>() {
-        }.getType();
-        Alerta a = new Gson().fromJson(alert, listType);
-       
-        Mantenimiento m = new Mantenimiento(a.getTipo(), 1, a.getMontacargas());
         Map<String, String> respuesta = new LinkedHashMap<>();
         Gson gson = new Gson();
         String json = null;
-
         try {
+            String alert = request.getParameter("alerta");
+
+            Type listType = new TypeToken<Alerta>() {
+            }.getType();
+            Alerta a = new Gson().fromJson(alert, listType);
+
+            Mantenimiento m = new Mantenimiento(a.getHoras().toString(), 1, a.getMontacargas());
+
             MantenimientoDao cd = new MantenimientoDao();
             cd.insertPreventivo(m);
             MontacargasDao mdao = new MontacargasDao();

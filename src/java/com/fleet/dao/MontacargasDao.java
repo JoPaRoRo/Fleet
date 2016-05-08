@@ -36,7 +36,8 @@ public class MontacargasDao {
             String numero_serie = rs.getString("NUMERO_SERIE");
             String marca = rs.getString("MARCA");
             String modelo = rs.getString("MODELO");
-            listM.add(new Montacargas(numero_serie, marca, modelo));
+            Integer horimetro = rs.getInt("HORIMETRO");
+            listM.add(new Montacargas(numero_serie, marca, modelo, horimetro));
         }
 
         return listM;
@@ -54,7 +55,8 @@ public class MontacargasDao {
             String numero_serie = rs.getString("NUMERO_SERIE");
             String marca = rs.getString("MARCA");
             String modelo = rs.getString("MODELO");
-            Montacargas m = new Montacargas(numero_serie, marca, modelo);
+            Integer horimetro = rs.getInt("HORIMETRO");
+            Montacargas m = new Montacargas(numero_serie, marca, modelo, horimetro);
             montacargas.add(m);
         }
 
@@ -106,7 +108,6 @@ public class MontacargasDao {
         cs.setFloat(20, montacargas.getAlquiler());
         cs.setInt(21, montacargas.getHorimetro());
         cs.execute();
-
     }
 
     public void insert(Montacargas montacargas) throws SQLException {
@@ -179,7 +180,7 @@ public class MontacargasDao {
         cs.setInt(2, p);
         cs.execute();
     }
-    
+
     public List<Montacargas> getMantenimiento() throws SQLException {
         String query = "MONTACARGAS_MANTENIMIENTO";
         CallableStatement cs = conexion.prepareCall(query);
@@ -191,11 +192,9 @@ public class MontacargasDao {
             String modelo = rs.getString("MODELO");
             int horimetro = rs.getInt("HORIMETRO");
             int man_Actual = rs.getInt("MAN_ACTUAL");
-            listM.add(new Montacargas(numero_serie, marca, modelo,horimetro,man_Actual));
+            listM.add(new Montacargas(numero_serie, marca, modelo, horimetro, man_Actual));
         }
         return listM;
     }
-    
-    
 
 }

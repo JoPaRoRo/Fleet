@@ -12,8 +12,6 @@ public class ConexionBD {
             
             String userr ="sa";
             String passs="RootRoot123";
-            
-          //String url = "jdbc:sqlserver://localhost;databaseName=Fleet;user=" + userr + ";password=" + passs + ";";
             String url = "jdbc:sqlserver://fleet.cmn8bdeqggnf.us-west-2.rds.amazonaws.com:1433;databaseName=Fleet;user=" + userr + ";password=" + passs + ";";
             conexion = DriverManager.getConnection(url);
         }
