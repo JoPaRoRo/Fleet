@@ -39,7 +39,7 @@ public class HomeDao {
         rs.next();
         float total_proyectos = rs.getInt(1);
         respuesta.put("total_proyectos", total_proyectos);
-        respuesta.put("total_proyectos", total_proyectos);
+       // respuesta.put("total_proyectos", total_proyectos);
         
         query = "EXEC CANTCONTRATOS_TOTALES";
         cs = conexion.prepareCall(query);
@@ -48,7 +48,7 @@ public class HomeDao {
         float total_contratos = rs.getInt(1);
         respuesta.put("total_contratos", total_contratos);
         
-        query = "EXEC CANTMONTACARGAS_TOTAL";
+        query = "EXEC MONTACARGAS_EN_MANTENIMIENTO";
         cs = conexion.prepareCall(query);
         rs = cs.executeQuery();
         rs.next();
