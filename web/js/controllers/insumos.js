@@ -2,39 +2,29 @@
  * Created by Jos�Pablo on 10/28/2015.
  */
 var app = angular.module('MetronicApp');
-app.controller('InsumosCtrl', function ($scope, $http, $uibModal,GetSv, PostSv, XLSXReaderService) {
+app.controller('InsumosCtrl', function ($scope, $http, $uibModal, GetSv, PostSv, XLSXReaderService) {
 
     $scope.alerts = [];
     $scope.closeAlert = function (index) {
 
         $scope.alerts.splice(index, 1);
     };
-    
+
     $scope.insumosBySerie = [];
 
+    $scope.mantenimientoCo = {tipo: "Correctivo", fecha: new Date(), estado: 0};
+
     $scope.open = function (equipo) {
-        
-        $scope.insumosBySerie = $scope.listaCorrectivos.filter(function(x){
-            console.log(x);
-            return x.Numero_de_serie === equipo.Numero_de_serie;
-        });
-        
-        var modalInstance = $uibModal.open({
-            templateUrl: 'views/modal.html',
-            controller: 'ModalController',
-            size: 'lg',
-            resolve: {
-                InsumosBySerie: function () {
-                    return $scope.insumosBySerie;
-                },
-                
-                Equipo:function(){
-                    return equipo;
-                }
-            }
+        $scope.insumosBySerie = [];
+        $scope.insumosBySerie = $scope.listaCorrectivos.filter(function (x) {
+            return x.Numero_de_serie === equipo;
         });
 
-   };
+        $scope.mantenimientoCo.montacargas = equipo;
+        console.log($scope.insumosBySerie);
+    };
+
+    $scope.tablaInsumoBySerie = {};
 
 
     $scope.mostrarTabla = false;
@@ -128,6 +118,7 @@ app.controller('InsumosCtrl', function ($scope, $http, $uibModal,GetSv, PostSv, 
     $scope.enviarObjeto = function (data) {
         PostSv.postData("svOt", {insumos: JSON.stringify(data)})
                 .then(function (data) {
+                    console.log("datos");
                     console.log(data);
                     if (data.Error) {
                         $scope.alerts.push({type: "danger", msg: data.Error});
@@ -140,57 +131,108 @@ app.controller('InsumosCtrl', function ($scope, $http, $uibModal,GetSv, PostSv, 
     };
 
     var crearJsonAuxiliares = function (data) {
-        $scope.jsonModelos = data.reduce(function (z, s,i) {
-            if (incluyeObj(z,s)) {
-                console.log("entro");
-                z = z.concat({Numero_de_serie:s.Numero_de_serie,index:i});
+        $scope.jsonModelos = data.reduce(function (z, s) {
+            if (!z.includes(s.Numero_de_serie)) {
+                z = z.concat(s.Numero_de_serie);
             }
             return z;
         }, []);
     };
-    
-    var incluyeObj = function(array,obj){
-      return  array.reduce(function(z,x){
-          if(x.Numero_de_serie === obj.Numero_de_serie)
-             z = z.concat(x);
-         return z;
-      },[]).length === 0; 
-    };
-    
-
-
-
-});
-app.controller('ModalController', function ($scope, $uibModalInstance, InsumosBySerie,PostSv,GetSv,Equipo) {
-    
-    $scope.mantenimiento = {tipo:"Correctivo",estado:0,listaInsumos:[]};
-    $scope.insumosBySerie = InsumosBySerie;
-    $scope.equipo = Equipo;
-
-    $scope.toggleInsumo = function(insumo){
-      if(!$scope.mantenimiento.includes(insumo)){
-          $scope.mantenimiento.listaInsumos.push(insumo);
-      }else{
-         $scope.mantenimiento.listaInsumos.splice($scope.equipo.index,1); 
-      }
-    };
 
     $scope.cancel = function () {
-        $uibModalInstance.dismiss('cancel');
+        $scope.mantenimientoCo.insumos = [];
     };
 
-    $scope.ok = function (scope){
-        
-        PostSv.postData('SvIngsCorrectivos',{"mantenimiento":JSON.stringify($scope.mantenimiento)}).then(function(data){
-            if(data.Error){
-                scope.alerts.push({type: "danger", msg: data.Error});
-            }else{
-                scope.alerts.push({type: "success", msg: data.Exito});
+    $scope.ok = function () {
+        alert("Hoal");
+        PostSv.postData('SvInsCorrectivo', {"mantenimiento": JSON.stringify($scope.mantenimientoCo)}).then(function (data) {
+            if (data.Error) {
+                $scope.alerts.push({type: "danger", msg: data.Error});
+            } else {
+                $scope.alerts.push({type: "success", msg: data.Exito});
             }
+        },function(e){
+            console.log(e);
         });
-        $uibModalInstance.dismiss('ok');
     };
 
 
+    $scope.clear = function () {
+        $scope.mantenimientoCo.fecha = null;
+    };
+
+    $scope.inlineOptions = {
+        customClass: getDayClass,
+        minDate: new Date(),
+        showWeeks: true
+    };
+
+    $scope.dateOptions = {
+        formatYear: 'yyyy',
+        maxDate: new Date(2020, 5, 22),
+        minDate: new Date(),
+        startingDay: 1
+    };
+
+    $scope.toggleMin = function () {
+        $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
+        $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
+    };
+
+    $scope.toggleMin();
+
+    $scope.openDate = function ($event) {
+        if ($scope.popup1.opened === true)
+            $scope.popup1.opened = false;
+        else
+            $scope.popup1.opened = true;
+         $event.preventDefault();
+        $event.stopPropagation();
+    };
+
+    $scope.setDate = function (year, month, day) {
+        $scope.mantenimientoCo.fecha = new Date(year, month, day);
+    };
+
+    $scope.formats = ['dd/MM/yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[0];
+    $scope.altInputFormats = ['d!/M!/yyyy'];
+
+    $scope.popup1 = {
+        opened: false
+    };
+
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    var afterTomorrow = new Date(tomorrow);
+    afterTomorrow.setDate(tomorrow.getDate() + 1);
+    $scope.events = [
+        {
+            date: tomorrow,
+            status: 'full'
+        },
+        {
+            date: afterTomorrow,
+            status: 'partially'
+        }
+    ];
+
+    function getDayClass(data) {
+        var date = data.date,
+                mode = data.mode;
+        if (mode === 'day') {
+            var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+
+            for (var i = 0; i < $scope.events.length; i++) {
+                var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+
+                if (dayToCheck === currentDay) {
+                    return $scope.events[i].status;
+                }
+            }
+        }
+
+        return '';
+    }
 
 });

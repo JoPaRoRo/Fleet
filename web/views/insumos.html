@@ -38,8 +38,17 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="insumo in jsonModelos| filter: listSearch">                        
-                            <td> {{insumo.Numero_de_serie}} </td>
-                            <td> <button class="btn green" ng-click="open(insumo)">Generar</button> </td>
+                            <td> {{insumo}} </td>
+                            <td> 
+                                <div class="form-group last">
+                                    <label class="control-label col-md-3"></label>
+                                    <div class="col-md-4">
+                                        <a class="btn green btn-outline" href="#" data-target="#form_modal3" data-toggle="modal" ng-click="open(insumo)"> Generar
+                                            <i class="fa fa-share"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -134,35 +143,52 @@
             </div>
         </form>
     </div>
-    <script type="text/ng-template" id="modal.html">
-    <div class="modal-header">
-    <h3 class="modal-title">Asignar insumos a mantenimiento correctivo</h3>
 </div>
-<div class="modal-body">
-    <table class="table table-bordered table-hover" ng-model="tablaInsumoBySerie">
-        <thead>
-            <tr>
-                <th>Numero parte</th>
-                <th>Descripcion</th>
-                <th>Cantidad</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat='insumo in insumosBySerie'>
-                <td>{{insumo.Numero_de_Ariticulo}}</td>
-                <td>{{insumo.Descripcion_articulo}}</td>
-                <td>{{insumo.Cantidad}}</td>
-                <td><input type="checkbox" name="" id="" ng-onCheck ="insertarInsumo(insumo)"></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-</div>
-    </script>
-</div>
+
 <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="5000" close="closeAlert($index)">{{alert.msg}}</uib-alert>
 
 
+<div id="form_modal3" class="modal fade" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Asignar insumos a mantenimiento correctivo</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="control-label col-md-4">Fecha de mantenimiento:</label>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="mantenimientoCo.fecha" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="openDate($event)"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Numero parte</th>
+                            <th>Descripcion</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat='insumo in insumosBySerie'>
+                            <td>{{insumo.Numero_de_articulo}}</td>
+                            <td>{{insumo.Descripcion_articulo}}</td>
+                            <td>{{insumo.Cantidad}}</td>
+                            <td><input type="checkbox" checklist-model="mantenimientoCo.insumos" checklist-value="insumo"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn green btn-primary" data-dismiss="modal" aria-hidden="true" ng-click="ok()">Crear</button>
+                <button class="btn green btn-outline" data-dismiss="modal" ng-click="cancel()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

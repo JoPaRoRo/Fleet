@@ -11,7 +11,8 @@ var MetronicApp = angular.module("MetronicApp", [
     'ui.select',
     "oc.lazyLoad",
     "ngSanitize",
-    "mwl.confirm"
+    "mwl.confirm",
+    "checklist-model"
 ]);
 
 /* Configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
