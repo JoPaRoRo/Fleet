@@ -76,6 +76,7 @@ angular.module('MetronicApp').controller('HorimetroCtrl', function ($scope, GetS
 
         
     };
+    
     $scope.today = function () {
         $scope.horimetro.fechaIni = new Date();
     };

@@ -12,7 +12,7 @@ app.controller('InsumosCtrl', function ($scope, $http, $uibModal, GetSv, PostSv,
 
     $scope.insumosBySerie = [];
 
-    $scope.mantenimientoCo = {tipo: "Correctivo", fecha_mantenimiento: new Date(), estado: 0};
+    $scope.mantenimientoCo = {tipo: "Correctivo",estado: 0};
 
     $scope.open = function (equipo) {
         $scope.insumosBySerie = [];
@@ -144,7 +144,6 @@ app.controller('InsumosCtrl', function ($scope, $http, $uibModal, GetSv, PostSv,
     };
 
     $scope.ok = function () {
-        alert("Hoal");
         PostSv.postData('SvInsCorrectivo', {"mantenimiento": JSON.stringify($scope.mantenimientoCo)}).then(function (data) {
             if (data.Error) {
                 $scope.alerts.push({type: "danger", msg: data.Error});
@@ -157,8 +156,14 @@ app.controller('InsumosCtrl', function ($scope, $http, $uibModal, GetSv, PostSv,
     };
 
 
+    $scope.today = function () {
+        $scope.mantenimientoCo.fecha_mantenimiento = new Date();
+    };
+
+    $scope.today();
+
     $scope.clear = function () {
-        $scope.mantenimientoCo.fecha = null;
+        $scope.mantenimientoCo.fecha_mantenimiento = null;
     };
 
     $scope.inlineOptions = {
@@ -168,11 +173,19 @@ app.controller('InsumosCtrl', function ($scope, $http, $uibModal, GetSv, PostSv,
     };
 
     $scope.dateOptions = {
+        dateDisabled: disabled,
         formatYear: 'yyyy',
         maxDate: new Date(2020, 5, 22),
         minDate: new Date(),
         startingDay: 1
     };
+
+    // Disable weekend selection
+    function disabled(data) {
+        var date = data.date,
+                mode = data.mode;
+        return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+    }
 
     $scope.toggleMin = function () {
         $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
@@ -186,12 +199,12 @@ app.controller('InsumosCtrl', function ($scope, $http, $uibModal, GetSv, PostSv,
             $scope.popup1.opened = false;
         else
             $scope.popup1.opened = true;
-         $event.preventDefault();
+        $event.preventDefault();
         $event.stopPropagation();
     };
 
     $scope.setDate = function (year, month, day) {
-        $scope.mantenimientoCo.fecha = new Date(year, month, day);
+        $scope.mantenimientoCo.fecha_mantenimiento = new Date(year, month, day);
     };
 
     $scope.formats = ['dd/MM/yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
