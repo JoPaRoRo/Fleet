@@ -50,6 +50,18 @@
   font-size: 18px;
   color: lawngreen; }
 
+.alertaI {
+  position: relative; }
+
+.alertaI:before {
+  content: "\f05a";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  font-size: 18px;
+  color: #5b9bd1; }
+
 a {
   text-decoration: none !important; }
 

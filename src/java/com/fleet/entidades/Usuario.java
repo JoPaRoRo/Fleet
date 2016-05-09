@@ -27,9 +27,7 @@ public class Usuario {
     public Usuario(String id_usuario,String pass){
         this.id_usuario = id_usuario;
         this.pass = pass;
-    }
-
- 
+    } 
         
     public String getId_usuario() {
         return id_usuario;

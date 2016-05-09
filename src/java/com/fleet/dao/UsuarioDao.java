@@ -81,10 +81,13 @@ public class UsuarioDao {
     }
     
     public void changePass(String us,String newPass) throws SQLException {
-        String query = "EXEC CHANGE_PASS @XID_USUARIO=?, @XPASS=?";
+        Usuario usu = new Usuario(us, newPass);
+        
+        String query = "EXEC CHANGE_PASS @XID_USUARIO=?, @XDB_USER = ?, @XPASS=?";
         CallableStatement cs = conexion.prepareCall(query);
-        cs.setString(1, us);
-        cs.setString(2, newPass);
+        cs.setString(1, usu.getId_usuario());
+        cs.setString(2, usu.createDBUser());
+        cs.setString(3, usu.getPass());
         cs.execute();     
     }
 

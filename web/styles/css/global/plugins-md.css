@@ -1,8 +1,8 @@
 /*
 Error: Undefined variable: "$general-border-radius".
-        on line 43 of C:/Users/nanoj/Desktop/FleetV3/web/styles/scss/global/plugins/_bootstrap-daterangepicker.scss, in `border-radius'
-        from line 43 of C:/Users/nanoj/Desktop/FleetV3/web/styles/scss/global/plugins/_bootstrap-daterangepicker.scss
-        from line 13 of C:\Users\nanoj\Desktop\FleetV3\web\styles\scss\global\plugins-md.scss
+        on line 43 of C:/Users/nanoj/Desktop/FleetV5/web/styles/scss/global/plugins/_bootstrap-daterangepicker.scss, in `border-radius'
+        from line 43 of C:/Users/nanoj/Desktop/FleetV5/web/styles/scss/global/plugins/_bootstrap-daterangepicker.scss
+        from line 13 of C:\Users\nanoj\Desktop\FleetV5\web\styles\scss\global\plugins-md.scss
 
 38: @import 'plugins/_fullcalendar'; 
 39: @import 'plugins/_gmaps';
@@ -17,9 +17,9 @@ Error: Undefined variable: "$general-border-radius".
 48: @import 'plugins/_jquery-ui';
 
 Backtrace:
-C:/Users/nanoj/Desktop/FleetV3/web/styles/scss/global/plugins/_bootstrap-daterangepicker.scss:43:in `border-radius'
-C:/Users/nanoj/Desktop/FleetV3/web/styles/scss/global/plugins/_bootstrap-daterangepicker.scss:43
-C:\Users\nanoj\Desktop\FleetV3\web\styles\scss\global\plugins-md.scss:13
+C:/Users/nanoj/Desktop/FleetV5/web/styles/scss/global/plugins/_bootstrap-daterangepicker.scss:43:in `border-radius'
+C:/Users/nanoj/Desktop/FleetV5/web/styles/scss/global/plugins/_bootstrap-daterangepicker.scss:43
+C:\Users\nanoj\Desktop\FleetV5\web\styles\scss\global\plugins-md.scss:13
 C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.21/lib/sass/script/tree/variable.rb:49:in `_perform'
 C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.21/lib/sass/script/tree/node.rb:50:in `perform'
 C:/Ruby22-x64/lib/ruby/gems/2.2.0/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:355:in `block (2 levels) in visit_mixin'
@@ -96,4 +96,4 @@ C:/Ruby22-x64/bin/sass:23:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$general-border-radius\".\A         on line 43 of C:/Users/nanoj/Desktop/FleetV3/web/styles/scss/global/plugins/_bootstrap-daterangepicker.scss, in `border-radius'\A         from line 43 of C:/Users/nanoj/Desktop/FleetV3/web/styles/scss/global/plugins/_bootstrap-daterangepicker.scss\A         from line 13 of C:\Users\nanoj\Desktop\FleetV3\web\styles\scss\global\plugins-md.scss\A \A 38: @import 'plugins/_fullcalendar'; \A 39: @import 'plugins/_gmaps';\A 40: @import 'plugins/_gritter';    \A 41: @import 'plugins/_jquery-easy-pie-chart';\A 42: @import 'plugins/_jquery-file-upload';\A 43: @import 'plugins/_jquery-multi-select';\A 44: @import 'plugins/_jquery-notific8';  \A 45: @import 'plugins/_jquery-pwstrength-bootstrap';\A 46: @import 'plugins/_jquery-slimscroll';      \A 47: @import 'plugins/_jquery-sparkline';\A 48: @import 'plugins/_jquery-ui';"; }
+  content: "Error: Undefined variable: \"$general-border-radius\".\A         on line 43 of C:/Users/nanoj/Desktop/FleetV5/web/styles/scss/global/plugins/_bootstrap-daterangepicker.scss, in `border-radius'\A         from line 43 of C:/Users/nanoj/Desktop/FleetV5/web/styles/scss/global/plugins/_bootstrap-daterangepicker.scss\A         from line 13 of C:\Users\nanoj\Desktop\FleetV5\web\styles\scss\global\plugins-md.scss\A \A 38: @import 'plugins/_fullcalendar'; \A 39: @import 'plugins/_gmaps';\A 40: @import 'plugins/_gritter';    \A 41: @import 'plugins/_jquery-easy-pie-chart';\A 42: @import 'plugins/_jquery-file-upload';\A 43: @import 'plugins/_jquery-multi-select';\A 44: @import 'plugins/_jquery-notific8';  \A 45: @import 'plugins/_jquery-pwstrength-bootstrap';\A 46: @import 'plugins/_jquery-slimscroll';      \A 47: @import 'plugins/_jquery-sparkline';\A 48: @import 'plugins/_jquery-ui';"; }
