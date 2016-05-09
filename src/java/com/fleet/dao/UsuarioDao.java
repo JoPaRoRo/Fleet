@@ -65,9 +65,10 @@ public class UsuarioDao {
     }
 
     public void delete(Usuario us) throws SQLException {
-        String query = "EXEC DEL_USER @XID_USUARIO=?";
+        String query = "EXEC DELETE_USER @XID_USUARIO=?, @XDB_USER=?";
         CallableStatement cs = conexion.prepareCall(query);
         cs.setString(1, us.getId_usuario());
+        cs.setString(2, us.createDBUser());
         cs.execute();
     }
 

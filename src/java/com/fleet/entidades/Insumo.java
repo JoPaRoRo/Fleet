@@ -41,16 +41,16 @@ public class Insumo {
         this.estado = estado;
     }
 
-    public Insumo(String num, String Descripcion_articulo, float Cantidad, float Precio, String Numero_de_serie) {
-        this.num = num;
+    public Insumo(String Numero_de_articulo, String Descripcion_articulo, float Cantidad, float Precio, String Numero_de_serie) {
+        this.Numero_de_articulo = Numero_de_articulo;
         this.Descripcion_articulo = Descripcion_articulo;
         this.Cantidad = Cantidad;
         this.Precio = Precio;
         this.Numero_de_serie = Numero_de_serie;
     }
 
-    public Insumo(String num, String Descripcion_articulo, float Cantidad, String Numero_de_serie) {
-        this.num = num;
+    public Insumo(String Numero_de_articulo, String Descripcion_articulo, float Cantidad, String Numero_de_serie) {
+        this.Numero_de_articulo = Numero_de_articulo;
         this.Descripcion_articulo = Descripcion_articulo;
         this.Cantidad = Cantidad;
         this.Numero_de_serie = Numero_de_serie;

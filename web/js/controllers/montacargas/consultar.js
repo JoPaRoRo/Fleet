@@ -32,6 +32,9 @@ angular.module('MetronicApp').controller('ConsultarCtrl', function ($scope, GetS
                 console.log(data.Error);
             } else {
                 $scope.equipo = data;
+                $scope.equipo.mantenimientos.forEach(function (x) {
+                    x.isOpened = false;
+                });
                 console.log(data);
             }
         }, function (e) {
@@ -40,4 +43,20 @@ angular.module('MetronicApp').controller('ConsultarCtrl', function ($scope, GetS
         });
 
     };
+
+    $scope.getInsumos = function (mantenimiento) {
+        if (!mantenimiento.insumos) {
+            GetSv.getDataParam('insumos_man', {mantenimiento: mantenimiento.id}).then(function (data) {
+                if (!data.Error) {
+                    mantenimiento.insumos = data;
+                }else{
+                    console.log(data.Error);
+                }
+            }, function (e) {
+                console.log(e);
+            });
+        }
+    };
+
+
 });

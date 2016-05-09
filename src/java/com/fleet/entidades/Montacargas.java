@@ -1,6 +1,7 @@
 package com.fleet.entidades;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -29,6 +30,7 @@ public class Montacargas {
         this.combustible = combustible;
         this.mantenimientos = mantenimientos;
         this.proyectos = proyectos;
+
     }
 
     public Montacargas(String numero_serie, String modelo, String serie, String estilo, String anno, String placa, String clase, String vin, String numero_motor, String ubicacion, String observacion, String num_poliza, Float tonelaje, String transmision, String traccion, String combustible, Float depresiacion, Float seguro, Float alquiler, int horimetro) {
@@ -52,12 +54,18 @@ public class Montacargas {
         this.seguro = seguro;
         this.alquiler = alquiler;
         this.horimetro = horimetro;
+
+        mantenimientos = new ArrayList<>();
+        proyectos = new ArrayList<>();
     }
 
     public Montacargas(String numero_serie, String marca, String modelo) {
         this.numero_serie = numero_serie;
         this.marca = marca;
         this.modelo = modelo;
+
+        mantenimientos = new ArrayList<>();
+        proyectos = new ArrayList<>();
     }
 
     public Montacargas(String numero_serie, String marca, String modelo, int horimetro) {
@@ -65,6 +73,9 @@ public class Montacargas {
         this.marca = marca;
         this.modelo = modelo;
         this.horimetro = horimetro;
+
+        mantenimientos = new ArrayList<>();
+        proyectos = new ArrayList<>();
     }
 
     public Montacargas(String numero_serie, String marca, String modelo, int horimetro, int man_Actual) {
@@ -73,9 +84,14 @@ public class Montacargas {
         this.modelo = modelo;
         this.horimetro = horimetro;
         this.man_Actual = man_Actual;
+
+        mantenimientos = new ArrayList<>();
+        proyectos = new ArrayList<>();
     }
 
     public Montacargas() {
+        mantenimientos = new ArrayList<>();
+        proyectos = new ArrayList<>();
     }
 
     public String getNumero_serie() {
@@ -246,7 +262,7 @@ public class Montacargas {
         this.horimetro = horimetro;
     }
 
-    public ArrayList<Mantenimiento> getMantenimientos() {
+    public List<Mantenimiento> getMantenimientos() {
         return mantenimientos;
     }
 
@@ -254,7 +270,7 @@ public class Montacargas {
         this.mantenimientos = mantenimientos;
     }
 
-    public ArrayList<Proyecto> getProyectos() {
+    public List<Proyecto> getProyectos() {
         return proyectos;
     }
 
@@ -283,7 +299,7 @@ public class Montacargas {
     Float seguro;
     Float alquiler;
     int horimetro;
-    ArrayList<Mantenimiento> mantenimientos;
-    ArrayList<Proyecto> proyectos;
+    List<Mantenimiento> mantenimientos;
+    List<Proyecto> proyectos;
     int man_Actual;
 }

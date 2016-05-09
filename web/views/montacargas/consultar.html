@@ -1,5 +1,5 @@
 <div class="row" >
-       <div class="col-md-2">
+    <div class="col-md-2">
         <div class="portlet box">
 
             <div class="list-group">
@@ -24,7 +24,7 @@
                                         </div>
                                     </div>
                                     <div class="portlet-body">
-                                        <div class="row">
+                                        <div class="row">                                          
                                             <div class="col-md-4"> <h4>Numero de serie:   {{equipo.numero_serie}}</h4></div>
                                             <div class="col-md-4"> <h4>Marca:   {{equipo.marca}}</h4></div>
                                             <div class="col-md-4"> <h4>Modelo:   {{equipo.modelo}}</h4></div>
@@ -63,36 +63,36 @@
                                     <div class="portlet-title">
                                         <div class="caption">
                                             <i class="icon-speech"></i>
-                                            <span class="caption-subject bold uppercase"> Ubicaciones</span>
+                                            <span class="caption-subject bold uppercase"> Proyectos</span>
                                             <span class="caption-helper"></span>
                                         </div>
                                         <div class="inputs">
                                             <div class="portlet-input input-inline input-small">
                                                 <div class="input-icon right">
                                                     <i class="icon-magnifier"></i>
-                                                    <input type="text" class="form-control input-circle" placeholder="search..." ng-model="ubicaciones.search"> </div>
+                                                    <input type="text" class="form-control input-circle" placeholder="buscar..." ng-model="proyectos.search"> </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="portlet-body">
-                                        <!--                                        <div class="scroller" style="height:200px" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#a1b2bd">
-                                                                                    <table class="table table-hover table-striped">
-                                                                                        <thead>
-                                                                                            <tr>
-                                                                                                <th>Nombre</th>
-                                                                                                <th>Desde</th>
-                                                                                                <th>Hasta</th>
-                                                                                            </tr>
-                                                                                        </thead>
-                                                                                        <tbody>
-                                                                                            <tr ng-repeat="ubicacion in equipo.ubicaciones|filter:ubicaciones.search">
-                                                                                                <td>{{ubicacion.nombre}}</td>
-                                                                                                <td>{{ubicacion.desde}}</td>
-                                                                                                <td>{{ubicacion.hasta}}</td>
-                                                                                            </tr>
-                                                                                        </tbody>
-                                                                                    </table>
-                                                                                </div>-->
+                                        <div class="scroller" style="height:200px" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#a1b2bd">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Codigo</th>
+                                                        <th>Nombre</th>
+                                                        <th>Contrato</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="proyecto in equipo.proyectos|filter:proyectos.search">
+                                                        <td>{{proyecto.codigo}}</td>
+                                                        <td>{{proyecto.nombre}}</td>
+                                                        <td>{{proyecto.contrato}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -114,16 +114,41 @@
 
                             </div>
                             <div class="portlet-body">
-                                <div class="scroller" style="height:200px" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#a1b2bd">
-                                    <uib-accordion class="accordion">
-                                        <uib-accordion-group ng-repeat="mantenimiento in equipo.mantenimientos" >
-                                            <uib-accordion-heading>
-                                                {{mantenimiento.tipo}}
-                                            </uib-accordion-heading>
-                                            {{mantenimiento.fecha}}
-                                        </uib-accordion-group>
-                                    </uib-accordion>
-                                </div>
+                                <uib-accordion class="accordion" close-others='true' >
+                                    <uib-accordion-group ng-repeat="mantenimiento in equipo.mantenimientos" ng-click="getInsumos(mantenimiento)" is-open="mantenimiento.IsOpened">
+                                        <uib-accordion-heading >
+                                            <span>
+                                                {{mantenimiento.tipo}}<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': mantenimiento.IsOpened, 'glyphicon-chevron-right': !mantenimiento.IsOpened}"></i>
+                                            </span>
+                                        </uib-accordion-heading>
+                                        <div class="form-body">
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Fecha: </label>
+                                                <div class="col-md-4">
+                                                    <h4>{{mantenimiento.fecha_mantenimiento}}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <table class="table table-fixedheader">
+                                            <thead>
+                                                <tr>
+                                                    <th>Numero de articulo</th>
+                                                    <th>Descripcion</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Precio</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="insumo in mantenimiento.insumos">
+                                                    <td>{{insumo.Numero_de_articulo}}</td>
+                                                    <td>{{insumo.Descripcion_articulo}}</td>
+                                                    <td>{{insumo.Cantidad}}</td>
+                                                    <td>{{insumo.Precio}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </uib-accordion-group>
+                                </uib-accordion>
                             </div>
                         </div>
                     </div>

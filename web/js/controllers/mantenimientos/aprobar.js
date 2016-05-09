@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-angular.module('MetronicApp').controller('AprobarCtrl', function ($scope, GetSv, PostSv) {
+angular.module('MetronicApp').controller('AprobarCtrl', function ($scope, GetSv, PostSv,$rootScope) {
     $scope.alerts = [];
     $scope.listaMant = [];
     $scope.closeAlert = function (index) {
@@ -39,6 +39,7 @@ $scope.getMontMan();
             } else {
                 $scope.alerts.push({type: "success", msg: data.Exito});
                 $scope.getMontMan();
+                $rootScope.getAlerts();
             }
         }, function (e) {
             $scope.alerts.push({type: "danger", msg: "Error interno"});

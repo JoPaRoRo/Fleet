@@ -2,7 +2,7 @@
  * Created by Jos�Pablo on 10/28/2015.
  */
 var app = angular.module('MetronicApp');
-app.controller('InsumosCtrl', function ($scope, $http, $uibModal, GetSv, PostSv, XLSXReaderService) {
+app.controller('InsumosCtrl', function ($scope, $http, $uibModal, GetSv, PostSv, XLSXReaderService,$rootScope) {
 
     $scope.alerts = [];
     $scope.closeAlert = function (index) {
@@ -126,6 +126,7 @@ app.controller('InsumosCtrl', function ($scope, $http, $uibModal, GetSv, PostSv,
                         $scope.listaCorrectivos = data;
                         crearJsonAuxiliares(data);
                         $scope.mostrarTabla = true;
+                        $rootScope.getAlerts();
                     }
                 });
     };

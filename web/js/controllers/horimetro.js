@@ -3,7 +3,7 @@
 /**
  * Created by Jos�Pablo on 10/28/2015.
  */
-angular.module('MetronicApp').controller('HorimetroCtrl', function ($scope, GetSv, PostSv, AlertSv) {
+angular.module('MetronicApp').controller('HorimetroCtrl', function ($scope, GetSv, PostSv, AlertSv,$rootScope) {
     $scope.horimetro = {}; 
     $scope.alerts = [];
 
@@ -68,6 +68,7 @@ angular.module('MetronicApp').controller('HorimetroCtrl', function ($scope, GetS
             } else {
                 $scope.alerts.push({type: "success", msg: data.Exito});
                 $scope.horimetro = {};
+                $rootScope.getAlerts();
             }
         }, function (e) {
             $scope.alerts.push({type: "danger", msg: "Error desconocido"});

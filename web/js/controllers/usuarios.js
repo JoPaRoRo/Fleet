@@ -69,10 +69,8 @@ angular.module('MetronicApp').controller('UsuariosCtrl', function ($scope, GetSv
         );
 
     };
-
-
-
-
+    
+ 
     $scope.roles = $rootScope.roles;
 });
 

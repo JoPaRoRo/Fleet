@@ -1,7 +1,7 @@
 /**
  * Created by Jos�Pablo on 10/28/2015.
  */
-angular.module('MetronicApp').controller('RealizarCtrl', function ($scope, GetSv, PostSv) {
+angular.module('MetronicApp').controller('RealizarCtrl', function ($scope, GetSv, PostSv,$rootScope) {
     $scope.aler = [];
     $scope.closeAlert = function (index) {
         $scope.aler.splice(index, 1);
@@ -32,6 +32,7 @@ angular.module('MetronicApp').controller('RealizarCtrl', function ($scope, GetSv
             } else {
                 $scope.aler.push({type: "success", msg: data.Exito});
                 $scope.getMontMan();
+                $rootScope.getAlerts();
             }
         }, function (e) {
             $scope.aler.push({type: "danger", msg: "Error interno" + e});

@@ -6,7 +6,9 @@
 package com.fleet.dao;
 
 import com.fleet.entidades.DateFormat;
+import com.fleet.entidades.Mantenimiento;
 import com.fleet.entidades.Montacargas;
+import com.fleet.entidades.Proyecto;
 import com.fleet.entidades.TipoInsumo;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -168,9 +170,46 @@ public class MontacargasDao {
         m.setSeguro(rs.getFloat("SEGURO"));
         m.setAlquiler(rs.getFloat("ALQUILER"));
         m.setHorimetro(rs.getInt("HORIMETRO"));
+        
+        m.setMantenimientos((ArrayList<Mantenimiento>) getMantenimientos(m.getNumero_serie()));
+        m.setProyectos((ArrayList<Proyecto>) getProyectos(m.getNumero_serie()));
+        
 
         return m;
 
+    }
+
+    public List<Mantenimiento> getMantenimientos(String numero_serie) throws SQLException {
+        String query = "EXEC MANTENIMIENTOS_ESPECIFICO @NUMERO_SERIE=?";
+        CallableStatement cs = conexion.prepareCall(query);
+        cs.setString(1, numero_serie);
+        ResultSet rs = cs.executeQuery();
+        List<Mantenimiento> mantenimientos = new ArrayList<>();
+        while (rs.next()) {
+            int id = rs.getInt("ID");
+            String fecha_mantenimiento = rs.getString("FECHA_MANTENIMIENTO");
+            String Montacargas = rs.getString("MONTACARGAS");
+            String tipo = rs.getString("TIPO");
+            Mantenimiento m = new Mantenimiento(id, fecha_mantenimiento, tipo, Montacargas);
+            mantenimientos.add(m);
+        }
+        return mantenimientos;
+    }
+
+    public List<Proyecto> getProyectos(String numero_serie) throws SQLException {
+        String query = "EXEC MONTACARGAS_HISTORICO_PROYECTOS @CODIGO=?";
+        CallableStatement cs = conexion.prepareCall(query);
+        cs.setString(1, numero_serie);
+        ResultSet rs = cs.executeQuery();
+        List<Proyecto> proyectos = new ArrayList<>();
+        while (rs.next()) {
+            String nombre = rs.getString("PROYECTO");
+            String codigo = rs.getString("PROY_COD");
+            String contrato = rs.getString("CONTRATO");
+            Proyecto p = new Proyecto(nombre, codigo,contrato);
+            proyectos.add(p);
+        }
+        return proyectos;
     }
 
     public void actualizaEstado(String m, int p) throws SQLException {
