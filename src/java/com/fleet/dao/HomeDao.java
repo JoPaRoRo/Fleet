@@ -60,14 +60,14 @@ public class HomeDao {
         rs = cs.executeQuery();
         rs.next();
         float promedio_horas_totales = rs.getInt(1);
-        respuesta.put("promedio_horas_totales", promedio_horas_totales);
+        respuesta.put("promedio_horas_totales", promedio_horas_totales); 
         
-        query = "EXEC CANTMONTACARGAS_TOTAL";
+        query = "EXEC MONTACARGAS_PEND_MANT";
         cs = conexion.prepareCall(query);
         rs = cs.executeQuery();
         rs.next();
-        float promedio_horas_laboradas_por_semana = rs.getInt(1);
-        respuesta.put("promedio_horas_laboradas_por_semana", promedio_horas_laboradas_por_semana);
+        float pendientes = rs.getInt(1);
+        respuesta.put("montacargas_pend", pendientes);
         
         return gson.toJson(respuesta);
     }
