@@ -12,7 +12,7 @@ app.controller('InsumosCtrl', function ($scope, $http, $uibModal, GetSv, PostSv,
 
     $scope.insumosBySerie = [];
 
-    $scope.mantenimientoCo = {tipo: "Correctivo", fecha: new Date(), estado: 0};
+    $scope.mantenimientoCo = {tipo: "Correctivo", fecha_mantenimiento: new Date(), estado: 0};
 
     $scope.open = function (equipo) {
         $scope.insumosBySerie = [];

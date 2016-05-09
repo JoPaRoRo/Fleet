@@ -108,7 +108,6 @@ public class MantenimientoDao {
     }
 
     public void insertCorrectivo(Mantenimiento mantenimiento) throws SQLException {
-
         DateFormat dt = new DateFormat();
         String query = "EXEC INSMAN @FECHA=?, @TIPO = ?,@ESTADO=?, @MONTACARGAS=?";
         CallableStatement cs = conexion.prepareCall(query);
@@ -121,7 +120,7 @@ public class MantenimientoDao {
         int id = getLastMant();
 
         for (Insumo ins : mantenimiento.getInsumos()) {
-            query = "EXEC ASIGN_INSUMOS_STE_COR @XID =?, @XNOMBRE =?, @XPRECIO =?,@XCANTIDAD=?,@XTIPO=?,@XESTADO =?,@XMANTENIMIENTO =?)";
+            query = "EXEC ASIGN_INSUMOS_STE_COR @XID =?, @XNOMBRE =?, @XPRECIO =?,@XCANTIDAD=?,@XTIPO=?,@XESTADO =?,@XMANTENIMIENTO =?";
             cs = conexion.prepareCall(query);
             cs.setString(1, ins.getNum());
             cs.setString(2, ins.getDescripcion_articulo());
