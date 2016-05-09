@@ -20,7 +20,7 @@ app.controller('InsumosCtrl', function ($scope, $http, $uibModal, GetSv, PostSv,
             return x.Numero_de_serie === equipo;
         });
 
-        $scope.mantenimientoCo.montacargas = equipo;
+        $scope.mantenimientoCo.Montacargas = equipo;
         console.log($scope.insumosBySerie);
     };
 
