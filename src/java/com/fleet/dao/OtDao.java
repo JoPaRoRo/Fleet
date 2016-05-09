@@ -91,7 +91,7 @@ public class OtDao {
                             }
                             if (ins.getNumero_de_articulo().equals(isumoMant.getNum())
                                     && ins.getCantidad() == isumoMant.getCantidad() 
-                                    && ins.getDescripcion_articulo().equals(isumoMant.getDescripcion_articulo())) {
+                                    ) {
                                 md.updateCheck(mt.getId(), isumoMant.getNum(), isumoMant.getCantidad());
                                 insumosOt.remove(i);
                             }
