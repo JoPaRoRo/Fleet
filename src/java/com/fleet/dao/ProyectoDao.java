@@ -27,7 +27,7 @@ public class ProyectoDao {
     }
     
     public List getAllByCon(String contrato) throws SQLException{
-           String query = "EXEC PROYECTO_POR_CONTRATO @CONTRATO=?";
+            String query = "EXEC PROYECTO_POR_CONTRATO @CONTRATO=?";
             CallableStatement cs = conexion.prepareCall(query);
             cs.setString(1, contrato);
             ResultSet rs = cs.executeQuery();

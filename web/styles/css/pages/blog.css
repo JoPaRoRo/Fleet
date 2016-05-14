@@ -266,7 +266,7 @@ Blog Page
           text-decoration: none;
           color: #3598DC; }
       .blog-content-2 .blog-single-sidebar > .blog-single-sidebar-recent > ul > li:before {
-        content: "ÔÇó";
+        content: "•";
         color: #dae0e5;
         font-size: 30px;
         position: absolute;
