@@ -53,7 +53,7 @@
 
 
 
-                                <button class="btn green" ng-click="sendUser('createUser', usuario)"> Agregar <i class="fa fa-plus"></i>
+                                <button  ng-disabled="userForm.$invalid" class="btn green" ng-click="sendUser('createUser', usuario)"> Agregar <i class="fa fa-plus"></i>
                                 </button>
                                 <button type="reset" class="btn btn-default" ng-click="closeAdd()">Cancelar</button>
                             </form>

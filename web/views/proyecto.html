@@ -29,24 +29,28 @@
                         </div>                    
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{ 'has-error' : userForm.cont.$invalid && !userForm.cont.$pristine }">
                         <label class="col-md-4 control-label">Contrato: 
-                             <span class="required"> * </span>
+                            <span class="required"> * </span>
                         </label>
                         <div class="col-md-4">
-                            <ui-select ng-model="proyecto.contrato" theme="bootstrap">
+                            <ui-select name="cont" ng-model="proyecto.contrato" theme="bootstrap" required>
                                 <ui-select-match placeholder="Seleccione el contrato">{{$select.selected.nombre}}</ui-select-match>
                                 <ui-select-choices repeat="contrato in listaContratos | filter:$select.search">
                                     {{contrato.nombre}}
                                 </ui-select-choices>
                             </ui-select>
                         </div>
+                        <p ng-show="userForm.cont.$invalid && !userForm.cont.$pristine" class="help-block"> Campo Requerido.</p>
                     </div>
                 </div>
                 <div class="form-actions">
                     <div class="row">
                         <div class="col-md-offset-5 col-md-9">
                             <button
+                                type="submit"
+                                ng-disabled="userForm.$invalid"
+                                data-placement="top"
                                 class="btn green"
                                 mwl-confirm
                                 title="{{confirmationSettings.title}}"

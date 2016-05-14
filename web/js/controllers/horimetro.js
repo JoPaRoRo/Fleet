@@ -45,6 +45,7 @@ angular.module('MetronicApp').controller('HorimetroCtrl', function ($scope, GetS
     };
 
     $scope.filtraEquipos = function (proyecto) {
+        $scope.horimetro.montacargas = {};
         GetSv.getDataParam("monProyec", {proyecto: proyecto.codigo}).then(function (data) {
             if (data.Error) {
                 $scope.alerts.push({type: "danger", msg: data.Error});

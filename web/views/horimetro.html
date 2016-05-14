@@ -3,15 +3,16 @@
     <div class="panel-heading">Horimetro </div>
     <div class="panel-body">
 
-       <div class="portlet-body form">
+        <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            <form class="form-horizontal">
+            <form class="form-horizontal" name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
                 <div class="form-body">
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label">Contrato: </label>
+                        <label class="col-md-4 control-label">Contrato: 
+                            <span class="required"> * </span> </label>
                         <div class="col-md-4">
-                            <ui-select ng-model="horimetro.contrato" theme="bootstrap">
+                            <ui-select ng-model="horimetro.contrato" theme="bootstrap" name="nombre" ng-required="true">
                                 <ui-select-match placeholder="Seleccione el contrato">{{$select.selected.nombre}}</ui-select-match>
                                 <ui-select-choices repeat="contrato in listaContratos | filter:$select.search" ng-click="filtraProyectos(horimetro.contrato)">
                                     {{contrato.nombre}}
@@ -20,20 +21,22 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-4 control-label">Proyecto: </label>
+                        <label class="col-md-4 control-label">Proyecto:
+                            <span class="required"> * </span> </label>
                         <div class="col-md-4">
-                            <ui-select ng-model="horimetro.proyecto" theme="bootstrap">
+                            <ui-select ng-model="horimetro.proyecto" theme="bootstrap" name="proyecto" ng-required="true">
                                 <ui-select-match placeholder="Seleccione el proyecto">{{$select.selected.nombre}}</ui-select-match>
                                 <ui-select-choices repeat="proyecto in listaProyectos | filter:$select.search" ng-click="filtraEquipos(horimetro.proyecto)">
                                     {{proyecto.nombre}}
                                 </ui-select-choices>
-                            </ui-select>
+\                            </ui-select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-4 control-label">Montacargas: </label>
+                        <label class="col-md-4 control-label">Montacargas:
+                            <span class="required"> * </span> </label>
                         <div class="col-md-4">
-                            <ui-select ng-model="horimetro.montacargas" theme="bootstrap" name="montacargas">
+                            <ui-select ng-model="horimetro.montacargas" theme="bootstrap" name="montacargas" ng-required="true">
                                 <ui-select-match placeholder="Seleccione el equipo">{{$select.selected.numero_serie}}</ui-select-match>
                                 <ui-select-choices group-by="'marca'" repeat="montacargas in listaMontacargas | filter: {'numero_serie':$select.search}">
                                     <div ng-bind-html="montacargas.numero_serie | highlight: $select.search"></div>
@@ -44,26 +47,30 @@
                             </ui-select>
                         </div>                       
                     </div>
-                    
-                    <div class="form-group">
+
+                    <div class="form-group" >
                         <label class="col-md-4 control-label">Ultimo Horimetro: </label>
                         <div class="col-md-4">
                             <span>{{horimetro.montacargas.horimetro}}</span>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Horas: </label>
+                    <div class="form-group" ng-class="{ 'has-error' : userForm.horas.$invalid && !userForm.horas.$pristine }">
+                        <label class="col-md-4 control-label">Horas: 
+                            <span class="required"> * </span> </label>
                         <div class="col-md-4">
-                            <input class="bs-select form-control" type="number" name="quantity" min='{{horimetro.montacargas.horimetro}}' max='{{horimetro.montacargas.horimetro + 499}}' ng-model="horimetro.horas">
+                            <input class="bs-select form-control" name="horas" type="number" ng-min='{{horimetro.montacargas.horimetro + 1}}'  ng-max='{{horimetro.montacargas.horimetro + 499}}' ng-model="horimetro.horas" ng-required="true">
+                            <p ng-show="userForm.horas.$error.min" class="help-block">El horimetro debe ser mayor a {{horimetro.montacargas.horimetro}}.</p>
+                            <p ng-show="userForm.horas.$error.max" class="help-block">El horimetro debe ser menor a {{horimetro.montacargas.horimetro + 499}}</p>
                         </div>
 
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-4">Fecha:</label>
+                        <label class="control-label col-md-4">Fecha:
+                            <span class="required"> * </span></label>
                         <div class="col-md-4">
                             <div class="input-group">
-                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="horimetro.fechaIni" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="horimetro.fechaIni" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats"/>
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
                                 </span>
@@ -71,13 +78,13 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="form-actions">
                     <div class="row">
                         <div class="col-md-offset-7 col-md-9">
-                            <button class="btn btn-outline green  uppercase" data-toggle="confirmation" data-placement="top">
-                                Enviar </button>
                             <button
+                                ng-disabled="userForm.$invalid"
+                                type ="submit"
                                 data-placement="top"
                                 class="btn green uppercase"
                                 mwl-confirm
