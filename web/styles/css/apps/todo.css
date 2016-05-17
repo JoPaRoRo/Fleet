@@ -30,7 +30,7 @@ NEW TODO Page
       .todo-main-header > .todo-breadcrumb > li > .todo-active {
         color: #49a7fa; }
       .todo-main-header > .todo-breadcrumb > li:before {
-        content: "•";
+        content: "ÔÇó";
         color: #b6c1cb;
         margin: 0 1em; }
       .todo-main-header > .todo-breadcrumb > li:first-child:before {
