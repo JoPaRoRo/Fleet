@@ -152,7 +152,7 @@ public class MontacargasDao {
         m.setNumero_serie(rs.getString("NUMERO_SERIE"));
         m.setMarca(rs.getString("MARCA"));
         m.setModelo(rs.getString("MODELO"));
-        m.setSerie(rs.getString("SERIE"));
+        m.setSerie("ABCDE");
         m.setEstilo(rs.getString("ESTILO"));
         m.setAnno(rs.getString("AÑO"));
         m.setPlaca(rs.getString("PLACA"));

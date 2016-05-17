@@ -111,10 +111,10 @@ public class MantenimientoDao {
     public void insertCorrectivo(Mantenimiento mantenimiento) throws SQLException {
         DateFormat dt = new DateFormat();
 
-        String fecha = dt.format(mantenimiento.getFecha_mantenimiento());
+        String fecha = dt.format2(mantenimiento.getFecha_mantenimiento());
         String query = "EXEC INSMAN @FECHA=?, @TIPO = ?,@ESTADO=?, @MONTACARGAS=?";
         CallableStatement cs = conexion.prepareCall(query);
-        cs.setString(1, "05/05/2016");
+        cs.setString(1, fecha);
         cs.setString(2, mantenimiento.getTipo());
         cs.setInt(3, mantenimiento.getEstado());
         cs.setString(4, mantenimiento.getMontacargas());

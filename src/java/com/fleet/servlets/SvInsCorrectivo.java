@@ -6,10 +6,7 @@
 package com.fleet.servlets;
 
 import com.fleet.dao.MantenimientoDao;
-import com.fleet.dao.MontacargasDao;
-import com.fleet.entidades.Alerta;
 import com.fleet.entidades.Mantenimiento;
-import com.fleet.entidades.Montacargas;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
