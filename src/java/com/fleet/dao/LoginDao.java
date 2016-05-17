@@ -23,9 +23,9 @@ public class LoginDao {
         this.conexion = ConexionBD.getConnectionFleet();
     }
     
-    public void login(String user,String pass) throws SQLException,ClassNotFoundException{
-         this.conexion = ConexionBD.getConnectionFleet(user,pass); 
-    }
+//    public void login(String user,String pass) throws SQLException,ClassNotFoundException{
+//         this.conexion = ConexionBD.getConnectionFleet(user,pass); 
+//    }
 
     public Byte existeUsuario(String usuario, String pass) throws SQLException {
         String query = "{CALL DBO.LOGIN_USUARIO(?,?,?)}";

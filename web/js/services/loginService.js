@@ -1,5 +1,5 @@
 'use strict';
-angular.module('MetronicApp').factory('loginService', function ($http, $state, sessionService, PostSv, $rootScope, GetSv) {
+angular.module('MetronicApp').factory('loginService', function ($http, $state, sessionService, PostSv, $rootScope, GetSv,toaster) {
     return{
         login: function (data, scope) {
 
@@ -7,7 +7,7 @@ angular.module('MetronicApp').factory('loginService', function ($http, $state, s
                     .then(function (data) {
                         if (data.Error) {
                             scope.msgtxt = data.Error;
-                            console.log("asdasd " + data.Error);
+                            console.log(data.Error);
                         } else {
                             sessionService.set('uid', data.id_usuario);
                             if (data.rol === 'MECANICO') {
@@ -19,7 +19,7 @@ angular.module('MetronicApp').factory('loginService', function ($http, $state, s
                         }
                         scope.entrando = false;
                     }, function (e) {
-                        console.log(e);
+                        scope.msgtxt = "Error desconocido, intente mas tarde";
                     });
 
         },

@@ -6,19 +6,14 @@ import java.sql.SQLException;
 
 public class ConexionBD {
 
-    public static Connection getConnectionFleet(String user, String pass) throws ClassNotFoundException, SQLException {
+    public static Connection getConnectionFleet() throws ClassNotFoundException, SQLException {
         if (conexion == null) {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");           
             String userr ="sa";
             String passs="RootRoot123";
             String url = "jdbc:sqlserver://fleet.cmn8bdeqggnf.us-west-2.rds.amazonaws.com:1433;databaseName=Fleet;user="+userr+";password="+passs+";";
             conexion = DriverManager.getConnection(url);
         }
-        return conexion;
-    }
-
-    public static Connection getConnectionFleet() {
         return conexion;
     }
 

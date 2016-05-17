@@ -30,21 +30,26 @@ public class LoginSl extends HttpServlet {
         try {
             Usuario us = new Usuario(usuario, pass);
             LoginDao lgdao = new LoginDao();
-            lgdao.login(us.createDBUser(), us.getPass());
-            HttpSession sesion = request.getSession();
-            sesion = request.getSession(true);
-            Usuario usu = lgdao.buscaUsuario(us.getId_usuario());
-            sesion.setAttribute("usuario", us.getId_usuario());
-            sesion.setAttribute("nombre", us.getNombre());
-            sesion.setAttribute("rol", us.getRol());
-            sesion.setAttribute("Usuario", us);
-            json = gson.toJson(usu);
+            int op = lgdao.existeUsuario(usuario, pass);
+            if (op == 1) {
+                HttpSession sesion = request.getSession();
+                sesion = request.getSession(true);
+                Usuario usu = lgdao.buscaUsuario(us.getId_usuario());
+                sesion.setAttribute("usuario", us.getId_usuario());
+                sesion.setAttribute("nombre", us.getNombre());
+                sesion.setAttribute("rol", us.getRol());
+                sesion.setAttribute("Usuario", us);
+                json = gson.toJson(usu);
+            } else {
+                respuesta.put("Error", "Usuario o contraseña incorrectas");
+                json = gson.toJson(respuesta);
+            }
+
         } catch (SQLException | ClassNotFoundException ex) {
             ConexionBD.destroy();
-            respuesta.put("Error", "Usuario o contraseña incorrectas"+ex);
+            respuesta.put("Error", ex.getMessage());
             json = gson.toJson(respuesta);
             ConexionBD.destroy();
-            
 
         } finally {
             response.getWriter().write(json);
