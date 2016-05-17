@@ -145,9 +145,6 @@
     </div>
 </div>
 
-<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="5000" close="closeAlert($index)">{{alert.msg}}</uib-alert>
-
-
 <div id="form_modal3" class="modal fade" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -158,14 +155,10 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label class="control-label col-md-4">Fecha de mantenimiento:</label>
-                    <div class="col-md-4">
-                        <div class="input-group">
-                            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="mantenimientoCo.fecha_mantenimiento" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" ng-click="openDate($event)"><i class="fa fa-calendar"></i></button>
-                            </span>
-                        </div>
-                    </div>
+                    <md-content>
+                        <md-datepicker ng-model="mantenimientoCo.fecha_mantenimiento" md-placeholder="Desde"
+                                       md-min-date="minDate" md-max-date="maxDate" ng-required></md-datepicker>
+                    </md-content>
                 </div>
                 <table class="table table-hover">
                     <thead>
@@ -192,3 +185,10 @@
         </div>
     </div>
 </div>
+
+<toaster-container toaster-options="
+                   {'time-out':{ 'toast-warning': 10, 'toast-error': 0,'toast-success':8000},
+                   'close-button': true,
+                   'position-class': 'toast-top-center' }">
+
+</toaster-container>

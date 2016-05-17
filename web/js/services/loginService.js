@@ -17,6 +17,7 @@ angular.module('MetronicApp').factory('loginService', function ($http, $state, s
                             }
                             $rootScope.user = data;
                         }
+                        scope.entrando = false;
                     }, function (e) {
                         console.log(e);
                     });

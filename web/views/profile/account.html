@@ -22,7 +22,7 @@
                         <form role="form">
                             <div class="form-group">
                                 <label class="control-label">Usuario</label>
-                                <input type="text" class="form-control" ng-model="profile.id_usuario" readonly=""/> </div>
+                                <input type="text" class="form-control" ng-model="profile.id_usuario" ng-disabled='true'/> </div>
                             <div class="form-group">
                                 <label class="control-label">Nombre</label>
                                 <input type="text" placeholder="" class="form-control" ng-model="profile.nombre" required/> </div>
@@ -94,4 +94,9 @@
 </div>
 
 
-<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="5000" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+<toaster-container toaster-options="
+                   {'time-out':{ 'toast-warning': 10, 'toast-error': 0,'toast-success':8000},
+                   'close-button': true,
+    'position-class': 'toast-top-center' }">
+                       
+</toaster-container>

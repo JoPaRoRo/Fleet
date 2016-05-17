@@ -2,17 +2,11 @@
  * Created by Jos�Pablo on 10/28/2015.
  */
 var app = angular.module('MetronicApp');
-app.controller('InsumosCtrl', function ($scope, $http, $uibModal, GetSv, PostSv, XLSXReaderService,$rootScope) {
-
-    $scope.alerts = [];
-    $scope.closeAlert = function (index) {
-
-        $scope.alerts.splice(index, 1);
-    };
+app.controller('InsumosCtrl', function ($scope, $http, GetSv, PostSv, XLSXReaderService, $rootScope,toaster) {
 
     $scope.insumosBySerie = [];
 
-    $scope.mantenimientoCo = {tipo: "Correctivo",estado: 0};
+    $scope.mantenimientoCo = {tipo: "Correctivo", estado: 0};
 
     $scope.open = function (equipo) {
         $scope.insumosBySerie = [];
@@ -39,60 +33,55 @@ app.controller('InsumosCtrl', function ($scope, $http, $uibModal, GetSv, PostSv,
 
     GetSv.getData("contratos").then(function (data) {
         if (data.Error) {
-            console.log(data.Error);
+            toaster.pop('danger', "Error", data.Error);
         } else {
             if (Array.isArray(data))
                 $scope.listaContratos = data;
-            console.log(data);
         }
     }, function (e) {
-        console.log("Error desconocido");
+        toaster.pop('danger', "Error", "Error fatal");
     });
 
     $scope.filtraProyectos = function (contrato) {
         GetSv.getDataParam("proyecCont", {contrato: contrato.codigo}).then(function (data) {
             if (data.Error) {
-                $scope.alerts.push({type: "danger", msg: data.Error});
-                console.log(data.Error);
+                toaster.pop('danger', "Error", data.Error);
+
             } else {
                 if (Array.isArray(data)) {
                     $scope.listaProyectos = data;
-                    console.log(data);
+
                 }
             }
         }, function (e) {
-            $scope.alerts.push({type: "danger", msg: e});
-            console.log(e);
+            toaster.pop('danger', "Error", "Error fatal");
         });
     };
 
     $scope.filtraEquipos = function (proyecto) {
         GetSv.getDataParam("monProyec", {proyecto: proyecto.codigo}).then(function (data) {
             if (data.Error) {
-                $scope.alerts.push({type: "danger", msg: data.Error});
-                console.log(data.Error);
+                toaster.pop('danger', "Error", data.Error);
             } else {
                 if (Array.isArray(data)) {
                     $scope.listaMontacargas = data;
-                    console.log(data);
                 }
             }
         }, function (e) {
-            $scope.alerts.push({type: "danger", msg: e});
-            console.log(e);
+            toaster.pop('danger', "Error", "Error fatal");
         });
     };
 
     $scope.registrarGastoE = function (gastoE) {
         PostSv.postData("regGasto", {gastoE: JSON.stringify(gastoE)}).then(function (data) {
             if (data.Error) {
-                $scope.alerts.push({type: "danger", msg: data.Error});
+                toaster.pop('danger', "Error", data.Error);
             } else {
-                $scope.alerts.push({type: "success", msg: data.Exito});
+                toaster.pop('success', "Exito", data.Exito);
                 $scope.gastoE = {};
             }
         }, function (e) {
-            $scope.alerts.push({type: "danger", msg: "Error desconocido"});
+            toaster.pop('danger', "Error", "Error fatal");
         });
     };
 
@@ -121,7 +110,7 @@ app.controller('InsumosCtrl', function ($scope, $http, $uibModal, GetSv, PostSv,
                     console.log("datos");
                     console.log(data);
                     if (data.Error) {
-                        $scope.alerts.push({type: "danger", msg: data.Error});
+                        toaster.pop('danger', "Error", data.Error);
                     } else {
                         $scope.listaCorrectivos = data;
                         crearJsonAuxiliares(data);
@@ -147,12 +136,12 @@ app.controller('InsumosCtrl', function ($scope, $http, $uibModal, GetSv, PostSv,
     $scope.ok = function () {
         PostSv.postData('SvInsCorrectivo', {"mantenimiento": JSON.stringify($scope.mantenimientoCo)}).then(function (data) {
             if (data.Error) {
-                $scope.alerts.push({type: "danger", msg: data.Error});
+               toaster.pop('danger', "Error", data.Error);
             } else {
-                $scope.alerts.push({type: "success", msg: data.Exito});
+                toaster.pop('success', "Exito", data.Exito);
             }
-        },function(e){
-            console.log(e);
+        }, function (e) {
+            toaster.pop('success', "Exito", "Error fatal");
         });
     };
 

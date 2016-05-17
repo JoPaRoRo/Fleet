@@ -1,41 +1,33 @@
 /**
  * Created by Jos�Pablo on 10/28/2015.
  */
-angular.module('MetronicApp').controller('RealizarCtrl', function ($scope, GetSv, PostSv,$rootScope) {
-    $scope.aler = [];
-    $scope.closeAlert = function (index) {
-        $scope.aler.splice(index, 1);
-    };
+angular.module('MetronicApp').controller('RealizarCtrl', function ($scope, GetSv, PostSv, $rootScope, toaster) {
     $scope.alertMant = [];
     $scope.getMontMan = function () {
         GetSv.getData("AlertasManSv").then(function (data) {
             if (data.Error) {
-                $scope.aler.push({type: "danger", msg: data.Error});
-                console.log(data.Error);
+                toaster.pop('danger', "Error", data.Error);
             } else {
                 if (Array.isArray(data)) {
                     $scope.alertMant = data;
-                    console.log(data);
                 }
             }
         }, function (e) {
-            $scope.aler.push({type: "danger", msg: "Error desconocido"});
-            console.log(e);
+            toaster.pop('danger', "Error", "Error fatal");
         });
     };
     $scope.getMontMan();
     $scope.realizar = function (alertM) {
         PostSv.postData("realizar", {alerta: JSON.stringify(alertM)}).then(function (data) {
             if (data.Error) {
-                $scope.aler.push({type: "danger", msg: data.Error});
-                console.log(data.Error);
+                toaster.pop('danger', "Error", data.Error);
             } else {
-                $scope.aler.push({type: "success", msg: data.Exito});
+                toaster.pop('success', "Exito", data.Exito);
                 $scope.getMontMan();
                 $rootScope.getAlerts();
             }
         }, function (e) {
-            $scope.aler.push({type: "danger", msg: "Error interno" + e});
+            toaster.pop('danger', "Error", "Error fatal");
         }
         );
     };

@@ -3,17 +3,16 @@
 /**
  * Created by Jos�Pablo on 10/28/2015.
  */
-angular.module('MetronicApp').controller('HorimetroCtrl', function ($scope, GetSv, PostSv, AlertSv,$rootScope) {
-    $scope.horimetro = {}; 
-    $scope.alerts = [];
+angular.module('MetronicApp').controller('HorimetroCtrl', function ($scope, GetSv, PostSv, AlertSv, $rootScope, toaster) {
+    $scope.horimetro = {};
 
+    $scope.horimetro.fechaIni = new Date();
+    $scope.minDate = $scope.horimetro.fechaIni;
+    $scope.maxDate = new Date();
 
-    $scope.closeAlert = function (index) {
-        $scope.alerts.splice(index, 1);
-    };
     GetSv.getData("contratos").then(function (data) {
         if (data.Error) {
-            $scope.alerts.push({type: "danger", msg: data.Error});
+            toaster.pop('danger', "Error", data.Error);
             console.log(data.Error);
         } else {
             if (Array.isArray(data)) {
@@ -22,25 +21,21 @@ angular.module('MetronicApp').controller('HorimetroCtrl', function ($scope, GetS
             }
         }
     }, function (e) {
-        $scope.alerts.push({type: "danger", msg: e});
-        console.log("Error desconocido");
+        toaster.pop('danger', "Error", "Error fatal");
     });
 
     $scope.filtraProyectos = function (contrato) {
 
         GetSv.getDataParam("proyecCont", {contrato: contrato.codigo}).then(function (data) {
             if (data.Error) {
-                $scope.alerts.push({type: "danger", msg: data.Error});
-                console.log(data.Error);
+                toaster.pop('danger', "Error", data.Error);
             } else {
                 if (Array.isArray(data)) {
                     $scope.listaProyectos = data;
-                    console.log(data);
                 }
             }
         }, function (e) {
-            $scope.alerts.push({type: "danger", msg: e});
-            console.log(e);
+            toaster.pop('danger', "Error", "Error fatal");
         });
     };
 
@@ -48,37 +43,41 @@ angular.module('MetronicApp').controller('HorimetroCtrl', function ($scope, GetS
         $scope.horimetro.montacargas = {};
         GetSv.getDataParam("monProyec", {proyecto: proyecto.codigo}).then(function (data) {
             if (data.Error) {
-                $scope.alerts.push({type: "danger", msg: data.Error});
-                console.log(data.Error);
+                toaster.pop('danger', "Error", data.Error);
             } else {
                 if (Array.isArray(data)) {
                     $scope.listaMontacargas = data;
-                    console.log(data);
                 }
             }
         }, function (e) {
-            $scope.alerts.push({type: "danger", msg: e});
-            console.log(e);
+            toaster.pop('danger', "Error", "Error fatal");
         });
     };
 
     $scope.ingresaHorimetro = function (horimetro) {
-        PostSv.postData("ingHorimetro", {montacargas:horimetro.montacargas.numero_serie,horas:horimetro.horas,fechaIni:horimetro.fechaIni}).then(function (data) {
-            if (data.Error) {
-                $scope.alerts.push({type: "danger", msg: data.Error});
-            } else {
-                $scope.alerts.push({type: "success", msg: data.Exito});
-                $scope.horimetro = {};
-                $rootScope.getAlerts();
-            }
-        }, function (e) {
-            $scope.alerts.push({type: "danger", msg: "Error desconocido"});
-        }
-        );
+        PostSv.postData("ingHorimetro", {montacargas: horimetro.montacargas.numero_serie, horas: horimetro.horas, fechaIni: horimetro.fechaIni})
+                .then(function (data) {
+                    if (data.Error) {
+                        toaster.pop('danger', "Error", data.Error);
+                    } else {
+                        toaster.pop('success', "Exito", data.Exito);
+                        clearForm($scope.userForm);
+                        $scope.horimetro = {};
+                        $rootScope.getAlerts();
+                    }
+                }, function (e) {
+                    toaster.pop('danger', "Error", "Error fatal");
+                }
+                );
 
-        
+
     };
-    
+
+    var clearForm = function(form){
+        form.$setPristine();
+        form.$setUntouched();
+    };
+
     $scope.today = function () {
         $scope.horimetro.fechaIni = new Date();
     };

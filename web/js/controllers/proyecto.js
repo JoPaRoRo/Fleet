@@ -3,44 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-angular.module('MetronicApp').controller('ProyectoCtrl', function ($scope, GetSv,PostSv) {
+angular.module('MetronicApp').controller('ProyectoCtrl', function ($scope, GetSv, PostSv, toaster) {
 
-    $scope.alerts = [];
-    $scope.closeAlert = function (index) {
-        $scope.alerts.splice(index, 1);
-    };
-    
     $scope.proyecto = {};
     GetSv.getData("contratos").then(function (data) {
         if (data.Error) {
-            $scope.alerts.push({type: "danger", msg: data.Error});
-          
+            toaster.pop('danger', "Error", data.Error);
+
         } else {
             if (Array.isArray(data)) {
                 $scope.listaContratos = data;
-               
             }
         }
     }, function (e) {
-        $scope.alerts.push({type: "danger", msg: e});
-        console.log("Error desconocido");
+        toaster.pop('success', "Exito", "Error fatal");
     });
-    
-      $scope.ingresaProyecto = function (proyecto) {
-        PostSv.postData("proyectoSv", {nombre:proyecto.nombre,codigo:proyecto.codigo,contrato:proyecto.contrato.codigo}).then(function (data) {
+
+    $scope.ingresaProyecto = function (proyecto) {
+        PostSv.postData("proyectoSv", {nombre: proyecto.nombre, codigo: proyecto.codigo, contrato: proyecto.contrato.codigo}).then(function (data) {
             if (data.Error) {
-                $scope.alerts.push({type: "danger", msg: data.Error});
-                
+                toaster.pop('danger', "Error", data.Error);
             } else {
-                $scope.alerts.push({type: "success", msg: data.Exito});
+                toaster.pop('success', "Exito", data.Exito);
                 //$scope.proyecto = {};
             }
         }, function (e) {
-            $scope.alerts.push({type: "danger", msg: "Error desconocido"});
+            toaster.pop('danger', "Error", "Error fatal");
         }
         );
 
-       
+
     };
 });
 

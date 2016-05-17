@@ -3,12 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-angular.module('MetronicApp').controller('AccountCtrl', function ($scope, $rootScope, PostSv) {
-    $scope.alerts = [];
-    $scope.closeAlert = function (index) {
-        $scope.alerts.splice(index, 1);
-    };
-
+angular.module('MetronicApp').controller('AccountCtrl', function ($scope, $rootScope, PostSv, toaster) {
     var aux = $rootScope.user;
     $scope.profile = aux;
 
@@ -16,13 +11,13 @@ angular.module('MetronicApp').controller('AccountCtrl', function ($scope, $rootS
 
         PostSv.postData("upUser", {usuario: JSON.stringify(profile)}).then(function (data) {
             if (data.Error) {
-                $scope.alerts.push({type: "danger", msg: data.Error});
+                toaster.pop('danger', "Error", data.Error);
                 $scope.profile = aux;
             } else {
-                $scope.alerts.push({type: "success", msg: data.Exito});
+                toaster.pop('success', "Exito", data.Exito);
             }
         }, function (e) {
-            $scope.alerts.push({type: "danger", msg: "Error desconocido"});
+            toaster.pop('danger', "Error", "Error fatal");
             $scope.profile = aux;
         }
         );
@@ -33,12 +28,12 @@ angular.module('MetronicApp').controller('AccountCtrl', function ($scope, $rootS
         password.usuario = $scope.profile.id_usuario;
         PostSv.postData("changePass", password).then(function (data) {
             if (data.Error) {
-                $scope.alerts.push({type: "danger", msg: data.Error});
+                toaster.pop('danger', "Error", data.Error);
             } else {
-                $scope.alerts.push({type: "success", msg: data.Exito});
+                toaster.pop('success', "Exito", data.Exito);
             }
         }, function (e) {
-            $scope.alerts.push({type: "danger", msg: "Error desconocido"});
+            toaster.pop('danger', "Error", "Error fatal");
         }
         );
     };

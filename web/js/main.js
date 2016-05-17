@@ -6,13 +6,16 @@
 
 /* Metronic App */
 var MetronicApp = angular.module("MetronicApp", [
+    "ngAnimate",
+    "ngMaterial",
     "ui.router",
     "ui.bootstrap",
     'ui.select',
     "oc.lazyLoad",
     "ngSanitize",
     "mwl.confirm",
-    "checklist-model"
+    "checklist-model",
+    "toaster"
 ]);
 
 /* Configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
@@ -196,6 +199,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                     url: "/dash",
                     controller: 'MainCtrl',
                     templateUrl: "views/pages/main.html",
+                    abstract: true,
                     data: {
                         roles: ['ADMIN', 'MANAGER', 'MECANICO']
                     },
@@ -433,29 +437,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                     data: {pageTitle: 'Reportes',
                         roles: ['ADMIN', 'MANAGER']},
                     controller: "ReportesCtrl",
-                    resolve: {
-                        deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                                return $ocLazyLoad.load({
-                                    name: 'MetronicApp',
-                                    insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
-                                    files: [
-                                        'assets/global/plugins/morris/morris.css',
-                                        'assets/global/plugins/morris/morris.min.js',
-                                        'assets/global/plugins/morris/raphael-min.js',
-                                        'assets/global/plugins/jquery.sparkline.min.js',
-                                        'assets/pages/scripts/dashboard.min.js',
-                                        'js/controllers/reportes.js'
-                                    ]
-                                });
-                            }]
-                    }
-                })
-                .state('main.reportes.reporte1', {
-                    url: "/reporte1",
-                    templateUrl: "views/reporte1.html",
-                    data: {pageTitle: 'Reporte1',
-                        roles: ['ADMIN', 'MANAGER']},
-                    controller: "Reporte1Ctrl",
                     resolve: {
                         deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                                 return $ocLazyLoad.load({

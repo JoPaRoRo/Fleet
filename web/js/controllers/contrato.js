@@ -4,11 +4,7 @@
  * and open the template in the editor.
  */
 
-angular.module('MetronicApp').controller('ContratoCtrl', function ($scope,PostSv) {
-    $scope.alerts = [];
-    $scope.closeAlert = function (index) {
-        $scope.alerts.splice(index, 1);
-    };
+angular.module('MetronicApp').controller('ContratoCtrl', function ($scope,PostSv,toaster) {
 
     $scope.contrato = {};
 
@@ -125,14 +121,13 @@ angular.module('MetronicApp').controller('ContratoCtrl', function ($scope,PostSv
     $scope.ingresaContrato = function (contrato) {
         PostSv.postData("contratoSv", contrato).then(function (data) {
             if (data.Error) {
-                $scope.alerts.push({type: "danger", msg: data.Error});
-                console.log(data.Error);
+              toaster.pop('danger', "Error", data.Error);
             } else {
-                $scope.alerts.push({type: "success", msg: data.Exito});
+               toaster.pop('success', "Exito", data.Exito);
                 //$scope.contrato = {};
             }
         }, function (e) {
-            $scope.alerts.push({type: "danger", msg: "Error desconocido"});
+             toaster.pop('success', "Exito", "Error fatal");
         }
         );
 

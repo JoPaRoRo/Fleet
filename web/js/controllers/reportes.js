@@ -1,12 +1,7 @@
 /**
  * Created by Jos�Pablo on 10/28/2015.
  */
-angular.module('MetronicApp').controller('ReportesCtrl', function ($scope, GetSv, $state) {
-
-    $scope.alerts = [];
-    $scope.closeAlert = function (index) {
-        $scope.alerts.splice(index, 1);
-    };
+angular.module('MetronicApp').controller('ReportesCtrl', function ($scope, GetSv, $state, toaster) {
 
     $scope.reporte = {tipo: 1};
     $scope.reporte_det = {tipo: 1};
@@ -31,9 +26,8 @@ angular.module('MetronicApp').controller('ReportesCtrl', function ($scope, GetSv
         GetSv.getDataParam(sv, {reporte: JSON.stringify(obj)})
                 .then(function (data) {
                     if (data.Error) {
-                        $scope.alerts.push({type: "danger", msg: data.Error});
+                        toaster.pop('danger', "Error", data.Error);
                     } else {
-                        console.log(data);
                         if (data.length > 0) {
                             if (data[0].nombre) {
                                 $scope.reporte_proy_con = true;
@@ -43,11 +37,11 @@ angular.module('MetronicApp').controller('ReportesCtrl', function ($scope, GetSv
                             $scope.tabla = true;
                             $scope.objetoTabla = data;
                         } else {
-                           $scope.alerts.push({type: "info", msg: "No se encontraron datos con los valores especificados"});
+                            toaster.pop('info', "Atención", "No se encontraron datos con los valores especificados",8000);
                         }
                     }
                 }, function (e) {
-
+                    toaster.pop('danger', "Exito", "Error fatal");
                 });
     }
     $scope.rep_mont = function (obj) {
@@ -68,54 +62,54 @@ angular.module('MetronicApp').controller('ReportesCtrl', function ($scope, GetSv
 
     GetSv.getData("contratos").then(function (data) {
         if (data.Error) {
-            $scope.alerts.push({type: "danger", msg: data.Error});
+            toaster.pop('danger', "Error", data.Error);
         } else {
             if (Array.isArray(data)) {
                 $scope.listaContratos = data;
             }
         }
     }, function (e) {
-        $scope.alerts.push({type: "danger", msg: e});
+        toaster.pop('danger', "Error", "Error fatal");
     });
 
     GetSv.getData("modelos").then(function (data) {
         if (data.Error) {
-            $scope.alerts.push({type: "danger", msg: data.Error});
+            toaster.pop('danger', "Error", data.Error);
         } else {
             if (Array.isArray(data)) {
                 $scope.listaModelos = data;
             }
         }
     }, function (e) {
-        $scope.alerts.push({type: "danger", msg: e});
+        toaster.pop('danger', "Error", "Error fatal");
     });
 
     $scope.filtraProyectos = function (contrato) {
 
         GetSv.getDataParam("proyecCont", {contrato: contrato.codigo}).then(function (data) {
             if (data.Error) {
-                $scope.alerts.push({type: "danger", msg: data.Error});
+                toaster.pop('danger', "Error", data.Error);
             } else {
                 if (Array.isArray(data)) {
                     $scope.listaProyectos = data;
                 }
             }
         }, function (e) {
-            $scope.alerts.push({type: "danger", msg: e});
+            toaster.pop('danger', "Error", "Error fatal");
         });
     };
 
     $scope.filtraEquipos = function (proyecto) {
         GetSv.getDataParam("monProyec", {proyecto: proyecto.codigo}).then(function (data) {
             if (data.Error) {
-                $scope.alerts.push({type: "danger", msg: data.Error});
+                toaster.pop('danger', "Error", data.Error);
             } else {
                 if (Array.isArray(data)) {
                     $scope.listaMontacargas = data;
                 }
             }
         }, function (e) {
-            $scope.alerts.push({type: "danger", msg: e});
+            toaster.pop('danger', "Error", "Error fatal");
         });
     };
 
@@ -131,8 +125,12 @@ angular.module('MetronicApp').controller('ReportesCtrl', function ($scope, GetSv
 
 
 
+$scope.clearForm = function(form){
+    
+}
 
 
+ $scope.reporte.FechaFinal = new Date();
 
 
 
