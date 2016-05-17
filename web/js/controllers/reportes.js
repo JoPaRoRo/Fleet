@@ -11,7 +11,7 @@ angular.module('MetronicApp').controller('ReportesCtrl', function ($scope, GetSv
     $scope.reporte = {tipo: 1};
     $scope.reporte_det = {tipo: 1};
     $scope.tabla = false;
-    
+
     $scope.lisaModelos = [];
 
 
@@ -22,12 +22,13 @@ angular.module('MetronicApp').controller('ReportesCtrl', function ($scope, GetSv
         $scope.tabla = false;
         $scope.reporte = {};
         $scope.reporte.tipo = tipo;
+        $scope.reporte_det = {};
         $scope.reporte_det.tipo = tipo;
     };
 
-    $scope.rep_mont = function (obj) {
+    $scope.rep = function (sv, obj) {
         console.log(obj);
-        GetSv.getDataParam('reportesSv', {reporte: JSON.stringify(obj)})
+        GetSv.getDataParam(sv, {reporte: JSON.stringify(obj)})
                 .then(function (data) {
                     if (data.Error) {
                         $scope.alerts.push({type: "danger", msg: data.Error});
@@ -44,27 +45,13 @@ angular.module('MetronicApp').controller('ReportesCtrl', function ($scope, GetSv
                 }, function (e) {
 
                 });
+    }
+    $scope.rep_mont = function (obj) {
+         $scope.rep('reportesSv',obj);
     };
 
     $scope.rep_det = function (obj) {
-        console.log(obj);
-        GetSv.getDataParam('reporteDetalle', {reporte: JSON.stringify(obj)})
-                .then(function (data) {
-                    if (data.Error) {
-                        $scope.alerts.push({type: "danger", msg: data.Error});
-                    } else {
-                        console.log(data);
-                        if (data[0].nombre) {
-                            $scope.reporte_proy_con = true;
-                        } else {
-                            $scope.reporte_proy_con = false;
-                        }
-                        $scope.tabla = true;
-                        $scope.objetoTabla = data;
-                    }
-                }, function (e) {
-
-                });
+         $scope.rep('reporteDetalle',obj);
     };
 
 
@@ -82,18 +69,18 @@ angular.module('MetronicApp').controller('ReportesCtrl', function ($scope, GetSv
     }, function (e) {
         $scope.alerts.push({type: "danger", msg: e});
     });
-//
-//    GetSv.getData("modelos").then(function (data) {
-//        if (data.Error) {
-//            $scope.alerts.push({type: "danger", msg: data.Error});
-//        } else {
-//            if (Array.isArray(data)) {
-//                $scope.listaContratos = data;
-//            }
-//        }
-//    }, function (e) {
-//        $scope.alerts.push({type: "danger", msg: e});
-//    });
+
+    GetSv.getData("modelos").then(function (data) {
+        if (data.Error) {
+            $scope.alerts.push({type: "danger", msg: data.Error});
+        } else {
+            if (Array.isArray(data)) {
+                $scope.listaModelos = data;
+            }
+        }
+    }, function (e) {
+        $scope.alerts.push({type: "danger", msg: e});
+    });
 
     $scope.filtraProyectos = function (contrato) {
 
@@ -294,19 +281,19 @@ $(function () {
             }
         },
         series: [{
-            name: 'Brands',
-            data: [
-                { name: 'Microsoft Internet Explorer', y: 56.33 },
-                {
-                    name: 'Chrome',
-                    y: 24.03,
-                    sliced: true,
-                    selected: true
-                },
-                { name: 'Firefox', y: 10.38 },
-                { name: 'Safari', y: 4.77 }, { name: 'Opera', y: 0.91 },
-                { name: 'Proprietary or Undetectable', y: 0.2 }
-            ]
-        }]
+                name: 'Brands',
+                data: [
+                    {name: 'Microsoft Internet Explorer', y: 56.33},
+                    {
+                        name: 'Chrome',
+                        y: 24.03,
+                        sliced: true,
+                        selected: true
+                    },
+                    {name: 'Firefox', y: 10.38},
+                    {name: 'Safari', y: 4.77}, {name: 'Opera', y: 0.91},
+                    {name: 'Proprietary or Undetectable', y: 0.2}
+                ]
+            }]
     });
 });

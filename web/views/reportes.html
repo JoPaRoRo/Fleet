@@ -2,8 +2,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="form">
-        </div>
+
         <div class="tabbable-line">
 
             <ul class="nav nav-tabs">
@@ -15,44 +14,48 @@
                 </li>
             </ul>
         </div>
-        <form role="form">
-            <div class="form-group form-md-radios col-md-offset-4">
-                <div class="md-radio-inline">
-                    <div class="md-radio">
-                        <input type="radio" id="radio6" name="radio2" class="md-radiobtn" ng-model="opcion" value="montacargas" checked ng-click="cambiaTipo(1)">
-                        <label for="radio6">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Montacargas</label>
-                    </div>
+        <div class="form">
 
-                    <div class="md-radio">
-                        <input type="radio" id="radio8" name="radio2" class="md-radiobtn" ng-model="opcion" value="contratos" ng-click="cambiaTipo(2)">
-                        <label for="radio8">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Contratos </label>
-                    </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio7" name="radio2" class="md-radiobtn" ng-model="opcion" value="proyectos" ng-click="cambiaTipo(3)">
-                        <label for="radio7">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Proyectos </label>
-                    </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio9" name="radio2" class="md-radiobtn" ng-model="opcion" value="modelos" ng-click="cambiaTipo(4)">
-                        <label for="radio9">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Modelos </label>
+            <form role="form">
+                <div class="form-group form-md-radios col-md-offset-4">
+                    <div class="md-radio-inline">
+                        <div class="md-radio">
+                            <input type="radio" id="radio6" name="radio2" class="md-radiobtn" ng-model="opcion" value="montacargas" checked ng-click="cambiaTipo(1)">
+                            <label for="radio6">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Montacargas</label>
+                        </div>
+
+                        <div class="md-radio">
+                            <input type="radio" id="radio8" name="radio2" class="md-radiobtn" ng-model="opcion" value="contratos" ng-click="cambiaTipo(2)">
+                            <label for="radio8">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Contratos </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="radio7" name="radio2" class="md-radiobtn" ng-model="opcion" value="proyectos" ng-click="cambiaTipo(3)">
+                            <label for="radio7">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Proyectos </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="radio9" name="radio2" class="md-radiobtn" ng-model="opcion" value="modelos" ng-click="cambiaTipo(4)">
+                            <label for="radio9">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Modelos </label>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        </form>
-        <!--PRIMERA PESTAÑA-->
+            </form>
+        </div>
+
         <div class="tab-content">
+            <!--PRIMERA PESTAÑA-->
             <div class="tab-pane active" id="tab_1_1">
                 <div class="tab-content">
                     <div class="portlet light">
@@ -62,8 +65,9 @@
                                 <span class="caption-subject font-green bold uppercase">Reportes Gastos y Rentabilidad {{opcion}}</span>
                             </div>
                         </div>
-                        <div class="portlet-body"><!--ESPACIO REPORTES POR MONTACARGAS-->
+                        <div class="portlet-body">
                             <div class="row">
+                                <!--MONTACARGAS-->
                                 <div ng-show="opcion === 'montacargas'">
                                     <div class="row">
                                         <form class="form-horizontal" ng-submit="rep_mont(reporte)">
@@ -154,6 +158,7 @@
 
                                 </div>
                                 <br>
+                                <!--PROYECTOS-->
                                 <div ng-show="opcion === 'proyectos'"> <!--ESPACIO REPORTES POR PROYECTO-->
                                     <div class="row">
                                         <form class="form-horizontal" ng-submit="rep_mont(reporte)">
@@ -192,7 +197,7 @@
                                                             <label class="col-md-3 control-label">Proyecto: </label>
                                                             <div class="col-md-9">
                                                                 <ui-select multiple ng-model="reporte.proyectos" theme="bootstrap" name="proyectos">
-                                                                    <ui-select-match placeholder="Seleccione el equipo">{{$item.nombre}}</ui-select-match>
+                                                                    <ui-select-match placeholder="Seleccione el proyecto">{{$item.nombre}}</ui-select-match>
                                                                     <ui-select-choices repeat="proyecto in listaProyectos | filter:$select.search">
                                                                         <div ng-bind-html="proyecto.nombre | highlight: $select.search"></div>
                                                                         <small>
@@ -220,7 +225,6 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        {{reporte}}
                                                     </div>
                                                     <div class="col-md-6">
                                                         <button class="btn green col-md-offset-8 col-md-3 ">
@@ -234,6 +238,7 @@
 
                                 </div>
 
+                                <!--CONTRATOS-->
                                 <div ng-show="opcion === 'contratos'"> <!--ESPACIO REPORTES POR CONTRATO-->
                                     <div class="row">
                                         <form class="form-horizontal" ng-submit="rep_mont(reporte)">
@@ -286,7 +291,6 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        {{reporte}}
                                                     </div>
                                                     <div class="col-md-6">
                                                         <button class="btn green col-md-offset-8 col-md-3 ">
@@ -299,6 +303,7 @@
                                     </div>
                                 </div>
 
+                                <!--MODELOS-->
                                 <div ng-show="opcion === 'modelos'"> <!--ESPACIO REPORTES POR MODELO-->
                                     <div class="row">
                                         <form class="form-horizontal" ng-submit="rep_mont(reporte)">
@@ -309,9 +314,9 @@
                                                             <label class="col-md-3 control-label">Modelos: </label>
                                                             <div class="col-md-9">
                                                                 <ui-select multiple ng-model="reporte.modelos" theme="bootstrap" name="contratos">
-                                                                    <ui-select-match placeholder="Seleccione el contrato">{{$item.nombre}}</ui-select-match>
-                                                                    <ui-select-choices repeat="contrato in listaContratos | filter:$select.search">
-                                                                        {{contrato.nombre}}
+                                                                    <ui-select-match placeholder="Seleccione el modelo">{{$item}}</ui-select-match>
+                                                                    <ui-select-choices repeat="modelo in listaModelos | filter:$select.search">
+                                                                        {{modelo}}
                                                                     </ui-select-choices>s
                                                                 </ui-select>
                                                             </div>
@@ -351,7 +356,6 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        {{reporte}}
                                                     </div>
                                                     <div class="col-md-6">
                                                         <button class="btn green col-md-offset-8 col-md-3 ">
@@ -364,6 +368,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--TABLA-->
                             <div class="row" ng-show="tabla">
                                 <table class='table table-hover'>
                                     <thead>
@@ -401,11 +406,14 @@
                                 <span class="caption-subject font-green bold uppercase">Reportes Detallados por {{opcion}}</span>
                             </div>
                         </div>
-                        <div class="portlet-body"><!--ESPACIO REPORTES POR MONTACARGAS-->
+
+                        <div class="portlet-body">
+                            <!--REPORTES-->
                             <div class="row">
+                                <!--ESPACIO REPORTES POR MONTACARGAS-->
                                 <div ng-show="opcion === 'montacargas'">
                                     <div class="row">
-                                        <form class="form-horizontal" ng-submit="rep_mont(reporte)">
+                                        <form class="form-horizontal" ng-submit="rep_det(reporte_det)">
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-md-6">
@@ -492,10 +500,11 @@
                                     </div>
 
                                 </div>
-                                <br>
-                                <div ng-show="opcion === 'proyectos'"> <!--ESPACIO REPORTES POR PROYECTO-->
+                                
+                                <!--ESPACIO REPORTES POR PROYECTO-->
+                                <div ng-show="opcion === 'proyectos'">
                                     <div class="row">
-                                        <form class="form-horizontal" ng-submit="rep_mont(reporte)">
+                                        <form class="form-horizontal" ng-submit="rep_det(reporte_det)">
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-md-6">
@@ -572,16 +581,17 @@
 
                                 </div>
 
-                                <div ng-show="opcion === 'contratos'"> <!--ESPACIO REPORTES POR CONTRATO-->
+                                <!--ESPACIO REPORTES POR CONTRATO-->
+                                <div ng-show="opcion === 'contratos'"> 
                                     <div class="row">
-                                        <form class="form-horizontal" ng-submit="rep_mont(reporte)">
+                                        <form class="form-horizontal" ng-submit="rep_det(reporte_det)">
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label class="col-md-3 control-label">Contrato: </label>
                                                             <div class="col-md-9">
-                                                                <ui-select multiple ng-model="reporte.contratos" theme="bootstrap" name="contratos">
+                                                                <ui-select multiple ng-model="reporte_det.contratos" theme="bootstrap" name="contratos">
                                                                     <ui-select-match placeholder="Seleccione el contrato">{{$item.nombre}}</ui-select-match>
                                                                     <ui-select-choices repeat="contrato in listaContratos | filter:$select.search">
                                                                         {{contrato.nombre}}
@@ -595,7 +605,7 @@
                                                             <label class="control-label col-md-3">Fecha Inicio:</label>
                                                             <div class="col-md-8">
                                                                 <div class="input-group">
-                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte.FechaInicial" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte_det.FechaInicial" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
                                                                     <span class="input-group-btn">
                                                                         <button type="button" class="btn btn-default" ng-click="openInicio($event)"><i class="fa fa-calendar"></i></button>
                                                                     </span>
@@ -612,7 +622,7 @@
                                                             <label class="control-label col-md-3">Fecha Final:</label>
                                                             <div class="col-md-8">
                                                                 <div class="input-group">
-                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte.FechaFinal" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte_det.FechaFinal" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
                                                                     <span class="input-group-btn">
                                                                         <button type="button" class="btn btn-default" ng-click="openFinal($event)"><i class="fa fa-calendar"></i></button>
                                                                     </span>
@@ -624,6 +634,8 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
+                                                    </div>
+                                                    <div class="col-md-6">
                                                         <button class="btn green col-md-offset-8 col-md-3 ">
                                                             Consultar
                                                         </button>
@@ -634,17 +646,18 @@
                                     </div>
                                 </div>
 
-                                <div ng-show="opcion === 'modelos'"> <!--ESPACIO REPORTES POR MODELO-->
+                                <!--ESPACIO REPORTES POR MODELO-->
+                                <div ng-show="opcion === 'modelos'"> 
                                     <div class="row">
-                                        <form class="form-horizontal" ng-submit="rep_mont(reporte)">
+                                        <form class="form-horizontal" ng-submit="rep_det(reporte_det)">
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label class="col-md-3 control-label">Modelos: </label>
                                                             <div class="col-md-9">
-                                                                <ui-select multiple ng-model="reporte.modelos" theme="bootstrap" name="modelos">
-                                                                    <ui-select-match placeholder="Seleccione el modelo">{{$item.nombre}}</ui-select-match>
+                                                                <ui-select multiple ng-model="reporte_det.modelos" theme="bootstrap" name="modelos">
+                                                                    <ui-select-match placeholder="Seleccione el modelo">{{$item}}</ui-select-match>
                                                                     <ui-select-choices repeat="modelo in listaModelos | filter:$select.search">
                                                                         {{modelo}}
                                                                     </ui-select-choices>s
@@ -657,7 +670,7 @@
                                                             <label class="control-label col-md-3">Fecha Inicio:</label>
                                                             <div class="col-md-8">
                                                                 <div class="input-group">
-                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte.FechaInicial" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte_det.FechaInicial" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
                                                                     <span class="input-group-btn">
                                                                         <button type="button" class="btn btn-default" ng-click="openInicio($event)"><i class="fa fa-calendar"></i></button>
                                                                     </span>
@@ -674,7 +687,7 @@
                                                             <label class="control-label col-md-3">Fecha Final:</label>
                                                             <div class="col-md-8">
                                                                 <div class="input-group">
-                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte.FechaFinal" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte_det.FechaFinal" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
                                                                     <span class="input-group-btn">
                                                                         <button type="button" class="btn btn-default" ng-click="openFinal($event)"><i class="fa fa-calendar"></i></button>
                                                                     </span>
@@ -699,15 +712,18 @@
                                     </div>
                                 </div>
                             </div>
+                            <br>
+                            <br>
+                            <!--DIV TABLA-->
                             <div class="row" ng-show="tabla">
+                                <!--TABLA-->
                                 <table class='table table-hover'>
                                     <thead>
                                         <tr>
                                             <th ng-if='reporte_proy_con'>Codigo</th>
-                                            <th ng-if='reporte_proy_con'>Nombre</th>
                                             <th ng-if='!reporte_proy_con'>Numero de serie</th>
-                                            <th>Costo</th>
-                                            <th>Rentabilidad</th>
+                                            <th>Insumo</th>
+                                            <th>Monto</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -723,7 +739,7 @@
 
                         </div>
                     </div>
-                </div>                    
+                </div>   
             </div>
 
         </div>

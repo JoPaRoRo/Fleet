@@ -170,10 +170,9 @@ public class MontacargasDao {
         m.setSeguro(rs.getFloat("SEGURO"));
         m.setAlquiler(rs.getFloat("ALQUILER"));
         m.setHorimetro(rs.getInt("HORIMETRO"));
-        
+
         m.setMantenimientos((ArrayList<Mantenimiento>) getMantenimientos(m.getNumero_serie()));
         m.setProyectos((ArrayList<Proyecto>) getProyectos(m.getNumero_serie()));
-        
 
         return m;
 
@@ -206,7 +205,7 @@ public class MontacargasDao {
             String nombre = rs.getString("PROYECTO");
             String codigo = rs.getString("PROY_COD");
             String contrato = rs.getString("CONTRATO");
-            Proyecto p = new Proyecto(nombre, codigo,contrato);
+            Proyecto p = new Proyecto(nombre, codigo, contrato);
             proyectos.add(p);
         }
         return proyectos;
@@ -236,4 +235,17 @@ public class MontacargasDao {
         return listM;
     }
 
+    public List<String> getModelos() throws SQLException {
+        String query = "EXEC MODELOS";
+        List<String> modelos = new ArrayList<>();
+        CallableStatement cs = conexion.prepareCall(query);
+        ResultSet rs = cs.executeQuery();
+        while (rs.next()) {
+            String modelo = rs.getString("MODELO");
+            modelos.add(modelo);
+        }
+        return modelos;
+    }
+
+    
 }

@@ -182,7 +182,7 @@ public class ReporteDao {
         ArrayList<Detalle> reporteDetallado = new ArrayList<>();
         DateFormat dt = new DateFormat();
         
-        String query = "EXEC REPORT_INSUMOS_RANGOMONT @MONTACARGAS=?, FECHA_INICIO=?, FECHA_FINAL=? ";
+        String query = "EXEC REPORT_INSUMOS_RANGOMONT @MONTACARGAS=?, @FECHA_INICIO=?, @FECHA_FINAL=?";
         CallableStatement cs = conexion.prepareCall(query);
         cs.setString(1, reporte.getCodigoMontacargas());
         cs.setString(2, dt.format2(reporte.getFechaInicial()));
@@ -210,7 +210,7 @@ public class ReporteDao {
     public  ArrayList<Detalle> generarDetalleContrato(Reporte reporte) throws SQLException {
         ArrayList<Detalle> reporteDetallado = new ArrayList<>();
         
-        String query = "EXEC REPORT_INSUMOS_RANGOCONT @CONT=?, FECHA_INICIO=?, FECHA_FINAL=? ";
+        String query = "EXEC REPORT_INSUMOS_RANGOCONT @CONT=?, @FECHA_INICIO=?, @FECHA_FINAL=? ";
         CallableStatement cs = conexion.prepareCall(query);
         cs.setString(1, reporte.getCodigoContrato());
         cs.setString(2, reporte.getFechaInicial());
@@ -232,7 +232,7 @@ public class ReporteDao {
         ArrayList<Detalle> reporteDetallado = new ArrayList<>();
         DateFormat dt = new DateFormat();
         
-        String query = "EXEC REPORT_INSUMOS_RANGOMONT @MONTACARGAS=?, FECHA_INICIO=?, FECHA_FINAL=? ";
+        String query = "EXEC REPORT_INSUMOS_RANGOMONT @MONTACARGAS=?, @FECHA_INICIO=?, @FECHA_FINAL=? ";
         CallableStatement cs = conexion.prepareCall(query);
         cs.setString(1, reporte.getCodigoProyecto());
         cs.setString(2, dt.format2(reporte.getFechaInicial()));
