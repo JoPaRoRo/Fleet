@@ -8,7 +8,7 @@ angular.module('MetronicApp').controller('ProyectoCtrl', function ($scope, GetSv
     $scope.proyecto = {};
     GetSv.getData("contratos").then(function (data) {
         if (data.Error) {
-            toaster.pop('danger', "Error", data.Error);
+            toaster.pop('error', "Error", data.Error);
 
         } else {
             if (Array.isArray(data)) {
@@ -22,13 +22,13 @@ angular.module('MetronicApp').controller('ProyectoCtrl', function ($scope, GetSv
     $scope.ingresaProyecto = function (proyecto) {
         PostSv.postData("proyectoSv", {nombre: proyecto.nombre, codigo: proyecto.codigo, contrato: proyecto.contrato.codigo}).then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Error", data.Error);
+                toaster.pop('error', "Error", data.Error);
             } else {
                 toaster.pop('success', "Exito", data.Exito);
                 //$scope.proyecto = {};
             }
         }, function (e) {
-            toaster.pop('danger', "Error", "Error fatal");
+            toaster.pop('error', "Error", "Error fatal");
         }
         );
 

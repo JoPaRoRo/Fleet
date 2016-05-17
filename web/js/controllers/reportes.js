@@ -26,7 +26,7 @@ angular.module('MetronicApp').controller('ReportesCtrl', function ($scope, GetSv
         GetSv.getDataParam(sv, {reporte: JSON.stringify(obj)})
                 .then(function (data) {
                     if (data.Error) {
-                        toaster.pop('danger', "Error", data.Error);
+                        toaster.pop('error', "Error", data.Error);
                     } else {
                         if (data.length > 0) {
                             if (data[0].nombre) {
@@ -41,7 +41,7 @@ angular.module('MetronicApp').controller('ReportesCtrl', function ($scope, GetSv
                         }
                     }
                 }, function (e) {
-                    toaster.pop('danger', "Exito", "Error fatal");
+                    toaster.pop('error', "Exito", "Error fatal");
                 });
     }
     $scope.rep_mont = function (obj) {
@@ -62,54 +62,54 @@ angular.module('MetronicApp').controller('ReportesCtrl', function ($scope, GetSv
 
     GetSv.getData("contratos").then(function (data) {
         if (data.Error) {
-            toaster.pop('danger', "Error", data.Error);
+            toaster.pop('error', "Error", data.Error);
         } else {
             if (Array.isArray(data)) {
                 $scope.listaContratos = data;
             }
         }
     }, function (e) {
-        toaster.pop('danger', "Error", "Error fatal");
+        toaster.pop('error', "Error", "Error fatal");
     });
 
     GetSv.getData("modelos").then(function (data) {
         if (data.Error) {
-            toaster.pop('danger', "Error", data.Error);
+            toaster.pop('error', "Error", data.Error);
         } else {
             if (Array.isArray(data)) {
                 $scope.listaModelos = data;
             }
         }
     }, function (e) {
-        toaster.pop('danger', "Error", "Error fatal");
+        toaster.pop('error', "Error", "Error fatal");
     });
 
     $scope.filtraProyectos = function (contrato) {
 
         GetSv.getDataParam("proyecCont", {contrato: contrato.codigo}).then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Error", data.Error);
+                toaster.pop('error', "Error", data.Error);
             } else {
                 if (Array.isArray(data)) {
                     $scope.listaProyectos = data;
                 }
             }
         }, function (e) {
-            toaster.pop('danger', "Error", "Error fatal");
+            toaster.pop('error', "Error", "Error fatal");
         });
     };
 
     $scope.filtraEquipos = function (proyecto) {
         GetSv.getDataParam("monProyec", {proyecto: proyecto.codigo}).then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Error", data.Error);
+                toaster.pop('error', "Error", data.Error);
             } else {
                 if (Array.isArray(data)) {
                     $scope.listaMontacargas = data;
                 }
             }
         }, function (e) {
-            toaster.pop('danger', "Error", "Error fatal");
+            toaster.pop('error', "Error", "Error fatal");
         });
     };
 

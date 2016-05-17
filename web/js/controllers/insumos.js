@@ -33,19 +33,19 @@ app.controller('InsumosCtrl', function ($scope, $http, GetSv, PostSv, XLSXReader
 
     GetSv.getData("contratos").then(function (data) {
         if (data.Error) {
-            toaster.pop('danger', "Error", data.Error);
+            toaster.pop('error', "Error", data.Error);
         } else {
             if (Array.isArray(data))
                 $scope.listaContratos = data;
         }
     }, function (e) {
-        toaster.pop('danger', "Error", "Error fatal");
+        toaster.pop('error', "Error", "Error fatal");
     });
 
     $scope.filtraProyectos = function (contrato) {
         GetSv.getDataParam("proyecCont", {contrato: contrato.codigo}).then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Error", data.Error);
+                toaster.pop('error', "Error", data.Error);
 
             } else {
                 if (Array.isArray(data)) {
@@ -54,34 +54,34 @@ app.controller('InsumosCtrl', function ($scope, $http, GetSv, PostSv, XLSXReader
                 }
             }
         }, function (e) {
-            toaster.pop('danger', "Error", "Error fatal");
+            toaster.pop('error', "Error", "Error fatal");
         });
     };
 
     $scope.filtraEquipos = function (proyecto) {
         GetSv.getDataParam("monProyec", {proyecto: proyecto.codigo}).then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Error", data.Error);
+                toaster.pop('error', "Error", data.Error);
             } else {
                 if (Array.isArray(data)) {
                     $scope.listaMontacargas = data;
                 }
             }
         }, function (e) {
-            toaster.pop('danger', "Error", "Error fatal");
+            toaster.pop('error', "Error", "Error fatal");
         });
     };
 
     $scope.registrarGastoE = function (gastoE) {
         PostSv.postData("regGasto", {gastoE: JSON.stringify(gastoE)}).then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Error", data.Error);
+                toaster.pop('error', "Error", data.Error);
             } else {
                 toaster.pop('success', "Exito", data.Exito);
                 $scope.gastoE = {};
             }
         }, function (e) {
-            toaster.pop('danger', "Error", "Error fatal");
+            toaster.pop('error', "Error", "Error fatal");
         });
     };
 
@@ -110,7 +110,7 @@ app.controller('InsumosCtrl', function ($scope, $http, GetSv, PostSv, XLSXReader
                     console.log("datos");
                     console.log(data);
                     if (data.Error) {
-                        toaster.pop('danger', "Error", data.Error);
+                        toaster.pop('error', "Error", data.Error);
                     } else {
                         $scope.listaCorrectivos = data;
                         crearJsonAuxiliares(data);
@@ -136,7 +136,7 @@ app.controller('InsumosCtrl', function ($scope, $http, GetSv, PostSv, XLSXReader
     $scope.ok = function () {
         PostSv.postData('SvInsCorrectivo', {"mantenimiento": JSON.stringify($scope.mantenimientoCo)}).then(function (data) {
             if (data.Error) {
-               toaster.pop('danger', "Error", data.Error);
+               toaster.pop('error', "Error", data.Error);
             } else {
                 toaster.pop('success', "Exito", data.Exito);
             }

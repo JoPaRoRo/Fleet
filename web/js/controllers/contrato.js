@@ -121,7 +121,7 @@ angular.module('MetronicApp').controller('ContratoCtrl', function ($scope,PostSv
     $scope.ingresaContrato = function (contrato) {
         PostSv.postData("contratoSv", contrato).then(function (data) {
             if (data.Error) {
-              toaster.pop('danger', "Error", data.Error);
+              toaster.pop('error', "Error", data.Error);
             } else {
                toaster.pop('success', "Exito", data.Exito);
                 //$scope.contrato = {};

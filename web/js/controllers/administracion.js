@@ -10,7 +10,7 @@ angular.module('MetronicApp').controller('AdministracionCtrl', function ($scope,
 
         GetSv.getDataParam("proyecCont", {contrato: contrato.codigo}).then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Error", data.Error);
+                toaster.pop('error', "Error", data.Error);
             } else {
                 if (Array.isArray(data)) {
                     if (b === true) {
@@ -21,7 +21,7 @@ angular.module('MetronicApp').controller('AdministracionCtrl', function ($scope,
                 }
             }
         }, function (e) {
-            toaster.pop('danger', "Error", "Error fatal");
+            toaster.pop('error', "Error", "Error fatal");
         });
     };
 
@@ -29,7 +29,7 @@ angular.module('MetronicApp').controller('AdministracionCtrl', function ($scope,
 
     GetSv.getData("contratos").then(function (data) {
         if (data.Error) {
-            toaster.pop('danger', "Error", data.Error);
+            toaster.pop('error', "Error", data.Error);
         } else {
             if (Array.isArray(data))
                 $scope.listaContratos = data;
@@ -41,28 +41,28 @@ angular.module('MetronicApp').controller('AdministracionCtrl', function ($scope,
     $scope.filtraEquipos = function (proyecto) {
         GetSv.getDataParam("monProyec", {proyecto: proyecto.codigo}).then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Error", data.Error);
+                toaster.pop('error', "Error", data.Error);
             } else {
                 if (Array.isArray(data)) {
                     $scope.listaMontacargas = data;
                 }
             }
         }, function (e) {
-            toaster.pop('danger', "Error", "Error fatal");
+            toaster.pop('error', "Error", "Error fatal");
         });
     };
 
     $scope.mueveMontacargas = function (admi) {
         PostSv.postData("muevMont", {montacargas: admi.montacargas.numero_serie, proyecto: admi.proyecto.codigo, }).then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Error", data.Error);
+                toaster.pop('error', "Error", data.Error);
             } else {
                 toaster.pop('success', "Exito", data.Exito);
                 $scope.viejo = {};
                 $scope.admi = {};
             }
         }, function (e) {
-           toaster.pop('danger', "Error", "Error fatal");
+           toaster.pop('error', "Error", "Error fatal");
         }
         );
     };

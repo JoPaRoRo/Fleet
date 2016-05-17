@@ -6,28 +6,28 @@ angular.module('MetronicApp').controller('RealizarCtrl', function ($scope, GetSv
     $scope.getMontMan = function () {
         GetSv.getData("AlertasManSv").then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Error", data.Error);
+                toaster.pop('error', "Error", data.Error);
             } else {
                 if (Array.isArray(data)) {
                     $scope.alertMant = data;
                 }
             }
         }, function (e) {
-            toaster.pop('danger', "Error", "Error fatal");
+            toaster.pop('error', "Error", "Error fatal");
         });
     };
     $scope.getMontMan();
     $scope.realizar = function (alertM) {
         PostSv.postData("realizar", {alerta: JSON.stringify(alertM)}).then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Error", data.Error);
+                toaster.pop('error', "Error", data.Error);
             } else {
                 toaster.pop('success', "Exito", data.Exito);
                 $scope.getMontMan();
                 $rootScope.getAlerts();
             }
         }, function (e) {
-            toaster.pop('danger', "Error", "Error fatal");
+            toaster.pop('error', "Error", "Error fatal");
         }
         );
     };

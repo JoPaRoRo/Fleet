@@ -11,13 +11,13 @@ angular.module('MetronicApp').controller('AccountCtrl', function ($scope, $rootS
 
         PostSv.postData("upUser", {usuario: JSON.stringify(profile)}).then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Error", data.Error);
+                toaster.pop('error', "Error", data.Error);
                 $scope.profile = aux;
             } else {
                 toaster.pop('success', "Exito", data.Exito);
             }
         }, function (e) {
-            toaster.pop('danger', "Error", "Error fatal");
+            toaster.pop('error', "Error", "Error fatal");
             $scope.profile = aux;
         }
         );
@@ -28,12 +28,12 @@ angular.module('MetronicApp').controller('AccountCtrl', function ($scope, $rootS
         password.usuario = $scope.profile.id_usuario;
         PostSv.postData("changePass", password).then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Error", data.Error);
+                toaster.pop('error', "Error", data.Error);
             } else {
                 toaster.pop('success', "Exito", data.Exito);
             }
         }, function (e) {
-            toaster.pop('danger', "Error", "Error fatal");
+            toaster.pop('error', "Error", "Error fatal");
         }
         );
     };

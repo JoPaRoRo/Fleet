@@ -8,13 +8,13 @@ angular.module('MetronicApp').controller('AgregarCtrl', function ($scope, PostSv
     $scope.agregar = function () {
         PostSv.postData('SVIngresarMontacargas', {montacargas: JSON.stringify($scope.montacargas)}).then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Exito", data.Error);
+                toaster.pop('error', "Exito", data.Error);
             } else {
                 toaster.pop('success', "Exito", data.Exito);
                 
             }
         }, function (e) {
-            toaster.pop('success', "Exito", "Error fatal");
+            toaster.pop('error', "Error", "Error fatal");
         }
         );
     };

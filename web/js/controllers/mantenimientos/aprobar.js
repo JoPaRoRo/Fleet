@@ -9,14 +9,14 @@ angular.module('MetronicApp').controller('AprobarCtrl', function ($scope, GetSv,
     $scope.getMontMan = function () {
         GetSv.getData("MontacargasMantSV").then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Error", data.Error);
+                toaster.pop('error', "Error", data.Error);
             } else {
                 if (Array.isArray(data)) {
                     $scope.listaMant = data;
                 }
             }
         }, function (e) {
-            toaster.pop('danger', "Error", "Error fatal");
+            toaster.pop('error', "Error", "Error fatal");
         });
     };
 
@@ -25,14 +25,14 @@ angular.module('MetronicApp').controller('AprobarCtrl', function ($scope, GetSv,
     $scope.aprobar = function (list) {
         PostSv.postData("ActualizaEstadoSv", {montacargas: list.numero_serie}).then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Error", data.Error);
+                toaster.pop('error', "Error", data.Error);
             } else {
                 toaster.pop('success', "Exito", data.Exito);
                 $scope.getMontMan();
                 $rootScope.getAlerts();
             }
         }, function (e) {
-            toaster.pop('danger', "Error", "Error fatal");
+            toaster.pop('error', "Error", "Error fatal");
         }
         );
     };

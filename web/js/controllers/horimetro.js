@@ -12,7 +12,7 @@ angular.module('MetronicApp').controller('HorimetroCtrl', function ($scope, GetS
 
     GetSv.getData("contratos").then(function (data) {
         if (data.Error) {
-            toaster.pop('danger', "Error", data.Error);
+            toaster.pop('error', "Error", data.Error);
             console.log(data.Error);
         } else {
             if (Array.isArray(data)) {
@@ -21,21 +21,21 @@ angular.module('MetronicApp').controller('HorimetroCtrl', function ($scope, GetS
             }
         }
     }, function (e) {
-        toaster.pop('danger', "Error", "Error fatal");
+        toaster.pop('error', "Error", "Error fatal");
     });
 
     $scope.filtraProyectos = function (contrato) {
 
         GetSv.getDataParam("proyecCont", {contrato: contrato.codigo}).then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Error", data.Error);
+                toaster.pop('error', "Error", data.Error);
             } else {
                 if (Array.isArray(data)) {
                     $scope.listaProyectos = data;
                 }
             }
         }, function (e) {
-            toaster.pop('danger', "Error", "Error fatal");
+            toaster.pop('error', "Error", "Error fatal");
         });
     };
 
@@ -43,14 +43,14 @@ angular.module('MetronicApp').controller('HorimetroCtrl', function ($scope, GetS
         $scope.horimetro.montacargas = {};
         GetSv.getDataParam("monProyec", {proyecto: proyecto.codigo}).then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Error", data.Error);
+                toaster.pop('error', "Error", data.Error);
             } else {
                 if (Array.isArray(data)) {
                     $scope.listaMontacargas = data;
                 }
             }
         }, function (e) {
-            toaster.pop('danger', "Error", "Error fatal");
+            toaster.pop('error', "Error", "Error fatal");
         });
     };
 
@@ -58,7 +58,7 @@ angular.module('MetronicApp').controller('HorimetroCtrl', function ($scope, GetS
         PostSv.postData("ingHorimetro", {montacargas: horimetro.montacargas.numero_serie, horas: horimetro.horas, fechaIni: horimetro.fechaIni})
                 .then(function (data) {
                     if (data.Error) {
-                        toaster.pop('danger', "Error", data.Error);
+                        toaster.pop('error', "Error", data.Error);
                     } else {
                         toaster.pop('success', "Exito", data.Exito);
                         clearForm($scope.userForm);
@@ -66,7 +66,7 @@ angular.module('MetronicApp').controller('HorimetroCtrl', function ($scope, GetS
                         $rootScope.getAlerts();
                     }
                 }, function (e) {
-                    toaster.pop('danger', "Error", "Error fatal");
+                    toaster.pop('error', "Error", "Error fatal");
                 }
                 );
 

@@ -48,7 +48,7 @@ angular.module('MetronicApp').controller('UsuariosCtrl', function ($scope, GetSv
     $scope.sendUser = function (servlet, user) {
         PostSv.postData(servlet, {usuario: JSON.stringify(user)}).then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Error", data.Error);
+                toaster.pop('error', "Error", data.Error);
             } else {
                 toaster.pop('success', "Exito", data.Exito);
                 $scope.a_editar = {};
@@ -58,7 +58,7 @@ angular.module('MetronicApp').controller('UsuariosCtrl', function ($scope, GetSv
                 $scope.edit = false;
             }
         }, function (e) {
-            toaster.pop('danger', "Error", "Error fatal");
+            toaster.pop('error', "Error", "Error fatal");
         }
         );
 

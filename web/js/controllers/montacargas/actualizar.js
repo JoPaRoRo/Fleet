@@ -7,26 +7,26 @@ angular.module('MetronicApp').controller('ActualizarCtrl', function ($scope, Get
 
     GetSv.getData("consultaMont").then(function (data) {
         if (data.Error) {
-            toaster.pop('danger', "Error", data.Error);
+            toaster.pop('error', "Error", data.Error);
         } else {
             if (Array.isArray(data)) {
                 $scope.listaEquipos = data;
             }
         }
     }, function (e) {
-        toaster.pop('danger', "Error", "Error fatal");
+        toaster.pop('error', "Error", "Error fatal");
     });
 
     $scope.buscaEquipo = function (serie) {
 
         GetSv.getDataParam("getBySerie", {numero_serie: serie}).then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Error", data.Error);
+                toaster.pop('error', "Error", data.Error);
             } else {
                 $scope.equipo = data;
             }
         }, function (e) {
-            toaster.pop('danger', "Error", "Error fatal");
+            toaster.pop('error', "Error", "Error fatal");
         });
 
     };
@@ -34,12 +34,12 @@ angular.module('MetronicApp').controller('ActualizarCtrl', function ($scope, Get
     $scope.actualizaEquipo = function (equipo) {
         PostSv.postData('updMontacargas', {montacargas: JSON.stringify(equipo)}).then(function (data) {
             if (data.Error) {
-                toaster.pop('danger', "Error", data.Error);
+                toaster.pop('error', "Error", data.Error);
             } else {
                 toaster.pop('success', "Exito", data.Exito);
             }
         }, function (e) {
-            toaster.pop('danger', "Error", "Error fatal");
+            toaster.pop('error', "Error", "Error fatal");
         }
         );
 
