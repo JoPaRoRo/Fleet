@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author AlvaroLopez
  */
-@WebServlet("/reportestSv")
+@WebServlet("/reportesSv")
 public class ReportesSv extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -47,7 +47,7 @@ public class ReportesSv extends HttpServlet {
                 json =  gson.toJson(rd.generarReporteModelo(reporte));
             }
         } catch (Exception ex) {
-            respuesta.put("Error", "Error desconocido");
+            respuesta.put("Error", "Error desconocido "+ex.getMessage());
             json = gson.toJson(respuesta);
 
         } finally {
