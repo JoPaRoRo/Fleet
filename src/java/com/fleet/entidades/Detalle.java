@@ -1,9 +1,11 @@
 package com.fleet.entidades;
+
 /**
  *
  * @author AlvaroLopez
  */
-   public class Detalle {
+public class Detalle {
+
     String insumo;
     float monto;
     String montacargas;
@@ -13,13 +15,13 @@ package com.fleet.entidades;
         this.monto = monto;
     }
 
-    public Detalle(String montacargas,String insumo, float monto) {
+    public Detalle(String montacargas, String insumo, float monto) {
         this.insumo = insumo;
         this.monto = monto;
         this.montacargas = montacargas;
     }
-    
-    
+
+ 
 
     public String getInsumo() {
         return insumo;
@@ -35,7 +37,7 @@ package com.fleet.entidades;
 
     public void setMonto(float monto) {
         this.monto = monto;
-    }   
+    }
 
     public String getMontacargas() {
         return montacargas;
@@ -44,6 +46,5 @@ package com.fleet.entidades;
     public void setMontacargas(String montacargas) {
         this.montacargas = montacargas;
     }
-    
-    
+
 }

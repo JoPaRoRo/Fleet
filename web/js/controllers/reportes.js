@@ -34,25 +34,33 @@ angular.module('MetronicApp').controller('ReportesCtrl', function ($scope, GetSv
                         $scope.alerts.push({type: "danger", msg: data.Error});
                     } else {
                         console.log(data);
-                        if (data[0].nombre) {
-                            $scope.reporte_proy_con = true;
+                        if (data.length > 0) {
+                            if (data[0].nombre) {
+                                $scope.reporte_proy_con = true;
+                            } else {
+                                $scope.reporte_proy_con = false;
+                            }
+                            $scope.tabla = true;
+                            $scope.objetoTabla = data;
                         } else {
-                            $scope.reporte_proy_con = false;
+                           $scope.alerts.push({type: "info", msg: "No se encontraron datos con los valores especificados"});
                         }
-                        $scope.tabla = true;
-                        $scope.objetoTabla = data;
                     }
                 }, function (e) {
 
                 });
     }
     $scope.rep_mont = function (obj) {
-         $scope.rep('reportesSv',obj);
+        $scope.rep('reportesSv', obj);
     };
 
     $scope.rep_det = function (obj) {
-         $scope.rep('reporteDetalle',obj);
+        $scope.rep('reporteDetalle', obj);
     };
+
+    $scope.ocultaTabla = function () {
+        $scope.tabla = false;
+    }
 
 
 

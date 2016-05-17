@@ -10,7 +10,7 @@
                     <a href="#" data-target="#tab_1_1" data-toggle="tab">Gastos y rentabilidad</a>
                 </li>
                 <li>
-                    <a href="#" data-target="#tab_1_2" data-toggle="tab">Gastos detallados</a>
+                    <a href="#" data-target="#tab_1_2" data-toggle="tab" ng-click="ocultaTabla()">Gastos detallados</a>
                 </li>
             </ul>
         </div>
@@ -714,7 +714,7 @@
                             </div>
                             <br>
                             <br>
-                            <!--DIV TABLA-->
+                            <!-REPORTE-->
                             <div class="row" ng-show="tabla">
                                 <!--TABLA-->
                                 <table class='table table-hover'>
@@ -728,14 +728,16 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="objeto in objetoTabla">
-                                            <td>{{objeto.id}}</td>
-                                            <th ng-if='reporte_proy_con'>{{objeto.nombre}}</th>
+                                            <td>{{objeto.montacargas}}</td>
                                             <td>{{objeto.costo}}</td>
-                                            <td>{{objeto.rentabilidad}}</td>
+                                            <td>{{objeto.monto}}</td>
                                         </tr>
                                     </tbody>
                                 </table>                               
+                                
                             </div>
+                            
+                            
 
                         </div>
                     </div>

@@ -11,12 +11,14 @@
                 <span class="title">Inicio</span>
             </a>
         </li>
-        <li class="start" ng-if="user.rol === 'ADMIN' || user.rol === 'MANAGER'" >
-            <a  href="#/dash/insumos">
-                <i class="fa fa-chain"></i>
-                <span class="title">Registro de Gastos</span>
+
+        <li class="start" >
+            <a  href="#/dash/horimetro">
+                <i class="fa fa-tachometer"></i>
+                <span class="title">Horimetro</span>
             </a>
         </li>
+
         <li ng-if="user.rol === 'ADMIN' || user.rol === 'MANAGER'" >
             <a href="javascript:;" >
                 <i class="fa fa-cogs"></i>
@@ -39,12 +41,19 @@
             </ul>
         </li>
 
-        <li class="start" >
-            <a  href="#/dash/horimetro">
-                <i class="fa fa-tachometer"></i>
-                <span class="title">Horimetro</span>
+        <li class="start" ng-if="user.rol === 'ADMIN' || user.rol === 'MANAGER'" >
+            <a  href="#/dash/insumos">
+                <i class="fa fa-chain"></i>
+                <span class="title">Registro de Gastos</span>
             </a>
         </li>
+        <li class="start" ng-if="user.rol === 'ADMIN' || user.rol === 'MANAGER'">
+            <a  href="#/dash/reportes">
+                <i class="fa fa-line-chart"></i>
+                <span class="title">Reportes</span>
+            </a>
+        </li>
+
         <li ng-if="user.rol === 'ADMIN' || user.rol === 'MANAGER'" >
             <a href="javascript:;" >
                 <i class="fa fa-truck"></i>
@@ -72,12 +81,7 @@
                 </li>
             </ul>
         </li>
-        <li class="start" ng-if="user.rol === 'ADMIN' || user.rol === 'MANAGER'">
-            <a  href="#/dash/reportes">
-                <i class="fa fa-line-chart"></i>
-                <span class="title">Reportes</span>
-            </a>
-        </li>
+
         <li>
             <a href="javascript:;" ng-if="user.rol === 'ADMIN' || user.rol === 'MANAGER'">
                 <i class="fa fa-key"></i>

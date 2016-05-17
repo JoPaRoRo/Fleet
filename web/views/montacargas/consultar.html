@@ -25,7 +25,7 @@
                                     </div>
                                     <div class="portlet-body">
                                         <div class="row">                                          
-                                            <div class="col-md-4"> <h4>Numero de serie:   {{equipo.numero_serie}}</h4></div>
+                                            <div class="col-md-4"> <h5>Numero de serie: </h5> <h4>{{equipo.numero_serie}}</h4> </div>
                                             <div class="col-md-4"> <h4>Marca:   {{equipo.marca}}</h4></div>
                                             <div class="col-md-4"> <h4>Modelo:   {{equipo.modelo}}</h4></div>
 
@@ -114,7 +114,7 @@
 
                             </div>
                             <div class="portlet-body">
-                                <uib-accordion class="accordion" close-others='true' >
+                                <uib-accordion class="accordion" close-others='true' ng-if="equipo.mantenimientos.length > 0">
                                     <uib-accordion-group ng-repeat="mantenimiento in equipo.mantenimientos" ng-click="getInsumos(mantenimiento)" is-open="mantenimiento.IsOpened">
                                         <uib-accordion-heading >
                                             <span>
@@ -149,6 +149,7 @@
                                         </table>
                                     </uib-accordion-group>
                                 </uib-accordion>
+                                <h2 ng-if="!equipo.mantenimientos.length > 0">Este equipo no tiene mantenimientos a&uacute;n</h2>
                             </div>
                         </div>
                     </div>

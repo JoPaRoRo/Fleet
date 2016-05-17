@@ -84,14 +84,13 @@ public class MontacargasDao {
     }
 
     public void updMont(Montacargas montacargas) throws SQLException {
-        String query = "EXEC DBO.UPDATE_MONTACARGAS @MONTACARGAS =? , @MARCA  =?, @MODELO  =?, @SERIE  =?, @ESTILO  =?, @AÑO  =?, @PLACA  =?, @CLASE  =?,"
+        String query = "EXEC DBO.UPDATE_MONTACARGAS @MONTACARGAS =? , @MARCA  =?, @MODELO  =?, @ESTILO  =?, @AÑO  =?, @PLACA  =?, @CLASE  =?,"
                 + " @VIN  =?, @NUMERO_MOTOR  =?, @UBICACION  =?, @OBSERVACION  =?, @NUM_POLIZA  =?, @TONELAJE  =?, @TRANSMISION  =?, "
                 + "@TRACCION  =?, @COMBUSTIBLE  =?, @DEPRECIACION  =?, @SEGURO =?, @ALQUILER =?, @HORIMETRO =?";
         CallableStatement cs = conexion.prepareCall(query);
         cs.setString(1, montacargas.getNumero_serie());
         cs.setString(2, montacargas.getMarca());
         cs.setString(3, montacargas.getModelo());
-        cs.setString(4, montacargas.getSerie());
         cs.setString(5, montacargas.getEstilo());
         cs.setString(6, montacargas.getAnno());
         cs.setString(7, montacargas.getPlaca());
@@ -113,14 +112,13 @@ public class MontacargasDao {
     }
 
     public void insert(Montacargas montacargas) throws SQLException {
-        String query = "EXEC DBO.INSMON @NUMERO_SERIE =? , @MARCA  =?, @MODELO  =?, @SERIE  =?, @ESTILO  =?, @AÑO  =?, @PLACA  =?, @CLASE  =?,"
+        String query = "EXEC DBO.INSMON @NUMERO_SERIE =? , @MARCA  =?, @MODELO  =?, @ESTILO  =?, @AÑO  =?, @PLACA  =?, @CLASE  =?,"
                 + " @VIN  =?, @NUMERO_MOTOR  =?, @UBICACION  =?, @OBSERVACION  =?, @NUM_POLIZA  =?, @TONELAJE  =?, @TRANSMISION  =?, "
                 + "@TRACCION  =?, @COMBUSTIBLE  =?, @DEPRECIACION  =?, @SEGURO =?, @ALQUILER =?, @HORIMETRO =?";
         CallableStatement cs = conexion.prepareCall(query);
         cs.setString(1, montacargas.getNumero_serie());
         cs.setString(2, montacargas.getMarca());
         cs.setString(3, montacargas.getModelo());
-        cs.setString(4, montacargas.getSerie());
         cs.setString(5, montacargas.getEstilo());
         cs.setString(6, montacargas.getAnno());
         cs.setString(7, montacargas.getPlaca());
@@ -152,7 +150,6 @@ public class MontacargasDao {
         m.setNumero_serie(rs.getString("NUMERO_SERIE"));
         m.setMarca(rs.getString("MARCA"));
         m.setModelo(rs.getString("MODELO"));
-        m.setSerie("ABCDE");
         m.setEstilo(rs.getString("ESTILO"));
         m.setAnno(rs.getString("AÑO"));
         m.setPlaca(rs.getString("PLACA"));

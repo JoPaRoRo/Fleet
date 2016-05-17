@@ -9,11 +9,10 @@ import java.util.List;
  */
 public class Montacargas {
 
-    public Montacargas(String numero_serie, String marca, String modelo, String serie, String estilo, String anno, String placa, String clase, String vin, String numero_motor, String ubicacion, String observacion, String num_poliza, Float tonelaje, Double horimetroActual, String transmision, String traccion, String combustible, ArrayList<Mantenimiento> mantenimientos, ArrayList<Proyecto> proyectos, int horimetro) {
+    public Montacargas(String numero_serie, String marca, String modelo, String estilo, String anno, String placa, String clase, String vin, String numero_motor, String ubicacion, String observacion, String num_poliza, Float tonelaje, Double horimetroActual, String transmision, String traccion, String combustible, ArrayList<Mantenimiento> mantenimientos, ArrayList<Proyecto> proyectos, int horimetro) {
         this.numero_serie = numero_serie;
         this.marca = marca;
         this.modelo = modelo;
-        this.serie = serie;
         this.estilo = estilo;
         this.anno = anno;
         this.placa = placa;
@@ -33,10 +32,9 @@ public class Montacargas {
 
     }
 
-    public Montacargas(String numero_serie, String modelo, String serie, String estilo, String anno, String placa, String clase, String vin, String numero_motor, String ubicacion, String observacion, String num_poliza, Float tonelaje, String transmision, String traccion, String combustible, Float depresiacion, Float seguro, Float alquiler, int horimetro) {
+    public Montacargas(String numero_serie, String modelo, String estilo, String anno, String placa, String clase, String vin, String numero_motor, String ubicacion, String observacion, String num_poliza, Float tonelaje, String transmision, String traccion, String combustible, Float depresiacion, Float seguro, Float alquiler, int horimetro) {
         this.numero_serie = numero_serie;
         this.modelo = modelo;
-        this.serie = serie;
         this.estilo = estilo;
         this.anno = anno;
         this.placa = placa;
@@ -116,14 +114,6 @@ public class Montacargas {
 
     public void setModelo(String modelo) {
         this.modelo = modelo;
-    }
-
-    public String getSerie() {
-        return serie;
-    }
-
-    public void setSerie(String serie) {
-        this.serie = serie;
     }
 
     public String getEstilo() {
@@ -281,7 +271,6 @@ public class Montacargas {
     String numero_serie;
     String marca;
     String modelo;
-    String serie;
     String estilo;
     String anno;
     String placa;

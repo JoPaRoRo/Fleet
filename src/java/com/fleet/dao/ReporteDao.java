@@ -52,13 +52,13 @@ public class ReporteDao {
             cs.setString(1, mt.getNumero_serie());
             cs.setFloat(2, dolar);
             cs.setString(3, dt.format2(reporte.getFechaInicial()));
-            cs.setString(4,  dt.format2(reporte.getFechaFinal()));
+            cs.setString(4, dt.format2(reporte.getFechaFinal()));
             rs = cs.executeQuery();
             rs.next();
             float rentabilidad = rs.getFloat(1);
 
             reportes.add(new ReporteRespuesta(mt.getNumero_serie(), costo, rentabilidad));
-            
+
         }
         return reportes;
     }
@@ -67,7 +67,6 @@ public class ReporteDao {
 
         WS wss = WS.obtenerInstancia();
         float dolar = wss.inicializar().getVenta();
-
 
         ArrayList<ReporteRespuesta> reportes = new ArrayList<>();
         String query;
@@ -85,7 +84,7 @@ public class ReporteDao {
             rs.next();
             float costo = rs.getFloat(1);
 
-            query = "REPORT_RENTABILIDAD_CONT @NUMERO_SERIE =?,@DOLAR =?,@FECHA_INICIO=?,@FECHA_FINAL=?";
+            query = "REPORT_RENTABILIDAD_CONT @CONTRATO =?,@ALQ_DOLAR =?,@FECHA_INICIO=?,@FECHA_FINAL=?";
             cs = conexion.prepareCall(query);
             cs.setString(1, ct.getCodigo());
             cs.setFloat(2, dolar);
@@ -96,15 +95,14 @@ public class ReporteDao {
             float rentabilidad = rs.getFloat(1);
 
             reportes.add(new ReporteRespuesta(ct.getCodigo(), ct.getNombre(), costo, rentabilidad));
-            
+
         }
-         return reportes;
+        return reportes;
     }
 
     public ArrayList<ReporteRespuesta> generarReporteProyecto(Reporte reporte) throws SQLException {
         WS wss = WS.obtenerInstancia();
         float dolar = wss.inicializar().getVenta();
-
 
         ArrayList<ReporteRespuesta> reportes = new ArrayList<>();
         String query;
@@ -133,7 +131,7 @@ public class ReporteDao {
             float rentabilidad = rs.getFloat(1);
 
             reportes.add(new ReporteRespuesta(pro.getCodigo(), pro.getNombre(), costo, rentabilidad));
-           
+
         }
         return reportes;
     }
@@ -141,7 +139,6 @@ public class ReporteDao {
     public ArrayList<ReporteRespuesta> generarReporteModelo(Reporte reporte) throws SQLException {
         WS wss = WS.obtenerInstancia();
         float dolar = wss.inicializar().getVenta();
-
 
         ArrayList<ReporteRespuesta> reportes = new ArrayList<>();
         String query;
@@ -170,7 +167,7 @@ public class ReporteDao {
             float rentabilidad = rs.getFloat(1);
 
             reportes.add(new ReporteRespuesta(mod, costo, rentabilidad));
-            
+
         }
         return reportes;
     }
@@ -181,12 +178,12 @@ public class ReporteDao {
         ArrayList<String> insumos = new ArrayList<>();
         ArrayList<Detalle> reporteDetallado = new ArrayList<>();
         DateFormat dt = new DateFormat();
-        
+
         String query = "EXEC REPORT_INSUMOS_RANGOMONT @MONTACARGAS=?, @FECHA_INICIO=?, @FECHA_FINAL=?";
         CallableStatement cs = conexion.prepareCall(query);
         cs.setString(1, reporte.getCodigoMontacargas());
         cs.setString(2, dt.format2(reporte.getFechaInicial()));
-        cs.setString(3,dt.format2(reporte.getFechaFinal()));
+        cs.setString(3, dt.format2(reporte.getFechaFinal()));
         ResultSet rs = cs.executeQuery();
         while (rs.next()) {
             String mt = rs.getString(1);
@@ -200,21 +197,21 @@ public class ReporteDao {
         });
 
         insumos.stream().forEach((ins) -> {
-            float monto=0;
+            float monto = 0;
             monto = lineasBD.stream().filter((det) -> (det.getInsumo().equals(ins))).map((det) -> det.getMonto()).reduce(monto, (accumulator, _item) -> accumulator + _item);
-            reporteDetallado.add(new Detalle(ins,monto));
+            reporteDetallado.add(new Detalle(ins, monto));
         });
-         return reporteDetallado;
+        return reporteDetallado;
     }
 
-    public  ArrayList<Detalle> generarDetalleContrato(Reporte reporte) throws SQLException {
+    public ArrayList<Detalle> generarDetalleContrato(Reporte reporte) throws SQLException {
         ArrayList<Detalle> reporteDetallado = new ArrayList<>();
-        
+        DateFormat dt = new DateFormat();
         String query = "EXEC REPORT_INSUMOS_RANGOCONT @CONT=?, @FECHA_INICIO=?, @FECHA_FINAL=? ";
         CallableStatement cs = conexion.prepareCall(query);
         cs.setString(1, reporte.getCodigoContrato());
-        cs.setString(2, reporte.getFechaInicial());
-        cs.setString(3, reporte.getFechaFinal());
+        cs.setString(2, dt.format2(reporte.getFechaInicial()));
+        cs.setString(3, dt.format2(reporte.getFechaFinal()));
         ResultSet rs = cs.executeQuery();
         while (rs.next()) {
             String mt = rs.getString(1);
@@ -222,21 +219,21 @@ public class ReporteDao {
             float monto = rs.getFloat(3);
             reporteDetallado.add(new Detalle(mt, insumo, monto));
         }
-        
+
         return reporteDetallado;
     }
 
     public ArrayList<Detalle> generarDetalleProyecto(Reporte reporte) throws SQLException {
-       ArrayList<Detalle> lineasBD = new ArrayList<>();
+        ArrayList<Detalle> lineasBD = new ArrayList<>();
         ArrayList<String> insumos = new ArrayList<>();
         ArrayList<Detalle> reporteDetallado = new ArrayList<>();
         DateFormat dt = new DateFormat();
-        
+
         String query = "EXEC REPORT_INSUMOS_RANGOMONT @MONTACARGAS=?, @FECHA_INICIO=?, @FECHA_FINAL=? ";
         CallableStatement cs = conexion.prepareCall(query);
         cs.setString(1, reporte.getCodigoProyecto());
         cs.setString(2, dt.format2(reporte.getFechaInicial()));
-        cs.setString(3,dt.format2(reporte.getFechaFinal()));
+        cs.setString(3, dt.format2(reporte.getFechaFinal()));
         ResultSet rs = cs.executeQuery();
         while (rs.next()) {
             String mt = rs.getString(1);
@@ -250,11 +247,11 @@ public class ReporteDao {
         });
 
         insumos.stream().forEach((ins) -> {
-            float monto=0;
+            float monto = 0;
             monto = lineasBD.stream().filter((det) -> (det.getInsumo().equals(ins))).map((det) -> det.getMonto()).reduce(monto, (accumulator, _item) -> accumulator + _item);
-            reporteDetallado.add(new Detalle(ins,monto));
+            reporteDetallado.add(new Detalle(ins, monto));
         });
-         return reporteDetallado;
+        return reporteDetallado;
     }
 
     public String generarDetalleModelo(Reporte reporte) {
