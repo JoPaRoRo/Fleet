@@ -36,7 +36,7 @@ public class DateFormat {
     public String format2(String date) { ///dia mes ano
         
         String fecha ="";
-        int dia= Integer.parseInt(date.substring(8, 10))-1;
+        String dia= date.substring(8, 10);
         String mes = date.substring(5,7);
         String ano = date.substring(0,4);
         
