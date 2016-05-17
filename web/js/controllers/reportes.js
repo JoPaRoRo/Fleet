@@ -1,7 +1,250 @@
 /**
  * Created by Jos�Pablo on 10/28/2015.
  */
-angular.module('MetronicApp').controller('ReportesCtrl',function($scope){
+angular.module('MetronicApp').controller('ReportesCtrl', function ($scope, GetSv, $state) {
+
+    $scope.alerts = [];
+    $scope.closeAlert = function (index) {
+        $scope.alerts.splice(index, 1);
+    };
+
+    $scope.reporte = {tipo: 1};
+    $scope.reporte_det = {tipo: 1};
+    $scope.tabla = false;
+    
+    $scope.lisaModelos = [];
+
+
+    $scope.opcion = "montacargas";
+
+
+    $scope.cambiaTipo = function (tipo) {
+        $scope.tabla = false;
+        $scope.reporte = {};
+        $scope.reporte.tipo = tipo;
+        $scope.reporte_det.tipo = tipo;
+    };
+
+    $scope.rep_mont = function (obj) {
+        console.log(obj);
+        GetSv.getDataParam('reportesSv', {reporte: JSON.stringify(obj)})
+                .then(function (data) {
+                    if (data.Error) {
+                        $scope.alerts.push({type: "danger", msg: data.Error});
+                    } else {
+                        console.log(data);
+                        if (data[0].nombre) {
+                            $scope.reporte_proy_con = true;
+                        } else {
+                            $scope.reporte_proy_con = false;
+                        }
+                        $scope.tabla = true;
+                        $scope.objetoTabla = data;
+                    }
+                }, function (e) {
+
+                });
+    };
+
+    $scope.rep_det = function (obj) {
+        console.log(obj);
+        GetSv.getDataParam('reporteDetalle', {reporte: JSON.stringify(obj)})
+                .then(function (data) {
+                    if (data.Error) {
+                        $scope.alerts.push({type: "danger", msg: data.Error});
+                    } else {
+                        console.log(data);
+                        if (data[0].nombre) {
+                            $scope.reporte_proy_con = true;
+                        } else {
+                            $scope.reporte_proy_con = false;
+                        }
+                        $scope.tabla = true;
+                        $scope.objetoTabla = data;
+                    }
+                }, function (e) {
+
+                });
+    };
+
+
+
+
+
+    GetSv.getData("contratos").then(function (data) {
+        if (data.Error) {
+            $scope.alerts.push({type: "danger", msg: data.Error});
+        } else {
+            if (Array.isArray(data)) {
+                $scope.listaContratos = data;
+            }
+        }
+    }, function (e) {
+        $scope.alerts.push({type: "danger", msg: e});
+    });
+//
+//    GetSv.getData("modelos").then(function (data) {
+//        if (data.Error) {
+//            $scope.alerts.push({type: "danger", msg: data.Error});
+//        } else {
+//            if (Array.isArray(data)) {
+//                $scope.listaContratos = data;
+//            }
+//        }
+//    }, function (e) {
+//        $scope.alerts.push({type: "danger", msg: e});
+//    });
+
+    $scope.filtraProyectos = function (contrato) {
+
+        GetSv.getDataParam("proyecCont", {contrato: contrato.codigo}).then(function (data) {
+            if (data.Error) {
+                $scope.alerts.push({type: "danger", msg: data.Error});
+            } else {
+                if (Array.isArray(data)) {
+                    $scope.listaProyectos = data;
+                }
+            }
+        }, function (e) {
+            $scope.alerts.push({type: "danger", msg: e});
+        });
+    };
+
+    $scope.filtraEquipos = function (proyecto) {
+        GetSv.getDataParam("monProyec", {proyecto: proyecto.codigo}).then(function (data) {
+            if (data.Error) {
+                $scope.alerts.push({type: "danger", msg: data.Error});
+            } else {
+                if (Array.isArray(data)) {
+                    $scope.listaMontacargas = data;
+                }
+            }
+        }, function (e) {
+            $scope.alerts.push({type: "danger", msg: e});
+        });
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $scope.today = function () {
+        $scope.reporte.FechaInicial = new Date();
+    };
+
+    $scope.today();
+
+    $scope.clear = function () {
+        $scope.reporte.FechaInicial = null;
+    };
+
+    $scope.inlineOptions = {
+        customClass: getDayClass,
+        minDate: new Date(),
+        showWeeks: true
+    };
+
+    $scope.dateOptions = {
+        dateDisabled: disabled,
+        formatYear: 'yyyy',
+        maxDate: new Date(2020, 5, 22),
+        minDate: new Date(),
+        startingDay: 1
+    };
+
+    // Disable weekend selection
+    function disabled(data) {
+        var date = data.date,
+                mode = data.mode;
+        return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+    }
+
+    $scope.toggleMin = function () {
+        $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
+        $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
+    };
+
+    $scope.toggleMin();
+
+    $scope.openFinal = function ($event) {
+        if ($scope.popup2.opened === true)
+            $scope.popup2.opened = false;
+        else
+            $scope.popup2.opened = true;
+        $event.preventDefault();
+        $event.stopPropagation();
+    };
+
+    $scope.openInicio = function ($event) {
+        if ($scope.popup1.opened === true)
+            $scope.popup1.opened = false;
+        else
+            $scope.popup1.opened = true;
+        $event.preventDefault();
+        $event.stopPropagation();
+    };
+
+    $scope.setDate = function (year, month, day) {
+        $scope.reporte.fechaInicial = new Date(year, month, day);
+    };
+
+    $scope.formats = ['dd/MM/yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[0];
+    $scope.altInputFormats = ['d!/M!/yyyy'];
+
+    $scope.popup1 = {
+        opened: false
+    };
+
+    $scope.popup2 = {
+        opened: false
+    };
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    var afterTomorrow = new Date(tomorrow);
+    afterTomorrow.setDate(tomorrow.getDate() + 1);
+    $scope.events = [
+        {
+            date: tomorrow,
+            status: 'full'
+        },
+        {
+            date: afterTomorrow,
+            status: 'partially'
+        }
+    ];
+
+    function getDayClass(data) {
+        var date = data.date,
+                mode = data.mode;
+        if (mode === 'day') {
+            var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+
+            for (var i = 0; i < $scope.events.length; i++) {
+                var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+
+                if (dayToCheck === currentDay) {
+                    return $scope.events[i].status;
+                }
+            }
+        }
+
+        return '';
+    }
+
 
 });
 

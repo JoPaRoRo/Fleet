@@ -1,33 +1,734 @@
-<div class="row" >
-    <div class="col-md-3">
-        <div class="todo-ui">
-            <div class="todo-sidebar">
-                <div class="portlet light">
-                    <div class="portlet-title">
-                        <div class="caption" data-toggle="collapse" data-target=".todo-project-list-content">
-                            <span class="caption-subject font-green bold uppercase">Opciones</span>
-                            <span class="caption-helper visible-sm-inline-block visible-xs-inline-block">click to view project list</span>
-                        </div>                      
+<!--segunda pestaña empieza linea 392-->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form">
+        </div>
+        <div class="tabbable-line">
+
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#" data-target="#tab_1_1" data-toggle="tab">Gastos y rentabilidad</a>
+                </li>
+                <li>
+                    <a href="#" data-target="#tab_1_2" data-toggle="tab">Gastos detallados</a>
+                </li>
+            </ul>
+        </div>
+        <form role="form">
+            <div class="form-group form-md-radios col-md-offset-4">
+                <div class="md-radio-inline">
+                    <div class="md-radio">
+                        <input type="radio" id="radio6" name="radio2" class="md-radiobtn" ng-model="opcion" value="montacargas" checked ng-click="cambiaTipo(1)">
+                        <label for="radio6">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Montacargas</label>
                     </div>
-                    <div class="portlet-body todo-project-list-content">
-                        <div class="todo-project-list">
-                            <ul class="nav nav-pills nav-stacked">
-                                <li>
-                                    <a  ui-sref="main.reportes.reporte1">
-                                        <span>  </span> Todos los montacargas </a>
-                                </li>
-                                <li>
-                                    <a  ui-sref="main.reportes.reporte2">
-                                        <span>  </span> Montacargas de un Proyecto </a>                               
-                                </li>
-                            </ul>
+
+                    <div class="md-radio">
+                        <input type="radio" id="radio8" name="radio2" class="md-radiobtn" ng-model="opcion" value="contratos" ng-click="cambiaTipo(2)">
+                        <label for="radio8">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Contratos </label>
+                    </div>
+                    <div class="md-radio">
+                        <input type="radio" id="radio7" name="radio2" class="md-radiobtn" ng-model="opcion" value="proyectos" ng-click="cambiaTipo(3)">
+                        <label for="radio7">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Proyectos </label>
+                    </div>
+                    <div class="md-radio">
+                        <input type="radio" id="radio9" name="radio2" class="md-radiobtn" ng-model="opcion" value="modelos" ng-click="cambiaTipo(4)">
+                        <label for="radio9">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Modelos </label>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+        <!--PRIMERA PESTAÑA-->
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab_1_1">
+                <div class="tab-content">
+                    <div class="portlet light">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="icon-settings font-green"></i>
+                                <span class="caption-subject font-green bold uppercase">Reportes Gastos y Rentabilidad {{opcion}}</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body"><!--ESPACIO REPORTES POR MONTACARGAS-->
+                            <div class="row">
+                                <div ng-show="opcion === 'montacargas'">
+                                    <div class="row">
+                                        <form class="form-horizontal" ng-submit="rep_mont(reporte)">
+                                            <div class="form-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Contrato: </label>
+                                                            <div class="col-md-9">
+                                                                <ui-select ng-model="reporte_aux.contrato" theme="bootstrap">
+                                                                    <ui-select-match placeholder="Seleccione el contrato">{{$select.selected.nombre}}</ui-select-match>
+                                                                    <ui-select-choices repeat="contrato in listaContratos | filter:$select.search" ng-click="filtraProyectos(reporte_aux.contrato)">
+                                                                        {{contrato.nombre}}
+                                                                    </ui-select-choices>
+                                                                </ui-select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Fecha Inicio:</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte.FechaInicial" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default" ng-click="openInicio($event)"><i class="fa fa-calendar"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Proyecto: </label>
+                                                            <div class="col-md-9">
+                                                                <ui-select ng-model="reporte_aux.proyecto" theme="bootstrap">
+                                                                    <ui-select-match placeholder="Seleccione el proyecto">{{$select.selected.nombre}}</ui-select-match>
+                                                                    <ui-select-choices repeat="proyecto in listaProyectos | filter:$select.search" ng-click="filtraEquipos(reporte_aux.proyecto)">
+                                                                        {{proyecto.nombre}}
+                                                                    </ui-select-choices>
+                                                                </ui-select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Fecha Final:</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte.FechaFinal" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default" ng-click="openFinal($event)"><i class="fa fa-calendar"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Montacargas: </label>
+                                                            <div class="col-md-9">
+                                                                <ui-select multiple ng-model="reporte.montacargas" theme="bootstrap" name="montacargas">
+                                                                    <ui-select-match placeholder="Seleccione el equipo">{{$item.numero_serie}}</ui-select-match>
+                                                                    <ui-select-choices group-by="'marca'" repeat="montacargas in listaMontacargas | filter: {'numero_serie':$select.search}">
+                                                                        <div ng-bind-html="montacargas.numero_serie | highlight: $select.search"></div>
+                                                                        <small>
+                                                                            Modelo: <span>{{montacargas.modelo}}</span>
+                                                                        </small>
+                                                                    </ui-select-choices>
+                                                                </ui-select>
+                                                            </div>                       
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button class="btn green col-md-offset-8 col-md-3 ">
+                                                            Consultar
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                                <br>
+                                <div ng-show="opcion === 'proyectos'"> <!--ESPACIO REPORTES POR PROYECTO-->
+                                    <div class="row">
+                                        <form class="form-horizontal" ng-submit="rep_mont(reporte)">
+                                            <div class="form-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Contrato: </label>
+                                                            <div class="col-md-9">
+                                                                <ui-select ng-model="reporte_aux.contrato" theme="bootstrap">
+                                                                    <ui-select-match placeholder="Seleccione el contrato">{{$select.selected.nombre}}</ui-select-match>
+                                                                    <ui-select-choices repeat="contrato in listaContratos | filter:$select.search" ng-click="filtraProyectos(reporte_aux.contrato)">
+                                                                        {{contrato.nombre}}
+                                                                    </ui-select-choices>
+                                                                </ui-select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Fecha Inicio:</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte.FechaInicial" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default" ng-click="openInicio($event)"><i class="fa fa-calendar"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Proyecto: </label>
+                                                            <div class="col-md-9">
+                                                                <ui-select multiple ng-model="reporte.proyectos" theme="bootstrap" name="proyectos">
+                                                                    <ui-select-match placeholder="Seleccione el equipo">{{$item.nombre}}</ui-select-match>
+                                                                    <ui-select-choices repeat="proyecto in listaProyectos | filter:$select.search">
+                                                                        <div ng-bind-html="proyecto.nombre | highlight: $select.search"></div>
+                                                                        <small>
+                                                                            Codigo: <span>{{proyecto.codigo}}</span>
+                                                                        </small>
+                                                                    </ui-select-choices>
+                                                                </ui-select>
+                                                            </div>                       
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Fecha Final:</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte.FechaFinal" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default" ng-click="openFinal($event)"><i class="fa fa-calendar"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        {{reporte}}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button class="btn green col-md-offset-8 col-md-3 ">
+                                                            Consultar
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                                <div ng-show="opcion === 'contratos'"> <!--ESPACIO REPORTES POR CONTRATO-->
+                                    <div class="row">
+                                        <form class="form-horizontal" ng-submit="rep_mont(reporte)">
+                                            <div class="form-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Contrato: </label>
+                                                            <div class="col-md-9">
+                                                                <ui-select multiple ng-model="reporte.contratos" theme="bootstrap" name="contratos">
+                                                                    <ui-select-match placeholder="Seleccione el contrato">{{$item.nombre}}</ui-select-match>
+                                                                    <ui-select-choices repeat="contrato in listaContratos | filter:$select.search">
+                                                                        {{contrato.nombre}}
+                                                                    </ui-select-choices>
+                                                                </ui-select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Fecha Inicio:</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte.FechaInicial" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default" ng-click="openInicio($event)"><i class="fa fa-calendar"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Fecha Final:</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte.FechaFinal" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default" ng-click="openFinal($event)"><i class="fa fa-calendar"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        {{reporte}}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button class="btn green col-md-offset-8 col-md-3 ">
+                                                            Consultar
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div ng-show="opcion === 'modelos'"> <!--ESPACIO REPORTES POR MODELO-->
+                                    <div class="row">
+                                        <form class="form-horizontal" ng-submit="rep_mont(reporte)">
+                                            <div class="form-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Modelos: </label>
+                                                            <div class="col-md-9">
+                                                                <ui-select multiple ng-model="reporte.modelos" theme="bootstrap" name="contratos">
+                                                                    <ui-select-match placeholder="Seleccione el contrato">{{$item.nombre}}</ui-select-match>
+                                                                    <ui-select-choices repeat="contrato in listaContratos | filter:$select.search">
+                                                                        {{contrato.nombre}}
+                                                                    </ui-select-choices>s
+                                                                </ui-select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Fecha Inicio:</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte.FechaInicial" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default" ng-click="openInicio($event)"><i class="fa fa-calendar"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Fecha Final:</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte.FechaFinal" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default" ng-click="openFinal($event)"><i class="fa fa-calendar"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        {{reporte}}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button class="btn green col-md-offset-8 col-md-3 ">
+                                                            Consultar
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" ng-show="tabla">
+                                <table class='table table-hover'>
+                                    <thead>
+                                        <tr>
+                                            <th ng-if='reporte_proy_con'>Codigo</th>
+                                            <th ng-if='reporte_proy_con'>Nombre</th>
+                                            <th ng-if='!reporte_proy_con'>Numero de serie</th>
+                                            <th>Costo</th>
+                                            <th>Rentabilidad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="objeto in objetoTabla">
+                                            <td>{{objeto.id}}</td>
+                                            <th ng-if='reporte_proy_con'>{{objeto.nombre}}</th>
+                                            <td>{{objeto.costo}}</td>
+                                            <td>{{objeto.rentabilidad}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>                               
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!--SEGUNDA PESTAÑA-->
+            <div class="tab-pane" id="tab_1_2">  
+                <div class="tab-content">
+                    <div class="portlet light">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="icon-settings font-green"></i>
+                                <span class="caption-subject font-green bold uppercase">Reportes Detallados por {{opcion}}</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body"><!--ESPACIO REPORTES POR MONTACARGAS-->
+                            <div class="row">
+                                <div ng-show="opcion === 'montacargas'">
+                                    <div class="row">
+                                        <form class="form-horizontal" ng-submit="rep_mont(reporte)">
+                                            <div class="form-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Contrato: </label>
+                                                            <div class="col-md-9">
+                                                                <ui-select ng-model="reporte_det_aux.contrato" theme="bootstrap">
+                                                                    <ui-select-match placeholder="Seleccione el contrato">{{$select.selected.nombre}}</ui-select-match>
+                                                                    <ui-select-choices repeat="contrato in listaContratos | filter:$select.search" ng-click="filtraProyectos(reporte_det_aux.contrato)">
+                                                                        {{contrato.nombre}}
+                                                                    </ui-select-choices>
+                                                                </ui-select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Fecha Inicio:</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte_det.FechaInicial" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default" ng-click="openInicio($event)"><i class="fa fa-calendar"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Proyecto: </label>
+                                                            <div class="col-md-9">
+                                                                <ui-select ng-model="reporte_det_aux.proyecto" theme="bootstrap">
+                                                                    <ui-select-match placeholder="Seleccione el proyecto">{{$select.selected.nombre}}</ui-select-match>
+                                                                    <ui-select-choices repeat="proyecto in listaProyectos | filter:$select.search" ng-click="filtraEquipos(reporte_det_aux.proyecto)">
+                                                                        {{proyecto.nombre}}
+                                                                    </ui-select-choices>
+                                                                </ui-select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Fecha Final:</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte_det.FechaFinal" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default" ng-click="openFinal($event)"><i class="fa fa-calendar"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Montacargas: </label>
+                                                            <div class="col-md-9">
+                                                                <ui-select multiple ng-model="reporte_det.montacargas" theme="bootstrap" name="montacargas">
+                                                                    <ui-select-match placeholder="Seleccione el equipo">{{$item.numero_serie}}</ui-select-match>
+                                                                    <ui-select-choices group-by="'marca'" repeat="montacargas in listaMontacargas | filter: {'numero_serie':$select.search}">
+                                                                        <div ng-bind-html="montacargas.numero_serie | highlight: $select.search"></div>
+                                                                        <small>
+                                                                            Modelo: <span>{{montacargas.modelo}}</span>
+                                                                        </small>
+                                                                    </ui-select-choices>
+                                                                </ui-select>
+                                                            </div>                       
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button class="btn green col-md-offset-8 col-md-3 ">
+                                                            Consultar
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                                <br>
+                                <div ng-show="opcion === 'proyectos'"> <!--ESPACIO REPORTES POR PROYECTO-->
+                                    <div class="row">
+                                        <form class="form-horizontal" ng-submit="rep_mont(reporte)">
+                                            <div class="form-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Contrato: </label>
+                                                            <div class="col-md-9">
+                                                                <ui-select ng-model="reporte_det_aux.contrato" theme="bootstrap">
+                                                                    <ui-select-match placeholder="Seleccione el contrato">{{$select.selected.nombre}}</ui-select-match>
+                                                                    <ui-select-choices repeat="contrato in listaContratos | filter:$select.search" ng-click="filtraProyectos(reporte_det_aux.contrato)">
+                                                                        {{contrato.nombre}}
+                                                                    </ui-select-choices>
+                                                                </ui-select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Fecha Inicio:</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte_det.FechaInicial" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default" ng-click="openInicio($event)"><i class="fa fa-calendar"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Proyecto: </label>
+                                                            <div class="col-md-9">
+                                                                <ui-select multiple ng-model="reporte_det.proyectos" theme="bootstrap" name="proyectos">
+                                                                    <ui-select-match placeholder="Seleccione el proyecto">{{$item.nombre}}</ui-select-match>
+                                                                    <ui-select-choices repeat="proyecto in listaProyectos | filter:$select.search">
+                                                                        <div ng-bind-html="proyecto.nombre | highlight: $select.search"></div>
+                                                                        <small>
+                                                                            Codigo: <span>{{proyecto.codigo}}</span>
+                                                                        </small>
+                                                                    </ui-select-choices>
+                                                                </ui-select>
+                                                            </div>                       
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Fecha Final:</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte_det.FechaFinal" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default" ng-click="openFinal($event)"><i class="fa fa-calendar"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button class="btn green col-md-offset-8 col-md-3 ">
+                                                            Consultar
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                                <div ng-show="opcion === 'contratos'"> <!--ESPACIO REPORTES POR CONTRATO-->
+                                    <div class="row">
+                                        <form class="form-horizontal" ng-submit="rep_mont(reporte)">
+                                            <div class="form-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Contrato: </label>
+                                                            <div class="col-md-9">
+                                                                <ui-select multiple ng-model="reporte.contratos" theme="bootstrap" name="contratos">
+                                                                    <ui-select-match placeholder="Seleccione el contrato">{{$item.nombre}}</ui-select-match>
+                                                                    <ui-select-choices repeat="contrato in listaContratos | filter:$select.search">
+                                                                        {{contrato.nombre}}
+                                                                    </ui-select-choices>
+                                                                </ui-select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Fecha Inicio:</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte.FechaInicial" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default" ng-click="openInicio($event)"><i class="fa fa-calendar"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Fecha Final:</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte.FechaFinal" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default" ng-click="openFinal($event)"><i class="fa fa-calendar"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <button class="btn green col-md-offset-8 col-md-3 ">
+                                                            Consultar
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div ng-show="opcion === 'modelos'"> <!--ESPACIO REPORTES POR MODELO-->
+                                    <div class="row">
+                                        <form class="form-horizontal" ng-submit="rep_mont(reporte)">
+                                            <div class="form-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Modelos: </label>
+                                                            <div class="col-md-9">
+                                                                <ui-select multiple ng-model="reporte.modelos" theme="bootstrap" name="modelos">
+                                                                    <ui-select-match placeholder="Seleccione el modelo">{{$item.nombre}}</ui-select-match>
+                                                                    <ui-select-choices repeat="modelo in listaModelos | filter:$select.search">
+                                                                        {{modelo}}
+                                                                    </ui-select-choices>s
+                                                                </ui-select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Fecha Inicio:</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte.FechaInicial" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default" ng-click="openInicio($event)"><i class="fa fa-calendar"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">Fecha Final:</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="reporte.FechaFinal" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" current-text="Hoy" clear-text="Limpiar" alt-input-formats="altInputFormats" />
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default" ng-click="openFinal($event)"><i class="fa fa-calendar"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button class="btn green col-md-offset-8 col-md-3 ">
+                                                            Consultar
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" ng-show="tabla">
+                                <table class='table table-hover'>
+                                    <thead>
+                                        <tr>
+                                            <th ng-if='reporte_proy_con'>Codigo</th>
+                                            <th ng-if='reporte_proy_con'>Nombre</th>
+                                            <th ng-if='!reporte_proy_con'>Numero de serie</th>
+                                            <th>Costo</th>
+                                            <th>Rentabilidad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="objeto in objetoTabla">
+                                            <td>{{objeto.id}}</td>
+                                            <th ng-if='reporte_proy_con'>{{objeto.nombre}}</th>
+                                            <td>{{objeto.costo}}</td>
+                                            <td>{{objeto.rentabilidad}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>                               
+                            </div>
+
+                        </div>
+                    </div>
+                </div>                    
+            </div>
+
         </div>
     </div>
-    <div class="col-md-9">
-        <div ui-view class="fade-in-up"> </div>
-    </div>
 </div>
+
+
+<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="5000" close="closeAlert($index)">{{alert.msg}}</uib-alert>
