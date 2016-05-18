@@ -598,16 +598,13 @@
                                 <table class='table table-hover'>
                                     <thead>
                                         <tr>
-                                            <th ng-if='reporte_proy_con'>Codigo</th>
-                                            <th ng-if='!reporte_proy_con'>Numero de serie</th>
                                             <th>Insumo</th>
                                             <th>Monto</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="objeto in objetoTabla">
-                                            <td>{{objeto.montacargas}}</td>
-                                            <td>{{objeto.costo}}</td>
+                                            <td>{{objeto.insumo}}</td>
                                             <td>{{objeto.monto}}</td>
                                         </tr>
                                     </tbody>

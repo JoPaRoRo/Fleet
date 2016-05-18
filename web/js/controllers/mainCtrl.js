@@ -25,7 +25,6 @@ angular.module('MetronicApp').controller('MainCtrl', function ($scope, $rootScop
         cancelText: "Cancelar",
         placement: "bottom"
     };
-
-
+    
     loginService.getUser();
 });
