@@ -16,10 +16,11 @@ public class Reporte {
     public  ArrayList<Proyecto> proyectos;
     public ArrayList<String> modelos;
     
-    public String codigoMontacargas;
-    public String codigoContrato;
-    public String codigoProyecto;
-    public String codigoModelo;
+    public Montacargas montacarga;
+    public Contrato contrato;
+    public Proyecto proyecto;
+    public String modelo;
+
     
     public int tipo;
     public String FechaInicial;
@@ -88,38 +89,33 @@ public class Reporte {
         this.FechaFinal = FechaFinal;
     }
 
-    public String getCodigoMontacargas() {
-        return codigoMontacargas;
+    public Montacargas getMontacarga() {
+        return montacarga;
     }
 
-    public void setCodigoMontacargas(String codigoMontacargas) {
-        this.codigoMontacargas = codigoMontacargas;
+    public void setMontacarga(Montacargas montacarga) {
+        this.montacarga = montacarga;
     }
 
-    public String getCodigoContrato() {
-        return codigoContrato;
+    public Contrato getContrato() {
+        return contrato;
     }
 
-    public void setCodigoContrato(String codigoContrato) {
-        this.codigoContrato = codigoContrato;
+    public void setContrato(Contrato contrato) {
+        this.contrato = contrato;
     }
 
-    public String getCodigoProyecto() {
-        return codigoProyecto;
+    public Proyecto getProyecto() {
+        return proyecto;
     }
 
-    public void setCodigoProyecto(String codigoProyecto) {
-        this.codigoProyecto = codigoProyecto;
+    public void setProyecto(Proyecto proyecto) {
+        this.proyecto = proyecto;
     }
 
-    public String getCodigoModelo() {
-        return codigoModelo;
-    }
 
-    public void setCodigoModelo(String codigoModelo) {
-        this.codigoModelo = codigoModelo;
-    }
- 
+
+
     
     
     

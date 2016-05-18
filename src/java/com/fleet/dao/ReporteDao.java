@@ -181,7 +181,7 @@ public class ReporteDao {
 
         String query = "EXEC REPORT_INSUMOS_RANGOMONT @MONTACARGAS=?, @FECHA_INICIO=?, @FECHA_FINAL=?";
         CallableStatement cs = conexion.prepareCall(query);
-        cs.setString(1, reporte.getCodigoMontacargas());
+        cs.setString(1, reporte.getMontacarga().getNumero_serie());
         cs.setString(2, dt.format2(reporte.getFechaInicial()));
         cs.setString(3, dt.format2(reporte.getFechaFinal()));
         ResultSet rs = cs.executeQuery();
@@ -209,15 +209,14 @@ public class ReporteDao {
         DateFormat dt = new DateFormat();
         String query = "EXEC REPORT_INSUMOS_RANGOCONT @CONT=?, @FECHA_INICIO=?, @FECHA_FINAL=? ";
         CallableStatement cs = conexion.prepareCall(query);
-        cs.setString(1, reporte.getCodigoContrato());
+        cs.setString(1, reporte.getContrato().getCodigo());
         cs.setString(2, dt.format2(reporte.getFechaInicial()));
         cs.setString(3, dt.format2(reporte.getFechaFinal()));
         ResultSet rs = cs.executeQuery();
         while (rs.next()) {
-            String mt = rs.getString(1);
-            String insumo = rs.getString(2);
-            float monto = rs.getFloat(3);
-            reporteDetallado.add(new Detalle(mt, insumo, monto));
+            String insumo = rs.getString(1);
+            float monto = rs.getFloat(2);
+            reporteDetallado.add(new Detalle(insumo, monto));
         }
 
         return reporteDetallado;
@@ -229,9 +228,9 @@ public class ReporteDao {
         ArrayList<Detalle> reporteDetallado = new ArrayList<>();
         DateFormat dt = new DateFormat();
 
-        String query = "EXEC REPORT_INSUMOS_RANGOMONT @MONTACARGAS=?, @FECHA_INICIO=?, @FECHA_FINAL=? ";
+        String query = "EXEC REPORT_INSUMOS_RANGOPROY @PROY=?, @FECHA_INICIO=?, @FECHA_FINAL=? ";
         CallableStatement cs = conexion.prepareCall(query);
-        cs.setString(1, reporte.getCodigoProyecto());
+        cs.setString(1, reporte.getProyecto().getCodigo());
         cs.setString(2, dt.format2(reporte.getFechaInicial()));
         cs.setString(3, dt.format2(reporte.getFechaFinal()));
         ResultSet rs = cs.executeQuery();

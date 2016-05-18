@@ -21,8 +21,6 @@ public class Detalle {
         this.montacargas = montacargas;
     }
 
- 
-
     public String getInsumo() {
         return insumo;
     }

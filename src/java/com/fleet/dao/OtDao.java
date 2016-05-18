@@ -89,7 +89,7 @@ public class OtDao {
                             } else if (!ots.contains(ins.getNumero_Orden_Trabajo())) {
                                 ots.push(ins.getNumero_Orden_Trabajo());
                             }
-                            if (ins.getNumero_de_articulo().equals(isumoMant.getNum())
+                            if (ins.getNumero_de_articulo().equals(isumoMant.getNumero_de_articulo())
                                     && ins.getCantidad() == isumoMant.getCantidad() 
                                     ) {
                                 md.updateCheck(mt.getId(), isumoMant.getNum(), isumoMant.getCantidad());
@@ -115,11 +115,8 @@ public class OtDao {
                                     +mt.getTipo()+" horas para el montacargas"+mt.getMontacargas();            
                             ad.insert("alertaI",msj, Integer.parseInt(mt.getTipo()),mt.getMontacargas());
                           }
-                        }
-                        
-                }
-                
-                
+                        } 
+                      }
 
                 json = gson.toJson(insumosOt);
             } else {

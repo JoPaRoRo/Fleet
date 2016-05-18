@@ -2,7 +2,6 @@ angular.module('MetronicApp').controller('TodoController', function($rootScope, 
     $scope.$on('$viewContentLoaded', function() {   
         App.initAjax(); // initialize core components        
     });
-
     // set sidebar closed and body solid layout mode
     $rootScope.settings.layout.pageContentWhite = true;
     $rootScope.settings.layout.pageBodySolid = true;
