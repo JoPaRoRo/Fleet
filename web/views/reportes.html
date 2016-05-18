@@ -405,16 +405,13 @@
                                                         <div class="form-group">
                                                             <label class="col-md-3 control-label">Montacargas: </label>
                                                             <div class="col-md-9">
-                                                                <ui-select multiple ng-model="reporte_det.montacargas" theme="bootstrap" name="montacargas">
-                                                                    <ui-select-match placeholder="Seleccione el equipo">{{$item.numero_serie}}</ui-select-match>
-                                                                    <ui-select-choices group-by="'marca'" repeat="montacargas in listaMontacargas | filter: {'numero_serie':$select.search}">
-                                                                        <div ng-bind-html="montacargas.numero_serie | highlight: $select.search"></div>
-                                                                        <small>
-                                                                            Modelo: <span>{{montacargas.modelo}}</span>
-                                                                        </small>
+                                                                <ui-select ng-model="reporte_det.montacarga" theme="bootstrap">
+                                                                    <ui-select-match placeholder="Seleccione el equipo">{{$select.selected.numero_serie}}</ui-select-match>
+                                                                    <ui-select-choices repeat="montacargas in listaMontacargas | filter:$select.search">
+                                                                        {{montacargas.numero_serie}}
                                                                     </ui-select-choices>
                                                                 </ui-select>
-                                                            </div>                       
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -467,16 +464,13 @@
                                                         <div class="form-group">
                                                             <label class="col-md-3 control-label">Proyecto: </label>
                                                             <div class="col-md-9">
-                                                                <ui-select multiple ng-model="reporte_det.proyectos" theme="bootstrap" name="proyectos">
-                                                                    <ui-select-match placeholder="Seleccione el proyecto">{{$item.nombre}}</ui-select-match>
+                                                                <ui-select ng-model="reporte_det.proyecto" theme="bootstrap">
+                                                                    <ui-select-match placeholder="Seleccione el proyecto">{{$select.selected.nombre}}</ui-select-match>
                                                                     <ui-select-choices repeat="proyecto in listaProyectos | filter:$select.search">
-                                                                        <div ng-bind-html="proyecto.nombre | highlight: $select.search"></div>
-                                                                        <small>
-                                                                            Codigo: <span>{{proyecto.codigo}}</span>
-                                                                        </small>
+                                                                        {{proyecto.nombre}}
                                                                     </ui-select-choices>
                                                                 </ui-select>
-                                                            </div>                       
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -504,12 +498,13 @@
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-md-6">
+
                                                         <div class="form-group">
                                                             <label class="col-md-3 control-label">Contrato: </label>
                                                             <div class="col-md-9">
-                                                                <ui-select multiple ng-model="reporte_det.contratos" theme="bootstrap" name="contratos">
-                                                                    <ui-select-match placeholder="Seleccione el contrato">{{$item.nombre}}</ui-select-match>
-                                                                    <ui-select-choices repeat="contrato in listaContratos | filter:$select.search">
+                                                                <ui-select ng-model="reporte_det.contrato" theme="bootstrap">
+                                                                    <ui-select-match placeholder="Seleccione el contrato">{{$select.selected.nombre}}</ui-select-match>
+                                                                    <ui-select-choices repeat="contrato in listaContratos| filter:$select.search">
                                                                         {{contrato.nombre}}
                                                                     </ui-select-choices>
                                                                 </ui-select>
@@ -551,14 +546,16 @@
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-md-6">
+                                                        
+                                                        
                                                         <div class="form-group">
-                                                            <label class="col-md-3 control-label">Modelos: </label>
+                                                            <label class="col-md-3 control-label">Modelo: </label>
                                                             <div class="col-md-9">
-                                                                <ui-select multiple ng-model="reporte_det.modelos" theme="bootstrap" name="modelos_det">
-                                                                    <ui-select-match placeholder="Seleccione el modelo">{{$item}}</ui-select-match>
+                                                                <ui-select ng-model="reporte_det.modelo" theme="bootstrap">
+                                                                    <ui-select-match placeholder="Seleccione el contrato">{{$select.selected.nombre}}</ui-select-match>
                                                                     <ui-select-choices repeat="modelo in listaModelos | filter:$select.search">
                                                                         {{modelo}}
-                                                                    </ui-select-choices>s
+                                                                    </ui-select-choices>
                                                                 </ui-select>
                                                             </div>
                                                         </div>
@@ -577,7 +574,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                 <div class="row">
+                                                <div class="row">
                                                     <div class="col-md-6">
 
                                                     </div>
@@ -591,6 +588,7 @@
                                         </form>
                                     </div>
                                 </div>
+                                
                             </div>
                             <br>
                             <br>
